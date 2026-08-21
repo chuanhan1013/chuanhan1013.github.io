@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Chuan-Han Li — CV</title>
+<style>
+:root{--ink:#17202a;--muted:#65717d;--line:#dfe5ea;--blue:#1f5f94}
+*{box-sizing:border-box}body{margin:0;background:#f4f6f8;color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.42}
+.page{width:min(900px,calc(100% - 32px));margin:32px auto;padding:42px 52px;background:#fff;box-shadow:0 8px 30px rgba(0,0,0,.08)}
+header{text-align:center;border-bottom:1px solid var(--line);padding-bottom:16px}h1{margin:0;font-size:30px}header p{margin:6px 0 0;color:var(--muted);font-size:12px}.summary{margin:16px 0;font-size:12.5px;text-align:center}
+h2{margin:19px 0 9px;padding-bottom:4px;border-bottom:1px solid var(--line);font-size:15px;color:var(--blue);text-transform:uppercase;letter-spacing:.06em}.entry{margin:10px 0}.entry-head{display:flex;justify-content:space-between;gap:18px}.entry-head strong{font-size:12.5px}.entry-head span{white-space:nowrap;color:var(--muted);font-size:11px}.sub{color:var(--muted);font-size:11px;margin:2px 0 0}ul{margin:5px 0 0 18px;padding:0}li{margin:2px 0;font-size:11.5px}.skills p{margin:4px 0;font-size:11.5px}.actions{width:min(900px,calc(100% - 32px));margin:20px auto 0;display:flex;justify-content:space-between}.actions a,.actions button{border:1px solid #ccd8e1;background:#fff;padding:8px 12px;border-radius:6px;color:var(--blue);text-decoration:none;font-weight:700;cursor:pointer}
+@media print{body{background:#fff}.actions{display:none}.page{width:auto;margin:0;padding:0;box-shadow:none}}
+@media(max-width:650px){.page{padding:28px 22px}.entry-head{display:block}.entry-head span{display:block;margin-top:2px;white-space:normal}}
+</style>
+</head>
+<body>
+<div class="actions"><a href="index.html">← Portfolio</a><button onclick="window.print()">Print / Save PDF</button></div>
+<main class="page">
+<header><h1>Chuan-Han Li</h1><p>Singapore · chuanhan1013@gmail.com · github.com/chuanhan1013 · linkedin.com/in/chuanhan-li</p></header>
+<p class="summary">NUS MSc Robotics student with experience in robot learning, mechatronics, multimodal perception, and AI engineering. Currently researching manipulator motion planning in dynamic environments; interested in robotics, embodied AI, and reliable autonomy.</p>
+<h2>Education</h2>
+<div class="entry"><div class="entry-head"><strong>National University of Singapore (NUS) — M.Sc. in Robotics</strong><span>08/2026–05/2028</span></div><p class="sub">Singapore</p></div>
+<div class="entry"><div class="entry-head"><strong>National Taiwan University (NTU) — B.S. in Biomechatronics Engineering</strong><span>09/2022–06/2026</span></div><p class="sub">GPA 3.75/4.3 · Specialization Program Certificates: Artificial Intelligence; Mechatronics and Control</p></div>
+<h2>Robotics & AI Systems Projects</h2>
+<div class="entry"><div class="entry-head"><strong>Bio-Inspired Robot Learning Framework</strong><span>Spring 2026</span></div><ul><li>Reproduced the SATA (RSS 2025) torque-based locomotion pipeline and analysed policy behaviour and training stability in simulation.</li><li>Adapted the implementation from Isaac Gym to Isaac Lab and examined training behaviour after the migration.</li></ul></div>
+<div class="entry"><div class="entry-head"><strong>Autonomous Cleaning Robot (Raspberry Pi + Arduino)</strong><span>Fall 2025</span></div><ul><li>Integrated vision, wall-following, obstacle avoidance, and task-execution logic across a Raspberry Pi + Arduino architecture for autonomous competition runs.</li></ul></div>
+<div class="entry"><div class="entry-head"><strong>Wearable Basketball Shot Sensing System — Solo</strong><span>Fall 2025</span></div><ul><li>Built an end-to-end dual-IMU sensing system spanning wireless acquisition, preprocessing, automated shot segmentation, feature extraction, and a Python web dashboard; received top-tier project recognition and a cash award.</li></ul></div>
+<div class="entry"><div class="entry-head"><strong>Amphibious Tracked Vehicle (Triathlon Robot) — Team Lead</strong><span>Spring 2025</span></div><ul><li>Led mechanical design and rapid 3D-printed prototyping of a modular tracked vehicle with paddle conversion; one of only two teams to complete all four terrain stages and placed 2nd overall under official scoring.</li></ul></div>
+<h2>Research & Publications</h2>
+<div class="entry"><div class="entry-head"><strong>Motion Planning for Robot Manipulators in Dynamic Environments</strong><span>07/2026–Present</span></div><p class="sub">Advanced Robotics Centre, NUS · Advisor: Prof. Marcelo H. Ang Jr.</p><ul><li>Developing a link-centric surface-distance grid that encodes obstacle proximity by link segment and approach direction; evaluating it as a policy observation for dynamic obstacle avoidance.</li></ul></div>
+<div class="entry"><div class="entry-head"><strong>Multimodal Visual–Thermal Fertility Detection</strong><span>09/2024–12/2025</span></div><p class="sub">Lab of Machine Learning and Machine Vision, NTU · Advisor: Prof. Yan-Fu Kuo</p><ul><li>Built a 2-stage object-detection and lightweight-classification pipeline plus a controlled visible + thermal imaging setup for duck eggs; achieved ~93% classification accuracy with cross-modal fusion.</li><li>Extended abstract accepted to ACPA 2025; oral presentation.</li></ul></div>
+<h2>Work Experience</h2>
+<div class="entry"><div class="entry-head"><strong>ChainSea Information Integration Co. Ltd. — AI Engineering Intern (R&D)</strong><span>07/2025–07/2026</span></div><p class="sub">Taipei, Taiwan</p><ul><li>Built HAN-Agents, an AI harness for test generation, execution, validation, and iterative refinement; reduced time to the first executable unit-test suite from weeks to ~1 day.</li><li>Developed full-stack AI workflow tools and introduced docs-first engineering practices and repository quality gates across production projects.</li></ul></div>
+<h2>Technical Skills</h2>
+<div class="skills"><p><strong>Robotics / Systems:</strong> robot kinematics, geometric modelling, Isaac Gym, Isaac Lab, PID/PD control, state machines, Raspberry Pi, Arduino</p><p><strong>AI & Perception:</strong> PyTorch, TensorFlow, OpenCV, YOLO, CNNs, sensor fusion, multimodal perception</p><p><strong>Software & CAD:</strong> Python, C/C++, TypeScript/JavaScript, Linux, Docker, Git, CI/CD, automated testing, AI coding agents (Claude Code, Codex), SolidWorks, 3D printing</p><p><strong>Languages:</strong> Mandarin (Native), English (IELTS Academic 7.0)</p></div>
+<h2>Awards & Activities</h2>
+<ul><li><strong>Fu Bell Award, NTU (2022):</strong> Department's top-ranked incoming student.</li><li><strong>Basketball (2024–2025):</strong> NTU varsity player; led department-team training, helping earn Division 1 promotion.</li></ul>
+</main>
+</body>
+</html>
