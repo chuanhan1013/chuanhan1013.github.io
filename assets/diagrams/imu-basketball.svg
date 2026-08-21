@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360">
+<defs><marker id="m" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#607b8e"/></marker></defs>
+<rect width="760" height="360" rx="18" fill="#f8fbfd"/>
+<text x="30" y="31" font-family="Arial" font-size="14" font-weight="700" fill="#18384f">Wearable basketball shot sensing — end-to-end system</text>
+<g font-family="Arial">
+ <g transform="translate(28 94)"><rect width="118" height="120" rx="14" fill="#edf3f7" stroke="#91adbe"/><circle cx="40" cy="45" r="18" fill="#7aa7bf"/><circle cx="80" cy="45" r="18" fill="#7aa7bf"/><text x="31" y="49" font-size="10" font-weight="700" fill="white">IMU</text><text x="71" y="49" font-size="10" font-weight="700" fill="white">IMU</text><text x="28" y="82" font-size="12" font-weight="700" fill="#2a5169">Wearable node</text><text x="28" y="101" font-size="10" fill="#667988">100 Hz · dual MPU6050</text></g>
+ <path d="M146 154H205" stroke="#607b8e" stroke-width="2.5" marker-end="url(#m)"/>
+ <g transform="translate(214 109)"><rect width="112" height="90" rx="13" fill="#f5f0e8" stroke="#c5aa84"/><text x="21" y="33" font-size="12" font-weight="700" fill="#715837">nRF24L01+</text><text x="25" y="54" font-size="10" fill="#7f725e">2.4 GHz wireless</text><text x="30" y="71" font-size="10" fill="#7f725e">base station</text></g>
+ <path d="M326 154H385" stroke="#607b8e" stroke-width="2.5" marker-end="url(#m)"/>
+ <g transform="translate(394 84)"><rect width="136" height="140" rx="13" fill="#edf5f8" stroke="#8cadc0"/><text x="23" y="28" font-size="12" font-weight="700" fill="#2c5269">Python backend</text><text x="23" y="52" font-size="10" fill="#647988">serial ingest</text><text x="23" y="69" font-size="10" fill="#647988">preprocessing</text><text x="23" y="86" font-size="10" fill="#647988">shot segmentation</text><text x="23" y="103" font-size="10" fill="#647988">feature extraction</text><text x="23" y="120" font-size="10" fill="#647988">FastAPI + WebSocket</text></g>
+ <path d="M530 154H589" stroke="#607b8e" stroke-width="2.5" marker-end="url(#m)"/>
+ <g transform="translate(598 84)"><rect width="132" height="140" rx="13" fill="#eef3f8" stroke="#90a8bc"/><polyline points="18,85 34,73 48,78 62,54 76,69 94,43 112,52" fill="none" stroke="#3c82a7" stroke-width="3"/><text x="18" y="28" font-size="12" font-weight="700" fill="#2a5068">Web dashboard</text><text x="18" y="106" font-size="10" fill="#657989">live view · replay</text><text x="18" y="122" font-size="10" fill="#657989">labeling · analysis</text></g>
+ <g transform="translate(235 258)"><rect width="288" height="50" rx="11" fill="#fff" stroke="#d7e1e8"/><text x="18" y="21" font-size="10" fill="#6b7d89">Automated flow</text><text x="18" y="38" font-size="11" font-weight="700" fill="#315a72">acquire → segment → label → extract → visualize</text></g>
+</g>
+</svg>

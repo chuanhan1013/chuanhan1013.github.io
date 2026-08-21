@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360">
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#4b718d"/></marker></defs>
+<rect width="760" height="360" rx="18" fill="#f8fbfd"/>
+<g stroke="#dbe7ef" stroke-width="1"><path d="M30 70H730M30 130H730M30 190H730M30 250H730M30 310H730"/><path d="M90 25V335M150 25V335M210 25V335M270 25V335M330 25V335M390 25V335"/></g>
+<text x="30" y="32" font-family="Arial" font-size="14" font-weight="700" fill="#18384f">Dynamic manipulator motion planning</text>
+<g transform="translate(55 285)">
+ <rect x="0" y="-14" width="70" height="28" rx="6" fill="#2f5e7d"/>
+ <circle cx="67" cy="-2" r="9" fill="#173c55"/>
+ <path d="M67 -2 L130 -75" stroke="#2d6e97" stroke-width="15" stroke-linecap="round"/>
+ <circle cx="130" cy="-75" r="10" fill="#173c55"/>
+ <path d="M130 -75 L205 -120" stroke="#4a8fb4" stroke-width="15" stroke-linecap="round"/>
+ <circle cx="205" cy="-120" r="10" fill="#173c55"/>
+ <path d="M205 -120 L255 -78" stroke="#68a9c6" stroke-width="14" stroke-linecap="round"/>
+ <circle cx="255" cy="-78" r="9" fill="#173c55"/>
+</g>
+<g fill="none" stroke="#2d84b3" stroke-width="2" stroke-dasharray="5 5">
+ <rect x="137" y="186" width="60" height="50" rx="8"/><rect x="192" y="142" width="68" height="50" rx="8"/><rect x="250" y="111" width="70" height="55" rx="8"/>
+</g>
+<text x="84" y="331" font-family="Arial" font-size="11" fill="#637483">Link-centric distance cells encode proximity by segment &amp; direction</text>
+<g transform="translate(365 92)"><rect width="76" height="62" rx="10" fill="#f2d7c6" stroke="#c56c36" stroke-width="2"/><path d="M-40 31H-3" stroke="#c56c36" stroke-width="3" marker-end="url(#a)"/><text x="12" y="28" font-family="Arial" font-size="12" fill="#82451f">moving</text><text x="12" y="43" font-family="Arial" font-size="12" fill="#82451f">obstacle</text></g>
+<path d="M330 205 C390 205 405 220 445 220" fill="none" stroke="#4b718d" stroke-width="2.5" marker-end="url(#a)"/>
+<g transform="translate(455 174)"><rect width="125" height="92" rx="12" fill="#eef5f9" stroke="#8db1c8"/><text x="17" y="30" font-family="Arial" font-size="12" font-weight="700" fill="#244b64">Observation encoder</text><text x="17" y="51" font-family="Arial" font-size="11" fill="#647789">surface distance</text><text x="17" y="67" font-family="Arial" font-size="11" fill="#647789">approach direction</text></g>
+<path d="M580 220H621" stroke="#4b718d" stroke-width="2.5" marker-end="url(#a)"/>
+<g transform="translate(628 184)"><rect width="102" height="72" rx="12" fill="#e7f0f6" stroke="#6e9bb8"/><text x="23" y="31" font-family="Arial" font-size="13" font-weight="700" fill="#204a66">Policy</text><text x="15" y="51" font-family="Arial" font-size="10" fill="#647789">collision-aware action</text></g>
+</svg>
