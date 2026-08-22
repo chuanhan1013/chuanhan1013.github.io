@@ -1,0 +1,61 @@
+name: Patch media framing
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/patch-media-framing.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix-media-framing
+          fetch-depth: 0
+      - name: Patch media
+        run: |
+          set -euxo pipefail
+          curl -L --fail --retry 3 \
+            'https://raw.githubusercontent.com/chuanhan1013/isaaclab-torque-locomotion/main/results/gym_reference/ev_stairs.gif' \
+            -o assets/media/sata-stairs.gif
+          python - <<'PY'
+          from pathlib import Path
+
+          index = Path('index.html')
+          s = index.read_text()
+          old = '<figure class="carousel-slide sata-demo"><img data-src="assets/media/sata-rough-still.png" alt="Still frame of final quadruped locomotion policy on rough terrain" decoding="async" /><figcaption class="carousel-caption">Final rough-terrain policy · still</figcaption></figure>'
+          new = '<figure class="carousel-slide sata-demo"><img data-src="assets/media/sata-stairs.gif" alt="Isaac Gym reference policy traversing stairs" decoding="async" /><figcaption class="carousel-caption">Isaac Gym reference · stair traversal</figcaption></figure>'
+          if old not in s:
+              raise SystemExit('SATA third slide pattern not found')
+          s = s.replace(old, new, 1)
+
+          old_css = '.basketball-demo img{object-fit:contain!important;width:100%!important;height:100%!important;background:#0d1720}'
+          new_css = '.basketball-demo img{object-fit:cover!important;object-position:50% 68%!important;width:100%!important;height:100%!important;background:#0d1720}.triathlon-hero img{object-position:50% 62%!important}'
+          if old_css not in s:
+              raise SystemExit('basketball CSS pattern not found')
+          s = s.replace(old_css, new_css, 1)
+          index.write_text(s)
+
+          script = Path('script.js')
+          js = script.read_text()
+          old_pair = '''    <figure class="carousel-slide is-active is-contained"><img src="assets/media/triathlon-beam.webp" alt="Terrain-adaptive tracked robot configured for narrow-beam traversal" loading="lazy" decoding="async"><figcaption class="carousel-caption">Beam-stage configuration</figcaption></figure>
+    <figure class="carousel-slide is-contained"><img data-src="assets/media/triathlon-amphibious.webp" alt="Final amphibious configuration of the terrain-adaptive triathlon robot" decoding="async"><figcaption class="carousel-caption">Final amphibious configuration</figcaption></figure>'''
+          new_pair = '''    <figure class="carousel-slide is-active triathlon-hero"><img src="assets/media/triathlon-amphibious.webp" alt="Final amphibious configuration of the terrain-adaptive triathlon robot" loading="lazy" decoding="async"><figcaption class="carousel-caption">Final amphibious configuration</figcaption></figure>
+    <figure class="carousel-slide is-contained"><img data-src="assets/media/triathlon-water-config.webp" alt="Water-channel configuration of the transformed triathlon robot" decoding="async"><figcaption class="carousel-caption">Water-channel transformed configuration · report Fig. 2-11</figcaption></figure>
+    <figure class="carousel-slide is-contained"><img data-src="assets/media/triathlon-beam.webp" alt="Terrain-adaptive tracked robot configured for narrow-beam traversal" decoding="async"><figcaption class="carousel-caption">Beam-stage configuration</figcaption></figure>'''
+          if old_pair not in js:
+              raise SystemExit('triathlon first/second slide pattern not found')
+          js = js.replace(old_pair, new_pair, 1)
+          script.write_text(js)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html script.js assets/media/sata-stairs.gif
+          git rm -f .github/workflows/fix-media-framing-once.yml || true
+          git commit -m 'fix SATA, basketball and triathlon framing'
+          git push origin HEAD:fix-media-framing
