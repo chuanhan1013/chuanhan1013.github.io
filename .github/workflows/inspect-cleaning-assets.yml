@@ -21,7 +21,7 @@ jobs:
           python-version: '3.12'
       - name: Install Pillow
         run: python -m pip install --disable-pip-version-check pillow
-      - name: Build contact sheet from source repo
+      - name: Build source and current contact sheets
         shell: bash
         run: |
           python - <<'PY'
@@ -29,47 +29,55 @@ jobs:
           from urllib.request import urlretrieve
           from PIL import Image, ImageOps, ImageDraw, ImageFont
 
-          names = [
+          out = Path('/tmp/cleaning-assets')
+          src = out / 'source'
+          cur = out / 'current'
+          src.mkdir(parents=True, exist_ok=True)
+          cur.mkdir(parents=True, exist_ok=True)
+          font = ImageFont.load_default()
+
+          source_names = [
               '708007_0.jpg','708008_0.jpg','708009_0.jpg','708010_0.jpg',
               '708011_0.jpg','708012_0.jpg','708013_0.jpg','708014_0.jpg',
               'drawed_image_result.jpg','field_intro.jpg','grading_policy.jpg'
           ]
-          out = Path('/tmp/cleaning-assets')
-          src = out / 'source'
-          src.mkdir(parents=True, exist_ok=True)
           base = 'https://raw.githubusercontent.com/chuanhan1013/mechatronic_4_ntu_bime_2025_group10/main/image/'
+          for name in source_names:
+              urlretrieve(base + name, src / name)
 
-          rows = []
-          cards = []
-          font = ImageFont.load_default()
-          for name in names:
-              path = src / name
-              urlretrieve(base + name, path)
-              im = Image.open(path).convert('RGB')
-              w, h = im.size
-              rows.append(f'{name}\t{w}x{h}\t{path.stat().st_size} bytes')
+          current_names = ['cleaning-final.webp','cleaning-cad.webp','cleaning-cfd.webp']
+          for name in current_names:
+              (cur / name).write_bytes((Path('assets/media') / name).read_bytes())
 
-              thumb = ImageOps.contain(im, (560, 360), Image.Resampling.LANCZOS)
-              card = Image.new('RGB', (600, 430), 'white')
-              x = (600 - thumb.width) // 2
-              y = 18 + (350 - thumb.height) // 2
-              card.paste(thumb, (x, y))
-              draw = ImageDraw.Draw(card)
-              draw.rectangle((0, 0, 599, 429), outline=(185, 195, 205), width=2)
-              draw.text((18, 378), name, fill='black', font=font)
-              draw.text((18, 398), f'{w} × {h} · {path.stat().st_size/1024:.1f} KB', fill=(65,65,65), font=font)
-              cards.append(card)
+          def sheet_for(folder, names, output_name, cols=2, thumb_box=(560,360), card_size=(600,430)):
+              rows = []
+              cards = []
+              for name in names:
+                  path = folder / name
+                  im = Image.open(path).convert('RGB')
+                  w, h = im.size
+                  rows.append(f'{name}\t{w}x{h}\t{path.stat().st_size} bytes')
+                  thumb = ImageOps.contain(im, thumb_box, Image.Resampling.LANCZOS)
+                  card = Image.new('RGB', card_size, 'white')
+                  x = (card_size[0] - thumb.width) // 2
+                  y = 18 + (350 - thumb.height) // 2
+                  card.paste(thumb, (x, y))
+                  draw = ImageDraw.Draw(card)
+                  draw.rectangle((0, 0, card_size[0]-1, card_size[1]-1), outline=(185,195,205), width=2)
+                  draw.text((18, 378), name, fill='black', font=font)
+                  draw.text((18, 398), f'{w} × {h} · {path.stat().st_size/1024:.1f} KB', fill=(65,65,65), font=font)
+                  cards.append(card)
+              gap = 18
+              rows_n = (len(cards) + cols - 1) // cols
+              sheet = Image.new('RGB', (cols*card_size[0] + (cols-1)*gap, rows_n*card_size[1] + (rows_n-1)*gap), (242,245,247))
+              for i, card in enumerate(cards):
+                  sheet.paste(card, ((i % cols)*(card_size[0]+gap), (i // cols)*(card_size[1]+gap)))
+              sheet.save(out / output_name, quality=92, optimize=True)
+              return rows
 
-          cols = 2
-          gap = 18
-          rows_n = (len(cards) + cols - 1) // cols
-          sheet = Image.new('RGB', (cols*600 + (cols-1)*gap, rows_n*430 + (rows_n-1)*gap), (242,245,247))
-          for i, card in enumerate(cards):
-              cx = (i % cols) * (600 + gap)
-              cy = (i // cols) * (430 + gap)
-              sheet.paste(card, (cx, cy))
-          sheet.save(out / 'contact-sheet.jpg', quality=92, optimize=True)
-          (out / 'metadata.txt').write_text('\n'.join(rows), encoding='utf-8')
+          source_rows = sheet_for(src, source_names, 'source-contact-sheet.jpg')
+          current_rows = sheet_for(cur, current_names, 'current-contact-sheet.jpg', cols=2)
+          (out / 'metadata.txt').write_text('[SOURCE]\n' + '\n'.join(source_rows) + '\n\n[CURRENT]\n' + '\n'.join(current_rows), encoding='utf-8')
           PY
       - uses: actions/upload-artifact@v4
         with:
