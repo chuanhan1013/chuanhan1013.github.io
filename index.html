@@ -25,11 +25,19 @@
     .carousel-btn:hover{background:rgba(12,32,49,.62);opacity:1}.carousel-btn.prev{left:9px}.carousel-btn.next{right:9px}
     .carousel-dots{position:absolute;z-index:4;left:50%;bottom:10px;transform:translateX(-50%);display:flex;gap:6px;padding:5px 7px;border-radius:999px;background:rgba(12,32,49,.28);backdrop-filter:blur(7px)}
     .carousel-dot{width:6px;height:6px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.48);cursor:pointer}.carousel-dot.is-active{background:#fff;transform:scale(1.15)}
-    .school-brand{float:right;display:grid;place-items:center;width:88px;height:54px;margin:0 0 12px 16px;padding:6px 8px;border:1px solid #d8e3eb;border-radius:12px;background:#fff;box-shadow:0 7px 18px rgba(25,63,95,.07)}
+    .school-brand{float:right;display:grid;place-items:center;width:88px;height:54px;margin:0 0 12px 16px;padding:6px 8px;border:1px solid #d8e3eb;border-radius:12px;background:#fff;box-shadow:0 7px 18px rgba(25,63,95,.07);overflow:hidden;box-sizing:border-box}
     .school-brand img{display:block;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
-    .school-brand.ntu img{max-width:45px;max-height:45px}
+    .school-brand.ntu{width:54px;height:54px;padding:7px}
+    .school-brand.ntu img{width:38px;height:38px;max-width:38px;max-height:38px;object-fit:contain}
     .edu-card>.institution-mark{display:none!important}
-    @media(max-width:700px){.media-carousel .carousel-track{height:230px}.carousel-btn{width:30px;height:40px}.carousel-caption{display:none}.school-brand{width:78px;height:48px;margin-left:10px}}
+    .lab-attributed .institution-mark{display:none!important}
+    .lab-inline-mark{display:inline-grid;place-items:center;flex:0 0 30px;width:30px;height:30px;margin-right:8px;padding:3px;overflow:hidden;border:1px solid #d8e3eb;border-radius:8px;background:#fff;vertical-align:middle;box-shadow:0 4px 12px rgba(25,63,95,.06)}
+    .lab-inline-mark.is-small{flex-basis:24px;width:24px;height:24px;margin-right:0;border-radius:7px;padding:2px}
+    .lab-inline-mark img{display:block;width:100%;height:100%;object-fit:contain}
+    .lab-attributed h3{display:flex;align-items:center}
+    .edu-lab-row{display:flex!important;align-items:center;gap:8px}
+    .lab-research .entity-chip-mark{font-size:0!important;background:#fff url('https://static.wixstatic.com/media/0752bb_6ccf3f2f6ef441c5b080e94573e6eebf~mv2.png') center/contain no-repeat!important;border:1px solid #d8e3eb}
+    @media(max-width:700px){.media-carousel .carousel-track{height:230px}.carousel-btn{width:30px;height:40px}.carousel-caption{display:none}.school-brand{width:78px;height:48px;margin-left:10px}.school-brand.ntu{width:48px;height:48px;padding:6px}.school-brand.ntu img{width:34px;height:34px;max-width:34px;max-height:34px}}
   </style>
   <style>
     @media (prefers-reduced-motion: no-preference) {
@@ -100,11 +108,11 @@
             </div>
           </article>
 
-          <article class="feature-card">
+          <article class="feature-card lab-research">
             <div class="feature-media diagram-frame"><img src="assets/diagrams/egg-multimodal.svg" alt="Visible and thermal multimodal fertility-detection pipeline" /><span class="badge">ACPA 2025</span></div>
             <div class="feature-body">
               <p class="feature-number">02</p><h3>Multimodal Visual–Thermal Fertility Detection</h3>
-              <p class="meta">Lab of Machine Learning and Machine Vision, NTU · Advisor: Prof. Yan-Fu Kuo · 2024–2025</p>
+              <p class="meta"><span class="lab-inline-mark is-small" aria-hidden="true"><img src="https://static.wixstatic.com/media/0752bb_6ccf3f2f6ef441c5b080e94573e6eebf~mv2.png" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" /></span>Lab of Machine Learning and Machine Vision, NTU · Advisor: Prof. Yan-Fu Kuo · 2024–2025</p>
               <p>Built a two-stage object-detection and lightweight-classification pipeline together with a controlled visible + thermal imaging setup for duck eggs. Cross-modal fusion achieved approximately 93% classification accuracy.</p>
               <div class="result-row"><div><strong>~93%</strong><span>classification accuracy</span></div><div><strong>2-stage</strong><span>detection + classification</span></div><div><strong>ACPA 2025</strong><span>extended abstract · oral</span></div></div>
               <div class="tag-row"><span>Computer Vision</span><span>Thermal Imaging</span><span>Sensor Fusion</span><span>YOLO</span></div>
@@ -166,7 +174,7 @@
           <div class="timeline">
             <article><div class="when">2026–Present</div><div><p class="timeline-label">CURRENT RESEARCH</p><h3>Advanced Robotics Centre, NUS</h3><p>Researching motion planning for robot manipulators in dynamic environments under Prof. Marcelo H. Ang Jr., with a focus on obstacle representation and reliable autonomy.</p></div></article>
             <article class="timeline-featured"><div class="when">Jul 2025–Jul 2026</div><div><p class="timeline-label">INDUSTRY · AI ENGINEERING INTERN (R&amp;D)</p><h3>ChainSea Information Integration Co. Ltd.</h3><p>Built HAN-Agents and full-stack AI workflow tools; introduced docs-first engineering practices, automated testing workflows, and repository quality gates across production projects.</p></div></article>
-            <article><div class="when">Aug 2024–Jul 2025<br />Feb–Jun 2026</div><div><p class="timeline-label">RESEARCH ASSISTANT</p><h3>Lab of Machine Learning and Machine Vision (Toolmen Lab) · National Taiwan University</h3><p>Supported computer-vision research through image annotation and dataset preparation under Prof. Yan-Fu Kuo, alongside independent multimodal visual–thermal research.</p></div></article>
+            <article class="lab-attributed"><div class="when">Aug 2024–Jul 2025<br />Feb–Jun 2026</div><div><p class="timeline-label">RESEARCH ASSISTANT</p><h3><span class="lab-inline-mark" aria-hidden="true"><img src="https://static.wixstatic.com/media/0752bb_6ccf3f2f6ef441c5b080e94573e6eebf~mv2.png" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" /></span>Lab of Machine Learning and Machine Vision · National Taiwan University</h3><p>Supported computer-vision research through image annotation and dataset preparation under Prof. Yan-Fu Kuo, alongside independent multimodal visual–thermal research.</p></div></article>
           </div>
         </section>
 
@@ -174,7 +182,7 @@
           <div class="section-heading"><p class="section-kicker">EDUCATION</p><h2>Education & Skills</h2></div>
           <div class="education-grid">
             <article class="edu-card"><span class="school-brand nus" aria-label="National University of Singapore logo"><img src="https://nus.edu.sg/images/default-source/identity-images/fullcolorlogo.jpg" alt="National University of Singapore logo" loading="lazy" decoding="async" referrerpolicy="no-referrer" /></span><p>2026–Present</p><h3>National University of Singapore</h3><strong>M.Sc. in Robotics</strong><span>Singapore</span><span><b>Research:</b> Advanced Robotics Centre (ARC)</span><span><b>Advisor:</b> Prof. Marcelo H. Ang Jr.</span></article>
-            <article class="edu-card"><span class="school-brand ntu" aria-label="National Taiwan University emblem"><img src="https://www.ntu.edu.tw/about/doc/Emblem72.jpg" alt="National Taiwan University emblem" loading="lazy" decoding="async" referrerpolicy="no-referrer" /></span><p>2022–2026</p><h3>National Taiwan University</h3><strong>B.S. in Biomechatronics Engineering</strong><span>GPA 3.75 / 4.3 · AI + Mechatronics & Control certificates</span><span><b>Research:</b> Lab of Machine Learning and Machine Vision (Toolmen Lab)</span><span><b>Advisor:</b> Prof. Yan-Fu Kuo</span></article>
+            <article class="edu-card"><span class="school-brand ntu" aria-label="National Taiwan University emblem"><img src="https://www.ntu.edu.tw/about/doc/Emblem72.jpg" alt="National Taiwan University emblem" loading="lazy" decoding="async" referrerpolicy="no-referrer" /></span><p>2022–2026</p><h3>National Taiwan University</h3><strong>B.S. in Biomechatronics Engineering</strong><span>GPA 3.75 / 4.3 · AI + Mechatronics & Control certificates</span><span class="edu-lab-row"><span class="lab-inline-mark is-small" aria-hidden="true"><img src="https://static.wixstatic.com/media/0752bb_6ccf3f2f6ef441c5b080e94573e6eebf~mv2.png" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" /></span><span><b>Research:</b> Lab of Machine Learning and Machine Vision</span></span><span><b>Advisor:</b> Prof. Yan-Fu Kuo</span></article>
           </div>
           <div class="skills"><div><h3>Robotics / Systems</h3><p>Robot kinematics, geometric modelling, Isaac Gym, Isaac Lab, PID/PD control, state machines, Raspberry Pi, Arduino</p></div><div><h3>AI / Perception</h3><p>PyTorch, TensorFlow, OpenCV, YOLO, CNNs, sensor fusion, multimodal perception</p></div><div><h3>Software / Engineering</h3><p>Python, C/C++, TypeScript/JavaScript, Linux, Docker, Git, CI/CD, automated testing, AI coding agents (Claude Code, Codex)</p></div><div><h3>CAD / Prototyping</h3><p>SolidWorks, 3D printing, mechatronic system integration</p></div></div>
           <div class="award-strip"><div><strong>Fu Bell Award</strong><span>NTU · department's top-ranked incoming student · 2022</span></div><div><strong>NTU Varsity Basketball</strong><span>Representative player; led department-team training toward Division 1 promotion · 2024–2025</span></div></div>
