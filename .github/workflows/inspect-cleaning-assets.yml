@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - inspect-cleaning-assets
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: read
