@@ -1,0 +1,132 @@
+name: Finalize portfolio v1
+
+on:
+  push:
+    branches: [v1-final-cleanup]
+    paths: [.github/workflows/v1-finalize-once.yml]
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: v1-final-cleanup
+
+      - name: Install diagram tooling
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-latex-base texlive-latex-extra texlive-pictures poppler-utils
+          python -m pip install --disable-pip-version-check scour
+
+      - name: Compile basketball architecture
+        run: |
+          cd assets/diagrams/src
+          pdflatex -interaction=nonstopmode -halt-on-error imu-basketball.tex
+          pdftocairo -svg imu-basketball.pdf ../imu-basketball.raw.svg
+          scour -i ../imu-basketball.raw.svg -o ../imu-basketball.svg --enable-viewboxing --enable-id-stripping --shorten-ids --indent=none
+          rm -f ../imu-basketball.raw.svg imu-basketball.aux imu-basketball.log imu-basketball.pdf
+
+      - name: Cache visible brand and media assets
+        run: |
+          set -euxo pipefail
+          mkdir -p assets/icons assets/media
+          curl -fL --retry 3 --retry-delay 2 'https://static.wixstatic.com/media/0752bb_6ccf3f2f6ef441c5b080e94573e6eebf~mv2.png/v1/crop/x_4%2Cy_0%2Cw_180%2Ch_210/fill/w_38%2Ch_44%2Cal_c%2Cq_95%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto/logo.png' -o assets/icons/mlmv-logo.png
+          curl -fL --retry 3 --retry-delay 2 'https://nus.edu.sg/images/default-source/identity-images/fullcolorlogo.jpg' -o assets/icons/nus-fullcolor.jpg
+          curl -fL --retry 3 --retry-delay 2 'https://www.ntu.edu.tw/about/doc/Emblem72.jpg' -o assets/icons/ntu-emblem.jpg
+          curl -fL --retry 3 --retry-delay 2 'https://raw.githubusercontent.com/chuanhan1013/isaaclab-torque-locomotion/main/results/gym_reference/ev_stairs.gif' -o assets/media/sata-stairs.gif
+          curl -fL --retry 3 --retry-delay 2 'https://franka.de/hubfs/20220920_Franka_Research1771.jpg' -o assets/media/franka-research-3.jpg
+          test $(stat -c%s assets/icons/mlmv-logo.png) -gt 1000
+          test $(stat -c%s assets/icons/nus-fullcolor.jpg) -gt 1000
+          test $(stat -c%s assets/icons/ntu-emblem.jpg) -gt 1000
+          test $(stat -c%s assets/media/sata-stairs.gif) -gt 100000
+          test $(stat -c%s assets/media/franka-research-3.jpg) -gt 10000
+
+      - name: Replace hotlinks and stale placeholders
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          index = Path('index.html')
+          s = index.read_text()
+          wix = 'https://static.wixstatic.com/media/0752bb_6ccf3f2f6ef441c5b080e94573e6eebf~mv2.png/v1/crop/x_4%2Cy_0%2Cw_180%2Ch_210/fill/w_38%2Ch_44%2Cal_c%2Cq_95%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto/logo.png'
+          s = s.replace(wix, 'assets/icons/mlmv-logo.png')
+          s = s.replace('https://nus.edu.sg/images/default-source/identity-images/fullcolorlogo.jpg', 'assets/icons/nus-fullcolor.jpg')
+          s = s.replace('https://www.ntu.edu.tw/about/doc/Emblem72.jpg', 'assets/icons/ntu-emblem.jpg')
+          s = s.replace('https://unavatar.io/linkedin/user:chuanhan-li', 'assets/media/profile-chuanhan.jpg')
+          s = s.replace('<a href="https://unavatar.io">Avatar via Unavatar</a>', '')
+          s = s.replace('assets/diagrams/egg-multimodal.svg', 'assets/media/egg-setup.webp')
+          s = s.replace('alt="Visible and thermal multimodal fertility-detection pipeline"', 'alt="Visible and thermal duck-egg imaging setup"')
+          s = s.replace('assets/icons/arc-official.png', 'assets/icons/nus-vertical.jpg')
+          s = s.replace('Designed as a research-engineering portfolio. Built with semantic HTML, CSS, and hand-authored SVG diagrams.', 'Designed as a research-engineering portfolio. Built with semantic HTML, CSS, and reproducible TikZ/SVG technical diagrams.')
+          index.write_text(s)
+
+          core = Path('script-core.js')
+          s = core.read_text()
+          s = s.replace('https://franka.de/hubfs/20220920_Franka_Research1771.jpg', 'assets/media/franka-research-3.jpg')
+          core.write_text(s)
+
+          patch = Path('media-patch.js')
+          s = patch.read_text()
+          s = s.replace('https://raw.githubusercontent.com/chuanhan1013/isaaclab-torque-locomotion/main/results/gym_reference/ev_stairs.gif', 'assets/media/sata-stairs.gif')
+          s = s.replace("      img.referrerPolicy = 'no-referrer';\n", '')
+          patch.write_text(s)
+          PY
+
+          git rm -f assets/diagrams/egg-multimodal.svg ASSET_WISHLIST.md assets/icons/arc-official.png || true
+
+      - name: Static QA
+        run: |
+          node --check script-core.js
+          node --check media-patch.js
+          node --check script.js
+          python - <<'PY'
+          from pathlib import Path
+          import re, xml.etree.ElementTree as ET
+
+          roots = [Path('index.html'), Path('script-core.js'), Path('media-patch.js'), Path('styles.css')]
+          missing = []
+          pattern = re.compile(r"assets/[A-Za-z0-9_.+/-]+\.(?:png|jpe?g|webp|gif|svg|pdf)")
+          for p in roots:
+              text = p.read_text()
+              for ref in sorted(set(pattern.findall(text))):
+                  if not Path(ref).exists():
+                      missing.append((str(p), ref))
+          if missing:
+              raise SystemExit('Missing local asset refs: ' + repr(missing))
+
+          forbidden = [
+              'static.wixstatic.com/media/0752bb_',
+              'nus.edu.sg/images/default-source/identity-images/fullcolorlogo.jpg',
+              'www.ntu.edu.tw/about/doc/Emblem72.jpg',
+              'raw.githubusercontent.com/chuanhan1013/isaaclab-torque-locomotion/main/results/gym_reference/ev_stairs.gif',
+              'franka.de/hubfs/20220920_Franka_Research1771.jpg',
+              'unavatar.io/linkedin/user:chuanhan-li',
+              'egg-multimodal.svg',
+              'arc-official.png',
+          ]
+          joined = '\n'.join(p.read_text() for p in roots)
+          leaked = [x for x in forbidden if x in joined]
+          if leaked:
+              raise SystemExit('Stale/hotlinked refs remain: ' + repr(leaked))
+
+          for svg in Path('assets').rglob('*.svg'):
+              ET.parse(svg)
+          print('QA OK: local asset refs resolve; JS parses; SVG XML parses; targeted hotlinks removed.')
+          PY
+          test -s assets/diagrams/imu-basketball.svg
+          test -s assets/diagrams/src/imu-basketball.tex
+          git diff --check
+
+      - name: Commit generated output
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm .github/workflows/v1-finalize-once.yml
+          git add -A
+          git status --short
+          git commit -m 'Finalize portfolio v1 media and diagrams'
+          git push origin HEAD:v1-final-cleanup
