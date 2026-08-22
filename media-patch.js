@@ -69,7 +69,24 @@
     if (cap) cap.textContent = 'Isaac Gym reference · stair traversal';
   }
 
+  /* Egg research: replace the placeholder diagram with real ACPA presentation media. */
+  const eggCard = [...document.querySelectorAll('#research .feature-card')].find(card => card.querySelector('h3')?.textContent.includes('Multimodal Visual'));
+  const eggMedia = eggCard?.querySelector('.feature-media');
+  if (eggMedia) {
+    eggMedia.className = 'feature-media media-carousel egg-carousel';
+    eggMedia.setAttribute('data-carousel', '');
+    eggMedia.setAttribute('aria-label', 'Duck egg visible and thermal fertility research media');
+    const slides = [
+      ['assets/media/egg-setup.webp', 'Controlled visible + thermal imaging setup and illuminated egg tray', 'Imaging setup · visible + thermal acquisition'],
+      ['assets/media/egg-visible-thermal-preprocess.webp', 'Perspective transformation for visible and thermal duck egg images', 'Visible + thermal preprocessing'],
+      ['assets/media/egg-crops.webp', 'Detected duck eggs cropped into fertilized, unfertilized, and invalid samples', 'Detection → per-egg crops'],
+      ['assets/media/egg-rgb-result.webp', 'RGB classification result with normalized confusion matrix', 'RGB baseline · 92% accuracy'],
+      ['assets/media/egg-thermal-result.webp', 'Thermal classification result with normalized confusion matrix', 'Thermal baseline · 90% accuracy']
+    ];
+    eggMedia.innerHTML = `<div class="carousel-track">${slides.map(([src, alt, caption], i) => `<figure class="carousel-slide egg-slide${i === 0 ? ' is-active' : ''}"><img src="${src}" alt="${alt}" loading="lazy" decoding="async" tabindex="0" role="button"><figcaption class="carousel-caption">${caption}</figcaption></figure>`).join('')}</div><button class="carousel-btn prev" type="button" aria-label="Previous media">‹</button><button class="carousel-btn next" type="button" aria-label="Next media">›</button><div class="carousel-dots" aria-hidden="true"></div><span class="badge">ACPA 2025 · REAL EXPERIMENT MEDIA</span>`;
+  }
+
   const style = document.createElement('style');
-  style.textContent = '.basketball-demo{padding:0!important;background:#0d1720!important}.basketball-demo img{object-fit:cover!important;object-position:50% 68%!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important}.triathlon-hero{padding:0!important}.triathlon-hero img{object-fit:cover!important;object-position:50% 62%!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important}';
+  style.textContent = '.basketball-demo{padding:0!important;background:#0d1720!important}.basketball-demo img{object-fit:cover!important;object-position:50% 68%!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important}.triathlon-hero{padding:0!important}.triathlon-hero img{object-fit:cover!important;object-position:50% 62%!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important}.egg-carousel .egg-slide{background:#f6f3ef}.egg-carousel .egg-slide img{object-fit:contain!important;width:100%!important;height:100%!important;background:#f6f3ef}';
   document.head.append(style);
 })();
