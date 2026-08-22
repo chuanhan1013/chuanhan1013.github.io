@@ -87,7 +87,29 @@
     eggMedia.innerHTML = `<div class="carousel-track">${slides.map(([src, alt, caption], i) => `<figure class="carousel-slide egg-slide${i === 0 ? ' is-active' : ''}"><img src="${src}" alt="${alt}" loading="lazy" decoding="async" tabindex="0" role="button"><figcaption class="carousel-caption">${caption}</figcaption></figure>`).join('')}</div><button class="carousel-btn prev" type="button" aria-label="Previous media">‹</button><button class="carousel-btn next" type="button" aria-label="Next media">›</button><div class="carousel-dots" aria-hidden="true"></div><span class="badge">ACPA 2025 · REAL EXPERIMENT MEDIA</span>`;
   }
 
+  /* ARC identity: after the legacy inline patch runs, replace the wide ARC artwork with a compact CDE badge. */
+  const applyCdeBadges = () => {
+    document.querySelectorAll('.institution-arc').forEach(mark => {
+      mark.classList.remove('institution-image-mark');
+      mark.classList.add('institution-cde-mark');
+      mark.innerHTML = '<span class="cde-badge" aria-hidden="true">CDE</span>';
+    });
+
+    const arcChip = [...document.querySelectorAll('#research .entity-chip')].find(chip => chip.textContent.includes('Advanced Robotics Centre'));
+    const chipMark = arcChip?.querySelector('.entity-chip-mark');
+    if (chipMark) {
+      chipMark.className = 'entity-chip-mark cde-badge cde-chip-badge';
+      chipMark.textContent = 'CDE';
+    }
+
+    document.querySelectorAll('.edu-arc-row .org-inline-icon').forEach(mark => {
+      mark.className = 'cde-badge cde-edu-badge';
+      mark.textContent = 'CDE';
+    });
+  };
+  window.addEventListener('DOMContentLoaded', applyCdeBadges, { once: true });
+
   const style = document.createElement('style');
-  style.textContent = '.basketball-demo{padding:0!important;background:#0d1720!important}.basketball-demo img{object-fit:cover!important;object-position:50% 68%!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important}.triathlon-hero{padding:0!important}.triathlon-hero img{object-fit:cover!important;object-position:50% 62%!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important}.egg-carousel .egg-slide{background:#f6f3ef}.egg-carousel .egg-slide img{object-fit:contain!important;width:100%!important;height:100%!important;background:#f6f3ef}';
+  style.textContent = '.basketball-demo{padding:0!important;background:#0d1720!important}.basketball-demo img{object-fit:cover!important;object-position:50% 68%!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important}.triathlon-hero{padding:0!important}.triathlon-hero img{object-fit:cover!important;object-position:50% 62%!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important}.egg-carousel .egg-slide{background:#f6f3ef}.egg-carousel .egg-slide img{object-fit:contain!important;width:100%!important;height:100%!important;background:#f6f3ef}.cde-badge{display:inline-grid!important;place-items:center!important;box-sizing:border-box!important;width:30px!important;min-width:30px!important;height:20px!important;flex:0 0 30px!important;padding:0 3px!important;border:1px solid #d7e2ea!important;border-left:3px solid #ef7c00!important;border-radius:5px!important;background:#003d7c!important;color:#fff!important;font-size:7px!important;font-weight:900!important;letter-spacing:.06em!important;line-height:1!important;box-shadow:none!important}.institution-cde-mark{float:none!important;width:30px!important;height:20px!important;flex:0 0 30px!important;margin:0!important;padding:0!important;border:0!important;border-radius:5px!important;background:none!important;box-shadow:none!important}.institution-cde-mark .cde-badge{margin:0!important}.cde-chip-badge{margin:0!important}.edu-arc-row .cde-edu-badge{margin:0!important}';
   document.head.append(style);
 })();
