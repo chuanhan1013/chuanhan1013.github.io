@@ -81,7 +81,8 @@
       ['assets/media/egg-visible-thermal-preprocess.webp', 'Perspective transformation for visible and thermal duck egg images', 'Visible + thermal preprocessing'],
       ['assets/media/egg-crops.webp', 'Detected duck eggs cropped into fertilized, unfertilized, and invalid samples', 'Detection → per-egg crops'],
       ['assets/media/egg-rgb-result.webp', 'RGB classification result with normalized confusion matrix', 'RGB baseline · 92% accuracy'],
-      ['assets/media/egg-thermal-result.webp', 'Thermal classification result with normalized confusion matrix', 'Thermal baseline · 90% accuracy']
+      ['assets/media/egg-thermal-result.webp', 'Thermal classification result with normalized confusion matrix', 'Thermal baseline · 90% accuracy'],
+      ['assets/media/egg-fusion-result.webp', 'Cross-modal fusion metrics and normalized confusion matrix', 'Cross-modal fusion · 93% accuracy']
     ];
     eggMedia.innerHTML = `<div class="carousel-track">${slides.map(([src, alt, caption], i) => `<figure class="carousel-slide egg-slide${i === 0 ? ' is-active' : ''}"><img src="${src}" alt="${alt}" loading="lazy" decoding="async" tabindex="0" role="button"><figcaption class="carousel-caption">${caption}</figcaption></figure>`).join('')}</div><button class="carousel-btn prev" type="button" aria-label="Previous media">‹</button><button class="carousel-btn next" type="button" aria-label="Next media">›</button><div class="carousel-dots" aria-hidden="true"></div><span class="badge">ACPA 2025 · REAL EXPERIMENT MEDIA</span>`;
   }
