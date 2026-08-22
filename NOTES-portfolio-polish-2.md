@@ -1,1 +1,0 @@
-Portfolio follow-up: add NTU Research Assistant experience, emphasize ChainSea as industry experience, and source the profile avatar from the LinkedIn profile through Unavatar with required attribution.
