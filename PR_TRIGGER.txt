@@ -1,1 +1,0 @@
-Trigger scoped PR workflow for official icons and SATA gallery.
