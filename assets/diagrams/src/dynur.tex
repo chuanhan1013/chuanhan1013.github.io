@@ -93,7 +93,7 @@
       font=\sffamily\scriptsize, text=ink, below=2mm of dist] (approach) {approach dir.};
 \node[sublabel, align=center, below=1.8mm of approach] {dynamic cues\\per link};
 
-\draw[flow] ([xshift=2mm]scene.east) -- node[above, font=\sffamily\scriptsize, text=muted] {encode} ([xshift=-2mm]repr.west);
+\draw[flow] ([xshift=2mm]scene.east) -- ([xshift=-2mm]repr.west);
 
 % (c) Policy ------------------------------------------------------------------
 \node[panelbox, minimum width=4.05cm, minimum height=4.65cm, anchor=south west] (policy) at (12.75,0) {};
@@ -110,7 +110,7 @@
 \fill[blue4] (15.64,0.90) circle (0.75mm);
 \node[sublabel, align=center] at (14.78,0.37) {collision-aware motion update};
 
-\draw[flow] ([xshift=2mm]repr.east) -- node[above, font=\sffamily\scriptsize, text=muted] {policy observation $o_t$} ([xshift=-2mm]policy.west);
+\draw[flow] ([xshift=2mm]repr.east) -- ([xshift=-2mm]policy.west);
 
 \end{tikzpicture}
 \end{document}
