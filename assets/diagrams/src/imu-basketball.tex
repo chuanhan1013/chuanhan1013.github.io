@@ -1,0 +1,81 @@
+\documentclass[tikz,border=8pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usetikzlibrary{arrows.meta,positioning,fit,calc,backgrounds}
+
+\definecolor{ink}{HTML}{17384F}
+\definecolor{muted}{HTML}{607789}
+\definecolor{line}{HTML}{6E8798}
+\definecolor{bluefill}{HTML}{EDF5F8}
+\definecolor{blueborder}{HTML}{8CADC0}
+\definecolor{sandfill}{HTML}{F6F1E9}
+\definecolor{sandborder}{HTML}{C7AE89}
+\definecolor{panel}{HTML}{F8FBFD}
+\definecolor{accent}{HTML}{2E789D}
+\definecolor{soft}{HTML}{FFFFFF}
+
+\tikzset{
+  >={Stealth[length=2.4mm,width=1.8mm]},
+  flow/.style={->, line width=0.8pt, draw=line},
+  section/.style={rounded corners=4pt, draw=blueborder, fill=bluefill, line width=0.65pt, inner sep=7pt},
+  wearable/.style={rounded corners=4pt, draw=sandborder, fill=sandfill, line width=0.65pt, inner sep=7pt},
+  box/.style={rounded corners=2.5pt, draw=blueborder!70, fill=soft, line width=0.5pt, minimum height=8mm, align=center, font=\sffamily\small},
+  smallbox/.style={rounded corners=2.3pt, draw=sandborder!80, fill=soft, line width=0.5pt, minimum height=7.5mm, align=center, font=\sffamily\small},
+  title/.style={font=\sffamily\bfseries\Large, text=ink},
+  subtitle/.style={font=\sffamily\small, text=muted},
+  stage/.style={font=\sffamily\bfseries\normalsize, text=ink, align=center},
+  note/.style={font=\sffamily\scriptsize, text=muted, align=center}
+}
+
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \path[fill=panel, rounded corners=7pt] (-0.35,-0.55) rectangle (16.1,6.0);
+
+  \node[title, anchor=west] at (0.15,5.55) {Wearable basketball shot sensing};
+  \node[subtitle, anchor=west] at (0.15,5.12) {100 Hz dual-IMU sensing $\rightarrow$ wireless transport $\rightarrow$ segmentation and live analysis};
+
+  % Stage 1: sensing
+  \node[section, minimum width=2.55cm, minimum height=3.2cm, anchor=north west] (sensepanel) at (0.15,4.55) {};
+  \node[stage, anchor=north] at ($(sensepanel.north)+(0,-0.28)$) {Arm sensing};
+  \node[box, minimum width=1.85cm] (imu1) at ($(sensepanel.center)+(0,0.38)$) {IMU 1\\MPU6050};
+  \node[box, minimum width=1.85cm, below=2.2mm of imu1] (imu2) {IMU 2\\MPU6050};
+  \node[note, anchor=south] at ($(sensepanel.south)+(0,0.18)$) {arm-mounted pair};
+
+  % Stage 2: wearable electronics
+  \node[wearable, minimum width=2.75cm, minimum height=3.2cm, anchor=north west] (wearpanel) at (3.45,4.55) {};
+  \node[stage, anchor=north] at ($(wearpanel.north)+(0,-0.28)$) {Wearable node};
+  \node[smallbox, minimum width=1.95cm] (nano) at ($(wearpanel.center)+(0,0.42)$) {Arduino Nano};
+  \node[smallbox, minimum width=1.95cm, below=4.5mm of nano] (radio1) {nRF24L01+};
+  \draw[flow] (nano) -- (radio1);
+  \node[note, anchor=south] at ($(wearpanel.south)+(0,0.18)$) {sample + packetize};
+
+  % Stage 3: receiver
+  \node[section, minimum width=2.75cm, minimum height=3.2cm, anchor=north west] (basepanel) at (7.0,4.55) {};
+  \node[stage, anchor=north] at ($(basepanel.north)+(0,-0.28)$) {Base station};
+  \node[box, minimum width=1.95cm] (radio2) at ($(basepanel.center)+(0,0.50)$) {nRF24L01+};
+  \node[box, minimum width=1.95cm, below=3.2mm of radio2] (uno) {Arduino Uno};
+  \node[box, minimum width=1.95cm, below=3.2mm of uno] (usb) {USB serial};
+  \draw[flow] (radio2) -- (uno);
+  \draw[flow] (uno) -- (usb);
+
+  % Stage 4: host processing
+  \node[section, minimum width=5.35cm, minimum height=3.2cm, anchor=north west] (hostpanel) at (10.55,4.55) {};
+  \node[stage, anchor=north] at ($(hostpanel.north)+(0,-0.28)$) {Python analysis system};
+  \node[box, minimum width=1.30cm] (pre) at ($(hostpanel.west)+(0.93,0.28)$) {Preprocess};
+  \node[box, minimum width=1.38cm, right=2.2mm of pre] (seg) {Shot\\segmentation};
+  \node[box, minimum width=1.38cm, right=2.2mm of seg] (feat) {Feature\\extraction};
+  \draw[flow] (pre) -- (seg);
+  \draw[flow] (seg) -- (feat);
+  \node[box, minimum width=3.95cm, below=7.5mm of seg, draw=accent!65] (dash) {FastAPI live dashboard + shot review};
+  \draw[flow] (seg.south) |- (dash.west);
+  \draw[flow] (feat.south) |- (dash.east);
+
+  % Inter-stage flow
+  \draw[flow] (sensepanel.east) -- node[above, note] {I\textsuperscript{2}C} (wearpanel.west);
+  \draw[flow] (wearpanel.east) -- node[above, note] {2.4 GHz wireless} (basepanel.west);
+  \draw[flow] (basepanel.east) -- node[above, note] {serial stream} (hostpanel.west);
+
+  % Footer annotations
+  \node[note, anchor=west] at (0.2,-0.14) {Hardware-to-software architecture shown at portfolio level; signal processing and analysis details are summarized for readability.};
+\end{tikzpicture}
+\end{document}
