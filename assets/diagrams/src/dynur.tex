@@ -1,0 +1,116 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usetikzlibrary{arrows.meta,positioning,calc}
+
+% Reproducible paper-style source for assets/diagrams/dynur.svg
+% Build from this directory:
+%   pdflatex -interaction=nonstopmode -halt-on-error dynur.tex
+%   pdftocairo -svg dynur.pdf ../dynur.svg
+
+\definecolor{ink}{HTML}{203746}
+\definecolor{muted}{HTML}{647783}
+\definecolor{line}{HTML}{AFC2CE}
+\definecolor{panel}{HTML}{F8FAFB}
+\definecolor{blue1}{HTML}{E6F0F5}
+\definecolor{blue2}{HTML}{C9DDE8}
+\definecolor{blue3}{HTML}{92B9CD}
+\definecolor{blue4}{HTML}{4D86A4}
+\definecolor{orange}{HTML}{D77A3B}
+\definecolor{orangefill}{HTML}{F6E5D8}
+
+\tikzset{
+  >={Stealth[length=2.2mm,width=1.55mm]},
+  flow/.style={->, draw=muted, line width=0.85pt},
+  panelbox/.style={draw=line, fill=panel, rounded corners=2.0mm, line width=0.65pt},
+  panellabel/.style={font=\sffamily\bfseries\small, text=ink},
+  sublabel/.style={font=\sffamily\scriptsize, text=muted},
+  body/.style={font=\sffamily\small, text=ink},
+  tinybody/.style={font=\sffamily\scriptsize, text=ink},
+}
+
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm]
+
+% (a) Dynamic scene -----------------------------------------------------------
+\node[panelbox, minimum width=5.15cm, minimum height=4.65cm, anchor=south west] (scene) at (0,0) {};
+\node[panellabel, anchor=north west] at ([xshift=3.5mm,yshift=-3mm]scene.north west) {(a) Dynamic scene};
+
+\filldraw[draw=ink, fill=blue2, line width=0.65pt, rounded corners=0.7mm]
+  (0.55,0.48) rectangle (1.35,0.72);
+\coordinate (j0) at (1.28,0.72);
+\coordinate (j1) at (1.65,1.48);
+\coordinate (j2) at (2.35,2.23);
+\coordinate (j3) at (3.12,2.66);
+\coordinate (j4) at (3.82,2.24);
+\draw[line width=4.6pt, draw=blue4, line cap=round] (j0)--(j1);
+\draw[line width=4.6pt, draw=blue4!88!white, line cap=round] (j1)--(j2);
+\draw[line width=4.3pt, draw=blue3!72!blue4, line cap=round] (j2)--(j3);
+\draw[line width=4.0pt, draw=blue3, line cap=round] (j3)--(j4);
+\foreach \p in {j0,j1,j2,j3,j4}{\filldraw[fill=ink,draw=white,line width=0.4pt] (\p) circle (1.45mm);}
+
+\node[tinybody, anchor=east] at ($(j0)+(-0.12,0.08)$) {$L_1$};
+\node[tinybody, anchor=east] at ($(j1)+(-0.12,0.08)$) {$L_2$};
+\node[tinybody, anchor=east] at ($(j2)+(-0.12,0.08)$) {$L_3$};
+\node[tinybody, anchor=east] at ($(j3)+(-0.12,0.08)$) {$L_4$};
+\draw[dashed, draw=blue4, line width=0.6pt] (1.44,1.10) arc[start angle=330,end angle=60,radius=0.50];
+\draw[dashed, draw=blue4, line width=0.6pt] (2.02,1.92) arc[start angle=325,end angle=38,radius=0.56];
+\draw[dashed, draw=blue4, line width=0.6pt] (2.82,2.50) arc[start angle=305,end angle=30,radius=0.55];
+
+\filldraw[fill=orangefill, draw=orange, line width=0.75pt, rounded corners=0.9mm]
+  (3.26,0.82) rectangle (3.96,1.48);
+\draw[->, draw=orange, line width=0.9pt] (4.04,1.15) -- (4.60,1.15);
+\node[font=\sffamily\scriptsize\bfseries, text=orange, anchor=south] at (3.61,1.56) {moving obstacle};
+
+% (b) Link-centric representation --------------------------------------------
+\node[panelbox, minimum width=5.55cm, minimum height=4.65cm, anchor=south west] (repr) at (6.15,0) {};
+\node[panellabel, anchor=north west] at ([xshift=3.5mm,yshift=-3mm]repr.north west) {(b) Link-centric representation};
+
+\coordinate (g0) at (6.78,1.35);
+\def\cw{0.53}
+\def\ch{0.45}
+\foreach \r in {0,...,4}{
+  \foreach \c in {0,...,5}{
+    \pgfmathtruncatemacro{\tone}{mod(2*\r+\c,4)}
+    \ifcase\tone\def\cellcolor{blue1}\or\def\cellcolor{blue2}\or\def\cellcolor{blue3}\or\def\cellcolor{blue2}\fi
+    \filldraw[fill=\cellcolor, draw=white, line width=0.35pt]
+      ($(g0)+({\c*\cw},{\r*\ch})$) rectangle ++(\cw,\ch);
+  }
+}
+\draw[draw=line, line width=0.65pt] (g0) rectangle ++(3.18,2.25);
+\fill[blue4] ($(g0)+(1.06,0.90)$) rectangle ++(0.53,0.45);
+\fill[blue4!80!white] ($(g0)+(2.12,1.35)$) rectangle ++(0.53,0.45);
+\fill[orange!78!white] ($(g0)+(2.65,0.45)$) rectangle ++(0.53,0.45);
+
+\foreach \r/\lab in {0/$L_1$,1/$L_2$,2/$L_3$,3/$L_4$,4/$L_5$}{
+  \node[tinybody, anchor=east] at ($(g0)+(-0.10,{\r*\ch+0.225})$) {\lab};
+}
+\node[sublabel, anchor=north] at ($(g0)+(1.59,-0.14)$) {surface / proximity bins};
+
+\node[draw=line, fill=white, rounded corners=0.9mm, minimum width=1.40cm, minimum height=0.52cm,
+      font=\sffamily\scriptsize, text=ink] (dist) at (10.65,2.76) {$d_{\mathrm{surf}}$};
+\node[draw=line, fill=white, rounded corners=0.9mm, minimum width=1.40cm, minimum height=0.52cm,
+      font=\sffamily\scriptsize, text=ink, below=2mm of dist] (approach) {approach dir.};
+\node[sublabel, align=center, below=1.8mm of approach] {dynamic cues\\per link};
+
+\draw[flow] ([xshift=2mm]scene.east) -- ([xshift=-2mm]repr.west);
+
+% (c) Policy ------------------------------------------------------------------
+\node[panelbox, minimum width=4.05cm, minimum height=4.65cm, anchor=south west] (policy) at (12.75,0) {};
+\node[panellabel, anchor=north west] at ([xshift=3.5mm,yshift=-3mm]policy.north west) {(c) Policy};
+
+\node[draw=blue4, fill=blue1, rounded corners=1.2mm, minimum width=2.35cm, minimum height=0.86cm,
+      font=\sffamily\small\bfseries, text=ink] (pi) at (14.78,2.62) {$\pi_{\theta}(o_t)$};
+\node[sublabel, align=center, above=2.2mm of pi] {learning-based motion policy};
+\node[draw=line, fill=white, rounded corners=1.1mm, minimum width=2.45cm, minimum height=0.78cm,
+      font=\sffamily\small, text=ink, below=7mm of pi] (action) {motion action $a_t$};
+\draw[flow] (pi) -- (action);
+\draw[draw=blue4, line width=0.95pt] (13.90,0.73) .. controls (14.38,1.10) and (15.08,0.52) .. (15.64,0.90);
+\fill[blue4] (13.90,0.73) circle (0.75mm);
+\fill[blue4] (15.64,0.90) circle (0.75mm);
+\node[sublabel, align=center] at (14.78,0.37) {collision-aware motion update};
+
+\draw[flow] ([xshift=2mm]repr.east) -- ([xshift=-2mm]policy.west);
+
+\end{tikzpicture}
+\end{document}
