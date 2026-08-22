@@ -1,21 +1,21 @@
 name: Finalize portfolio v1 once
 
 on:
-  push:
-    branches: [finalize-portfolio-v1]
-    paths:
-      - .github/workflows/finalize-v1-once.yml
+  pull_request:
+    branches: [main]
+    types: [opened, reopened, synchronize]
 
 permissions:
   contents: write
 
 jobs:
   finalize:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'finalize-portfolio-v1'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: finalize-portfolio-v1
+          ref: ${{ github.head_ref }}
 
       - name: Install diagram toolchain
         run: |
@@ -150,4 +150,4 @@ jobs:
             exit 0
           fi
           git commit -m 'Finalize portfolio v1 media and diagrams'
-          git push origin HEAD:finalize-portfolio-v1
+          git push origin HEAD:${{ github.head_ref }}
