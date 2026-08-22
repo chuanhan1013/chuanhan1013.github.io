@@ -17,12 +17,12 @@ jobs:
       - name: Install TeX and converters
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends texlive-latex-base texlive-latex-extra texlive-pictures dvisvgm poppler-utils
+          sudo apt-get install -y --no-install-recommends texlive-latex-base texlive-latex-extra texlive-pictures poppler-utils
       - name: Compile TikZ figure
         working-directory: assets/diagrams/src
         run: |
           pdflatex -interaction=nonstopmode -halt-on-error dynur.tex
-          dvisvgm --pdf --no-fonts --exact-bbox dynur.pdf -o ../dynur.generated.svg
+          pdftocairo -svg dynur.pdf ../dynur.generated.svg
           pdftoppm -png -r 180 -singlefile dynur.pdf /tmp/dynur-preview
       - name: Validate output
         run: |
