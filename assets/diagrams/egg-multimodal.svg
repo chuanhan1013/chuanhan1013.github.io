@@ -1,21 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360">
-<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#58768d"/></marker><linearGradient id="thermal" x1="0" x2="1"><stop offset="0" stop-color="#472d7b"/><stop offset=".5" stop-color="#d74b50"/><stop offset="1" stop-color="#f7d15b"/></linearGradient></defs>
-<rect width="760" height="360" rx="18" fill="#f8fbfd"/>
-<text x="32" y="33" font-family="Arial" font-size="14" font-weight="700" fill="#18384f">Visible + thermal multimodal fertility-detection pipeline</text>
-<g transform="translate(35 72)">
- <rect width="120" height="90" rx="12" fill="#edf5ec" stroke="#8cab87"/>
- <circle cx="38" cy="45" r="23" fill="#efe8d0" stroke="#b6a77d"/><ellipse cx="38" cy="45" rx="13" ry="19" fill="#faf6e8"/>
- <text x="70" y="41" font-family="Arial" font-size="12" font-weight="700" fill="#426148">Visible</text><text x="70" y="58" font-family="Arial" font-size="11" fill="#667769">camera</text>
-</g>
-<g transform="translate(35 196)">
- <rect width="120" height="90" rx="12" fill="url(#thermal)" stroke="#6d517a"/>
- <ellipse cx="38" cy="45" rx="16" ry="24" fill="#f5d66a" opacity=".95"/>
- <text x="70" y="41" font-family="Arial" font-size="12" font-weight="700" fill="white">Thermal</text><text x="70" y="58" font-family="Arial" font-size="11" fill="#fff">camera</text>
-</g>
-<path d="M155 117H205" stroke="#58768d" stroke-width="2.5" marker-end="url(#arr)"/><path d="M155 241H205" stroke="#58768d" stroke-width="2.5" marker-end="url(#arr)"/>
-<g transform="translate(214 124)"><rect width="130" height="110" rx="12" fill="#eef4f8" stroke="#90adc0"/><text x="24" y="30" font-family="Arial" font-size="12" font-weight="700" fill="#274c65">Stage 1</text><text x="24" y="52" font-family="Arial" font-size="12" fill="#526a7a">Egg detection</text><rect x="28" y="66" width="74" height="26" rx="5" fill="#dcebf4"/><text x="43" y="84" font-family="Arial" font-size="10" fill="#3b667f">ROI crops</text></g>
-<path d="M344 179H390" stroke="#58768d" stroke-width="2.5" marker-end="url(#arr)"/>
-<g transform="translate(398 124)"><rect width="140" height="110" rx="12" fill="#f1f5fb" stroke="#8ca6c0"/><text x="24" y="30" font-family="Arial" font-size="12" font-weight="700" fill="#274c65">Cross-modal fusion</text><path d="M28 60H112" stroke="#70a1be" stroke-width="8" stroke-linecap="round"/><path d="M28 78H112" stroke="#c67c73" stroke-width="8" stroke-linecap="round"/><path d="M70 55V85" stroke="#304f63" stroke-width="3"/><text x="22" y="102" font-family="Arial" font-size="10" fill="#647789">visible + thermal features</text></g>
-<path d="M538 179H585" stroke="#58768d" stroke-width="2.5" marker-end="url(#arr)"/>
-<g transform="translate(592 105)"><rect width="135" height="148" rx="12" fill="#e9f3f7" stroke="#80aabd"/><text x="20" y="32" font-family="Arial" font-size="12" font-weight="700" fill="#244f66">Stage 2</text><text x="20" y="53" font-family="Arial" font-size="12" fill="#4d6878">Fertility classifier</text><rect x="21" y="70" width="93" height="48" rx="8" fill="#fff" stroke="#c8d7e0"/><text x="36" y="91" font-family="Arial" font-size="11" fill="#426a7f">fertile /</text><text x="36" y="106" font-family="Arial" font-size="11" fill="#426a7f">infertile</text><text x="20" y="139" font-family="Arial" font-size="13" font-weight="700" fill="#1e6688">≈ 93% accuracy</text></g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" role="img" aria-labelledby="t d">
+<title id="t">Visible and thermal duck egg fertility detection pipeline</title>
+<desc id="d">Visible and thermal cameras feed a shared egg-detection stage, aligned regions are fused across modalities, and a lightweight classifier predicts fertility.</desc>
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#58768d"/></marker>
+  <linearGradient id="thermal" x1="0" x2="1"><stop offset="0" stop-color="#4b2d7d"/><stop offset=".5" stop-color="#cf4b55"/><stop offset="1" stop-color="#f3d061"/></linearGradient>
+</defs>
+<rect width="900" height="500" rx="26" fill="#f8fbfd"/>
+<text x="42" y="52" font-family="Arial" font-size="26" font-weight="700" fill="#17384f">Visible + thermal fertility detection</text>
+<text x="42" y="82" font-family="Arial" font-size="16" fill="#657887">Two-stage detection and lightweight classification with cross-modal fusion</text>
+<g transform="translate(42 140)"><rect width="160" height="112" rx="18" fill="#edf5ec" stroke="#8cab87" stroke-width="2"/><ellipse cx="48" cy="56" rx="24" ry="34" fill="#faf6e8" stroke="#b6a77d" stroke-width="2"/><text x="88" y="51" font-family="Arial" font-size="18" font-weight="700" fill="#426148">Visible</text><text x="88" y="75" font-family="Arial" font-size="15" fill="#667769">camera</text></g>
+<g transform="translate(42 284)"><rect width="160" height="112" rx="18" fill="url(#thermal)" stroke="#6d517a" stroke-width="2"/><ellipse cx="48" cy="56" rx="24" ry="34" fill="#f7d96d" opacity=".95"/><text x="88" y="51" font-family="Arial" font-size="18" font-weight="700" fill="#fff">Thermal</text><text x="88" y="75" font-family="Arial" font-size="15" fill="#fff">camera</text></g>
+<path d="M202 196H255M202 340H255" stroke="#58768d" stroke-width="3" marker-end="url(#arrow)"/>
+<g transform="translate(270 194)"><rect width="170" height="148" rx="20" fill="#eef4f8" stroke="#90adc0" stroke-width="2"/><text x="22" y="38" font-family="Arial" font-size="18" font-weight="700" fill="#274c65">Stage 1</text><text x="22" y="68" font-family="Arial" font-size="19" font-weight="700" fill="#274c65">Egg detection</text><rect x="22" y="87" width="126" height="38" rx="9" fill="#dcebf4"/><text x="50" y="112" font-family="Arial" font-size="16" fill="#3b667f">aligned ROIs</text></g>
+<path d="M440 268H493" stroke="#58768d" stroke-width="3" marker-end="url(#arrow)"/>
+<g transform="translate(508 194)"><rect width="170" height="148" rx="20" fill="#f2f5fb" stroke="#8ca6c0" stroke-width="2"/><text x="22" y="42" font-family="Arial" font-size="19" font-weight="700" fill="#274c65">Cross-modal fusion</text><path d="M31 83H139" stroke="#70a1be" stroke-width="12" stroke-linecap="round"/><path d="M31 110H139" stroke="#c67c73" stroke-width="12" stroke-linecap="round"/><path d="M85 72V121" stroke="#304f63" stroke-width="4"/></g>
+<path d="M678 268H724" stroke="#58768d" stroke-width="3" marker-end="url(#arrow)"/>
+<g transform="translate(738 169)"><rect width="124" height="198" rx="20" fill="#e9f3f7" stroke="#80aabd" stroke-width="2"/><text x="18" y="39" font-family="Arial" font-size="18" font-weight="700" fill="#244f66">Stage 2</text><text x="18" y="69" font-family="Arial" font-size="17" font-weight="700" fill="#244f66">Classifier</text><rect x="18" y="91" width="88" height="53" rx="10" fill="#fff" stroke="#c8d7e0"/><text x="33" y="113" font-family="Arial" font-size="14" fill="#426a7f">fertile /</text><text x="27" y="132" font-family="Arial" font-size="14" fill="#426a7f">infertile</text><text x="18" y="173" font-family="Arial" font-size="20" font-weight="700" fill="#1e6688">≈93%</text><text x="18" y="192" font-family="Arial" font-size="13" fill="#657988">accuracy</text></g>
 </svg>

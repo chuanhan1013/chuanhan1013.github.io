@@ -1,21 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360">
-<defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#60798d"/></marker></defs>
-<rect width="760" height="360" rx="18" fill="#f8fbfd"/>
-<text x="30" y="31" font-family="Arial" font-size="14" font-weight="700" fill="#18384f">HAN-Agents — persistent context + verified execution loop</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" role="img" aria-labelledby="t d">
+<title id="t">HAN-Agents architecture</title>
+<desc id="d">Persistent project context from skills, code graph, memory and tasks feeds a planner. Executor and critic operate in a verified loop with quality gates and saved lessons.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#60798d"/></marker></defs>
+<rect width="900" height="500" rx="26" fill="#f8fbfd"/>
+<text x="42" y="52" font-family="Arial" font-size="26" font-weight="700" fill="#17384f">HAN-Agents — persistent context + verified execution</text>
+<text x="42" y="82" font-family="Arial" font-size="16" fill="#657887">Task orchestration layer for AI coding assistants</text>
 <g font-family="Arial">
- <g transform="translate(30 64)"><rect width="150" height="56" rx="10" fill="#edf3f7" stroke="#99b2c2"/><text x="18" y="25" font-size="12" font-weight="700" fill="#284c63">Skill Layer</text><text x="18" y="42" font-size="10" fill="#637787">intent &amp; workflows</text></g>
- <g transform="translate(30 132)"><rect width="150" height="56" rx="10" fill="#edf3f7" stroke="#99b2c2"/><text x="18" y="25" font-size="12" font-weight="700" fill="#284c63">Code Graph</text><text x="18" y="42" font-size="10" fill="#637787">live AST reality</text></g>
- <g transform="translate(30 200)"><rect width="150" height="56" rx="10" fill="#edf3f7" stroke="#99b2c2"/><text x="18" y="25" font-size="12" font-weight="700" fill="#284c63">Semantic Memory</text><text x="18" y="42" font-size="10" fill="#637787">lessons + checkpoints</text></g>
- <g transform="translate(30 268)"><rect width="150" height="56" rx="10" fill="#edf3f7" stroke="#99b2c2"/><text x="18" y="25" font-size="12" font-weight="700" fill="#284c63">Task Hierarchy</text><text x="18" y="42" font-size="10" fill="#637787">epic → story → task</text></g>
- <path d="M180 92H238M180 160H238M180 228H238M180 296H238" stroke="#60798d" stroke-width="2" marker-end="url(#ar)"/>
- <g transform="translate(246 133)"><rect width="120" height="120" rx="16" fill="#e6f0f6" stroke="#70a1bb"/><text x="29" y="42" font-size="13" font-weight="700" fill="#214d67">Planner / PFC</text><text x="22" y="66" font-size="10" fill="#637787">full project context</text><text x="31" y="83" font-size="10" fill="#637787">task decomposition</text><text x="31" y="100" font-size="10" fill="#637787">model routing</text></g>
- <path d="M366 193H420" stroke="#60798d" stroke-width="2.5" marker-end="url(#ar)"/>
- <g transform="translate(428 92)"><rect width="110" height="62" rx="11" fill="#eef7ee" stroke="#8bae8b"/><text x="28" y="28" font-size="12" font-weight="700" fill="#42664a">Executor</text><text x="22" y="46" font-size="10" fill="#687b6c">implement</text></g>
- <path d="M483 154V184" stroke="#60798d" stroke-width="2.5" marker-end="url(#ar)"/>
- <g transform="translate(428 192)"><rect width="110" height="62" rx="11" fill="#f8f1e7" stroke="#c5a27a"/><text x="35" y="28" font-size="12" font-weight="700" fill="#79562f">Critic</text><text x="24" y="46" font-size="10" fill="#806c55">validate</text></g>
- <path d="M538 223H590" stroke="#60798d" stroke-width="2.5" marker-end="url(#ar)"/>
- <g transform="translate(598 148)"><rect width="126" height="110" rx="13" fill="#eef3f8" stroke="#8ba6bd"/><text x="20" y="27" font-size="12" font-weight="700" fill="#294f68">Quality Gates</text><text x="20" y="49" font-size="10" fill="#667a89">tests actually run</text><text x="20" y="65" font-size="10" fill="#667a89">branch coverage</text><text x="20" y="81" font-size="10" fill="#667a89">mock-smell checks</text><text x="20" y="98" font-size="10" fill="#667a89">fail-closed verdict</text></g>
- <path d="M598 278 C565 324 442 328 372 247" fill="none" stroke="#4d86a6" stroke-width="2.3" stroke-dasharray="6 5" marker-end="url(#ar)"/>
- <text x="435" y="337" font-size="10" fill="#5d7889">reject → retry with feedback · accept → store lessons</text>
+ <text x="44" y="125" font-size="15" font-weight="700" fill="#6b7d89">PROJECT CONTEXT</text>
+ <g transform="translate(42 146)"><rect width="194" height="58" rx="12" fill="#edf3f7" stroke="#99b2c2"/><text x="18" y="36" font-size="18" font-weight="700" fill="#284c63">Skill Layer</text></g>
+ <g transform="translate(42 218)"><rect width="194" height="58" rx="12" fill="#edf3f7" stroke="#99b2c2"/><text x="18" y="36" font-size="18" font-weight="700" fill="#284c63">Live Code Graph</text></g>
+ <g transform="translate(42 290)"><rect width="194" height="58" rx="12" fill="#edf3f7" stroke="#99b2c2"/><text x="18" y="36" font-size="18" font-weight="700" fill="#284c63">Semantic Memory</text></g>
+ <g transform="translate(42 362)"><rect width="194" height="58" rx="12" fill="#edf3f7" stroke="#99b2c2"/><text x="18" y="36" font-size="18" font-weight="700" fill="#284c63">Epic → Story → Task</text></g>
+ <path d="M236 175H294M236 247H294M236 319H294M236 391H294" stroke="#60798d" stroke-width="2.5" marker-end="url(#arrow)"/>
+ <g transform="translate(310 215)"><rect width="168" height="142" rx="20" fill="#e6f0f6" stroke="#70a1bb" stroke-width="2"/><text x="30" y="48" font-size="21" font-weight="700" fill="#214d67">Planner / PFC</text><text x="30" y="79" font-size="15" fill="#637787">decompose work</text><text x="30" y="102" font-size="15" fill="#637787">route models</text><text x="30" y="125" font-size="15" fill="#637787">resume context</text></g>
+ <path d="M478 286H531" stroke="#60798d" stroke-width="3" marker-end="url(#arrow)"/>
+ <g transform="translate(546 145)"><rect width="144" height="78" rx="16" fill="#eef7ee" stroke="#8bae8b" stroke-width="2"/><text x="31" y="47" font-size="20" font-weight="700" fill="#42664a">Executor</text></g>
+ <path d="M618 223V257" stroke="#60798d" stroke-width="3" marker-end="url(#arrow)"/>
+ <g transform="translate(546 271)"><rect width="144" height="78" rx="16" fill="#f8f1e7" stroke="#c5a27a" stroke-width="2"/><text x="42" y="47" font-size="20" font-weight="700" fill="#79562f">Critic</text></g>
+ <path d="M690 310H734" stroke="#60798d" stroke-width="3" marker-end="url(#arrow)"/>
+ <g transform="translate(748 202)"><rect width="116" height="172" rx="18" fill="#eef3f8" stroke="#8ba6bd" stroke-width="2"/><text x="15" y="38" font-size="18" font-weight="700" fill="#294f68">Quality</text><text x="15" y="61" font-size="18" font-weight="700" fill="#294f68">gates</text><path d="M22 91l8 8 16-19M22 124l8 8 16-19" fill="none" stroke="#3a819f" stroke-width="4" stroke-linecap="round"/><text x="55" y="98" font-size="14" fill="#667a89">tests</text><text x="55" y="131" font-size="14" fill="#667a89">checks</text></g>
+ <path d="M748 396C681 454 507 455 424 368" fill="none" stroke="#4d86a6" stroke-width="3" stroke-dasharray="8 7" marker-end="url(#arrow)"/>
+ <text x="520" y="462" font-size="15" fill="#5d7889">feedback → retry · accepted lessons → memory</text>
 </g>
 </svg>
