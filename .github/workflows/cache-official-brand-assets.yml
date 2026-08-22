@@ -1,20 +1,22 @@
 name: Cache official brand assets
 
 on:
-  push:
-    branches: [cache-official-brand-images]
-    paths: [.github/workflows/cache-official-brand-assets.yml]
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
 
 permissions:
   contents: write
 
 jobs:
   cache:
+    if: github.event.pull_request.head.ref == 'cache-official-brand-images'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: cache-official-brand-images
+          fetch-depth: 0
       - name: Download official assets
         run: |
           set -euxo pipefail
