@@ -1,0 +1,54 @@
+name: Build HAN-Agents TikZ figure
+
+on:
+  push:
+    branches: [redraw-han-agents-tikz]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - name: Install TeX and converters
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends texlive-latex-base texlive-latex-extra texlive-pictures poppler-utils
+          python -m pip install --disable-pip-version-check scour
+      - name: Compile TikZ figure
+        working-directory: assets/diagrams/src
+        run: |
+          pdflatex -interaction=nonstopmode -halt-on-error han-agents.tex
+          pdftocairo -svg han-agents.pdf ../han-agents.raw.svg
+          scour -i ../han-agents.raw.svg -o ../han-agents.svg --enable-viewboxing --enable-id-stripping --shorten-ids --strip-xml-prolog --remove-metadata
+          rm ../han-agents.raw.svg
+          pdftoppm -png -r 180 -singlefile han-agents.pdf /tmp/han-agents-preview
+      - name: Validate output
+        run: |
+          test -s assets/diagrams/han-agents.svg
+          test -s /tmp/han-agents-preview.png
+          grep -q '<svg' assets/diagrams/han-agents.svg
+      - name: Commit generated SVG
+        run: |
+          if git diff --quiet -- assets/diagrams/han-agents.svg; then
+            echo 'Generated SVG is already up to date.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/diagrams/han-agents.svg
+          git commit -m 'build: regenerate HAN-Agents SVG from TikZ'
+          git push origin HEAD:redraw-han-agents-tikz
+      - uses: actions/upload-artifact@v4
+        with:
+          name: han-agents-tikz-preview
+          path: |
+            assets/diagrams/src/han-agents.pdf
+            assets/diagrams/han-agents.svg
+            /tmp/han-agents-preview.png
+          if-no-files-found: error
