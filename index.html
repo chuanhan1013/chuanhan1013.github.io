@@ -11,7 +11,22 @@
   <title>Chuan-Han Li — Robotics & Embodied AI</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="styles.css" />
-  <style>.timeline .timeline-featured{margin:0 -10px;padding-left:14px;padding-right:14px;border-radius:14px;background:linear-gradient(90deg,rgba(35,95,156,.075),rgba(42,127,131,.035));box-shadow:inset 3px 0 0 rgba(35,95,156,.45)}</style>
+  <style>
+    .timeline .timeline-featured{margin:0 -10px;padding-left:14px;padding-right:14px;border-radius:14px;background:linear-gradient(90deg,rgba(35,95,156,.075),rgba(42,127,131,.035));box-shadow:inset 3px 0 0 rgba(35,95,156,.45)}
+    .media-carousel{position:relative;overflow:hidden;min-height:218px;border:1px solid #d8e3eb;border-radius:16px;background:linear-gradient(180deg,#fcfeff,#f2f7fb);box-shadow:inset 0 1px 0 #fff,0 8px 22px rgba(33,61,88,.06)}
+    .media-carousel .carousel-track{position:relative;width:100%;height:245px}
+    .media-carousel .carousel-slide{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .22s ease}
+    .media-carousel .carousel-slide.is-active{opacity:1;pointer-events:auto}
+    .media-carousel .carousel-slide img{width:100%;height:100%;object-fit:cover}
+    .media-carousel .carousel-slide.is-diagram{padding:12px;background:linear-gradient(180deg,#fcfeff,#f2f7fb)}
+    .media-carousel .carousel-slide.is-diagram img{object-fit:contain}
+    .media-carousel .carousel-caption{position:absolute;left:12px;bottom:11px;padding:5px 8px;border-radius:7px;background:rgba(13,34,53,.62);backdrop-filter:blur(7px);color:#fff;font-size:9px;font-weight:700;letter-spacing:.02em}
+    .carousel-btn{position:absolute;z-index:4;top:50%;transform:translateY(-50%);display:grid;place-items:center;width:32px;height:42px;border:0;border-radius:10px;background:rgba(12,32,49,.42);backdrop-filter:blur(8px);color:#fff;font-size:24px;line-height:1;cursor:pointer;opacity:.82;transition:.18s ease}
+    .carousel-btn:hover{background:rgba(12,32,49,.62);opacity:1}.carousel-btn.prev{left:9px}.carousel-btn.next{right:9px}
+    .carousel-dots{position:absolute;z-index:4;left:50%;bottom:10px;transform:translateX(-50%);display:flex;gap:6px;padding:5px 7px;border-radius:999px;background:rgba(12,32,49,.28);backdrop-filter:blur(7px)}
+    .carousel-dot{width:6px;height:6px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.48);cursor:pointer}.carousel-dot.is-active{background:#fff;transform:scale(1.15)}
+    @media(max-width:700px){.media-carousel .carousel-track{height:230px}.carousel-btn{width:30px;height:40px}.carousel-caption{display:none}}
+  </style>
   <style>
     @media (prefers-reduced-motion: no-preference) {
       body.reveal-ready .timeline article.is-visible,
@@ -64,197 +79,118 @@
         <section id="about" class="hero section-anchor">
           <p class="kicker">BUILDING RELIABLE INTELLIGENT ROBOTS</p>
           <h2>Researching autonomy from perception and representation to planning and control.</h2>
-          <p class="hero-lede">
-            I am an M.Sc. Robotics student at the National University of Singapore with a background in biomechatronics, multimodal perception, robot learning, and AI engineering. My current research focuses on motion planning for robot manipulators in dynamic environments, while my broader interests include embodied AI and reliable autonomy.
-          </p>
-          <div class="interest-strip" aria-label="Research interests">
-            <span>Motion Planning</span><span>Robot Learning</span><span>Embodied AI</span><span>Multimodal Perception</span><span>Reliable Autonomy</span>
-          </div>
+          <p class="hero-lede">I am an M.Sc. Robotics student at the National University of Singapore with a background in biomechatronics, multimodal perception, robot learning, and AI engineering. My current research focuses on motion planning for robot manipulators in dynamic environments, while my broader interests include embodied AI and reliable autonomy.</p>
+          <div class="interest-strip" aria-label="Research interests"><span>Motion Planning</span><span>Robot Learning</span><span>Embodied AI</span><span>Multimodal Perception</span><span>Reliable Autonomy</span></div>
         </section>
 
         <section id="research" class="section section-anchor">
-          <div class="section-heading">
-            <p class="section-kicker">FEATURED</p><h2>Research</h2>
-          </div>
-
+          <div class="section-heading"><p class="section-kicker">FEATURED</p><h2>Research</h2></div>
           <article class="feature-card">
-            <div class="feature-media diagram-frame">
-              <img src="assets/diagrams/dynur.svg" alt="Method diagram for dynamic manipulator motion planning and link-centric obstacle representation" />
-              <span class="badge">NUS ARC · Ongoing</span>
-            </div>
+            <div class="feature-media diagram-frame"><img src="assets/diagrams/dynur.svg" alt="Method diagram for dynamic manipulator motion planning and link-centric obstacle representation" /><span class="badge">NUS ARC · Ongoing</span></div>
             <div class="feature-body">
-              <p class="feature-number">01</p>
-              <h3>Motion Planning for Robot Manipulators in Dynamic Environments</h3>
+              <p class="feature-number">01</p><h3>Motion Planning for Robot Manipulators in Dynamic Environments</h3>
               <p class="meta">Advanced Robotics Centre, NUS · Advisor: Prof. Marcelo H. Ang Jr. · 2026–Present</p>
-              <p>
-                Developing obstacle representations for learning-based motion planning in dynamic scenes, including a link-centric surface-distance grid that encodes obstacle proximity by link segment and approach direction for use as a policy observation.
-              </p>
+              <p>Developing obstacle representations for learning-based motion planning in dynamic scenes, including a link-centric surface-distance grid that encodes obstacle proximity by link segment and approach direction for use as a policy observation.</p>
               <div class="tag-row"><span>Manipulation</span><span>Motion Planning</span><span>RL Observation</span><span>Dynamic Obstacles</span></div>
               <p class="note">Research in progress. Public portfolio intentionally shows the research direction rather than unpublished internal results.</p>
             </div>
           </article>
 
           <article class="feature-card">
-            <div class="feature-media diagram-frame">
-              <img src="assets/diagrams/egg-multimodal.svg" alt="Visible and thermal multimodal fertility-detection pipeline" />
-              <span class="badge">ACPA 2025</span>
-            </div>
+            <div class="feature-media diagram-frame"><img src="assets/diagrams/egg-multimodal.svg" alt="Visible and thermal multimodal fertility-detection pipeline" /><span class="badge">ACPA 2025</span></div>
             <div class="feature-body">
-              <p class="feature-number">02</p>
-              <h3>Multimodal Visual–Thermal Fertility Detection</h3>
+              <p class="feature-number">02</p><h3>Multimodal Visual–Thermal Fertility Detection</h3>
               <p class="meta">Lab of Machine Learning and Machine Vision, NTU · Advisor: Prof. Yan-Fu Kuo · 2024–2025</p>
-              <p>
-                Built a two-stage object-detection and lightweight-classification pipeline together with a controlled visible + thermal imaging setup for duck eggs. Cross-modal fusion achieved approximately 93% classification accuracy.
-              </p>
-              <div class="result-row">
-                <div><strong>~93%</strong><span>classification accuracy</span></div>
-                <div><strong>2-stage</strong><span>detection + classification</span></div>
-                <div><strong>ACPA 2025</strong><span>extended abstract · oral</span></div>
-              </div>
+              <p>Built a two-stage object-detection and lightweight-classification pipeline together with a controlled visible + thermal imaging setup for duck eggs. Cross-modal fusion achieved approximately 93% classification accuracy.</p>
+              <div class="result-row"><div><strong>~93%</strong><span>classification accuracy</span></div><div><strong>2-stage</strong><span>detection + classification</span></div><div><strong>ACPA 2025</strong><span>extended abstract · oral</span></div></div>
               <div class="tag-row"><span>Computer Vision</span><span>Thermal Imaging</span><span>Sensor Fusion</span><span>YOLO</span></div>
             </div>
           </article>
         </section>
 
         <section id="projects" class="section section-anchor">
-          <div class="section-heading">
-            <p class="section-kicker">SELECTED</p><h2>Engineering & AI Systems</h2>
-          </div>
-
+          <div class="section-heading"><p class="section-kicker">SELECTED</p><h2>Engineering & AI Systems</h2></div>
           <article class="feature-card feature-card--project">
-            <div class="feature-media diagram-frame">
-              <img src="assets/diagrams/han-agents.svg" alt="HAN-Agents multi-agent coding harness architecture" />
-              <span class="badge">AI ENGINEERING</span>
-            </div>
+            <div class="feature-media diagram-frame"><img src="assets/diagrams/han-agents.svg" alt="HAN-Agents multi-agent coding harness architecture" /><span class="badge">AI ENGINEERING</span></div>
             <div class="feature-body">
-              <p class="feature-number">03</p>
-              <h3>HAN-Agents — Persistent Multi-Agent Coding Harness</h3>
+              <p class="feature-number">03</p><h3>HAN-Agents — Persistent Multi-Agent Coding Harness</h3>
               <p class="meta">ChainSea Information Integration · AI Engineering Intern (R&D)</p>
-              <p>
-                Built a task orchestration layer for AI coding assistants combining a skill layer, live code graph, semantic memory, resumable checkpoints, hierarchical tasks, automated Executor → Critic → Memory dispatch, and tool-verified quality gates.
-              </p>
-              <div class="result-row compact">
-                <div><strong>Weeks → ~1 day</strong><span>to first executable unit-test suite</span></div>
-                <div><strong>8 languages</strong><span>AST-backed code graph support</span></div>
-              </div>
-              <div class="project-links">
-                <a href="https://github.com/HanLi-Chainsea/han-agents" target="_blank" rel="noreferrer">Code ↗</a>
-              </div>
+              <p>Built a task orchestration layer for AI coding assistants combining a skill layer, live code graph, semantic memory, resumable checkpoints, hierarchical tasks, automated Executor → Critic → Memory dispatch, and tool-verified quality gates.</p>
+              <div class="result-row compact"><div><strong>Weeks → ~1 day</strong><span>to first executable unit-test suite</span></div><div><strong>8 languages</strong><span>AST-backed code graph support</span></div></div>
+              <div class="project-links"><a href="https://github.com/HanLi-Chainsea/han-agents" target="_blank" rel="noreferrer">Code ↗</a></div>
             </div>
           </article>
 
           <article class="feature-card feature-card--project">
-            <div class="feature-media media-real">
-              <img src="https://raw.githubusercontent.com/chuanhan1013/isaaclab-torque-locomotion/main/results/deck/06_roughReplay_cleanWalk.gif" alt="Quadruped locomotion policy replay on rough terrain in Isaac Lab" loading="lazy" />
-              <span class="badge">ROBOT LEARNING</span>
-            </div>
+            <div class="feature-media media-real"><img src="https://raw.githubusercontent.com/chuanhan1013/isaaclab-torque-locomotion/main/results/deck/06_roughReplay_cleanWalk.gif" alt="Quadruped locomotion policy replay on rough terrain in Isaac Lab" loading="lazy" /><span class="badge">ROBOT LEARNING</span></div>
             <div class="feature-body">
-              <p class="feature-number">04</p>
-              <h3>Bio-Inspired Robot Learning Framework</h3>
+              <p class="feature-number">04</p><h3>Bio-Inspired Robot Learning Framework</h3>
               <p class="meta">Adaptive Control · Spring 2026</p>
-              <p>
-                Reproduced the SATA (RSS 2025) torque-based locomotion pipeline, analysed policy behaviour and training stability, and migrated the implementation from Isaac Gym to Isaac Lab.
-              </p>
+              <p>Reproduced the SATA (RSS 2025) torque-based locomotion pipeline, analysed policy behaviour and training stability, and migrated the implementation from Isaac Gym to Isaac Lab.</p>
               <div class="tag-row"><span>Isaac Lab</span><span>Isaac Gym</span><span>Torque Control</span><span>Robot Learning</span></div>
-              <div class="project-links">
-                <a href="https://github.com/chuanhan1013/isaaclab-torque-locomotion" target="_blank" rel="noreferrer">Code ↗</a>
-              </div>
+              <div class="project-links"><a href="https://github.com/chuanhan1013/isaaclab-torque-locomotion" target="_blank" rel="noreferrer">Code ↗</a></div>
             </div>
           </article>
 
           <article class="feature-card feature-card--project">
-            <div class="feature-media diagram-frame">
-              <img src="assets/diagrams/imu-basketball.svg" alt="Dual-IMU basketball shot sensing system architecture" />
-              <span class="badge">SOLO PROJECT</span>
+            <div class="feature-media media-carousel" data-carousel aria-label="Basketball sensing project media">
+              <div class="carousel-track">
+                <figure class="carousel-slide is-active"><img src="assets/media/basketball-sensing-demo.gif" alt="Wearable dual-IMU basketball sensing demo with live motion traces" loading="lazy" /><figcaption class="carousel-caption">Live sensing demo</figcaption></figure>
+                <figure class="carousel-slide"><img src="assets/media/basketball-sensing-setup.jpg" alt="Basketball sensing wearable prototype, receiver electronics, and live dashboard" loading="lazy" /><figcaption class="carousel-caption">Prototype + receiver + dashboard</figcaption></figure>
+                <figure class="carousel-slide is-diagram"><img src="assets/diagrams/imu-basketball.svg" alt="Dual-IMU basketball shot sensing system architecture" loading="lazy" /><figcaption class="carousel-caption">System architecture</figcaption></figure>
+              </div>
+              <button class="carousel-btn prev" type="button" aria-label="Previous media">‹</button><button class="carousel-btn next" type="button" aria-label="Next media">›</button>
+              <div class="carousel-dots" aria-label="Choose project media"></div><span class="badge">SOLO PROJECT</span>
             </div>
             <div class="feature-body">
-              <p class="feature-number">05</p>
-              <h3>Wearable Basketball Shot Sensing System</h3>
+              <p class="feature-number">05</p><h3>Wearable Basketball Shot Sensing System</h3>
               <p class="meta">Mechatronics II · Fall 2025 · Solo</p>
-              <p>
-                Built an end-to-end dual-IMU wearable sensing system spanning 100 Hz wireless acquisition, preprocessing, automated shot segmentation, feature extraction, replay, labeling, and a Python web dashboard.
-              </p>
+              <p>Built an end-to-end dual-IMU wearable sensing system spanning 100 Hz wireless acquisition, preprocessing, automated shot segmentation, feature extraction, replay, labeling, and a Python web dashboard.</p>
               <div class="tag-row"><span>Arduino</span><span>Dual IMU</span><span>FastAPI</span><span>WebSocket</span><span>Signal Processing</span></div>
-              <div class="project-links">
-                <a href="https://github.com/chuanhan1013/mechatronic_2_ntu_bime_2025" target="_blank" rel="noreferrer">Code ↗</a>
-              </div>
+              <div class="project-links"><a href="https://github.com/chuanhan1013/mechatronic_2_ntu_bime_2025" target="_blank" rel="noreferrer">Code ↗</a></div>
             </div>
           </article>
 
           <div class="project-grid">
-            <article class="mini-card">
-              <div class="mini-visual robot-cleaner" aria-hidden="true"><span></span><i></i><b></b></div>
-              <p class="mini-label">AUTONOMOUS SYSTEMS</p>
-              <h3>Autonomous Cleaning Robot</h3>
-              <p>Integrated vision, wall-following, obstacle avoidance, and task-execution logic across a Raspberry Pi + Arduino architecture for autonomous competition runs.</p>
-              <a href="https://github.com/chuanhan1013/mechatronic_4_ntu_bime_2025_group10" target="_blank" rel="noreferrer">Repository ↗</a>
-            </article>
-
-            <article class="mini-card">
-              <div class="mini-visual tracked-robot" aria-hidden="true"><span></span><i></i><b></b></div>
-              <p class="mini-label">MECHANICAL DESIGN · TEAM LEAD</p>
-              <h3>Amphibious Tracked Vehicle</h3>
-              <p>Led SolidWorks design and rapid 3D-printed prototyping of a modular tracked vehicle with paddle conversion; one of only two teams to finish all four terrain stages and placed 2nd overall.</p>
-              <div class="mini-metric"><strong>2nd</strong><span>overall official scoring</span></div>
-            </article>
+            <article class="mini-card"><div class="mini-visual robot-cleaner" aria-hidden="true"><span></span><i></i><b></b></div><p class="mini-label">AUTONOMOUS SYSTEMS</p><h3>Autonomous Cleaning Robot</h3><p>Integrated vision, wall-following, obstacle avoidance, and task-execution logic across a Raspberry Pi + Arduino architecture for autonomous competition runs.</p><a href="https://github.com/chuanhan1013/mechatronic_4_ntu_bime_2025_group10" target="_blank" rel="noreferrer">Repository ↗</a></article>
+            <article class="mini-card"><div class="mini-visual tracked-robot" aria-hidden="true"><span></span><i></i><b></b></div><p class="mini-label">MECHANICAL DESIGN · TEAM LEAD</p><h3>Amphibious Tracked Vehicle</h3><p>Led SolidWorks design and rapid 3D-printed prototyping of a modular tracked vehicle with paddle conversion; one of only two teams to finish all four terrain stages and placed 2nd overall.</p><div class="mini-metric"><strong>2nd</strong><span>overall official scoring</span></div></article>
           </div>
         </section>
 
         <section id="experience" class="section section-anchor">
           <div class="section-heading"><p class="section-kicker">BACKGROUND</p><h2>Experience</h2></div>
           <div class="timeline">
-            <article>
-              <div class="when">2026–Present</div>
-              <div><p class="timeline-label">CURRENT RESEARCH</p><h3>Advanced Robotics Centre, NUS</h3><p>Researching motion planning for robot manipulators in dynamic environments under Prof. Marcelo H. Ang Jr., with a focus on obstacle representation and reliable autonomy.</p></div>
-            </article>
-            <article class="timeline-featured">
-              <div class="when">Jul 2025–Jul 2026</div>
-              <div><p class="timeline-label">INDUSTRY · AI ENGINEERING INTERN (R&amp;D)</p><h3>ChainSea Information Integration Co. Ltd.</h3><p>Built HAN-Agents and full-stack AI workflow tools; introduced docs-first engineering practices, automated testing workflows, and repository quality gates across production projects.</p></div>
-            </article>
-            <article>
-              <div class="when">Aug 2024–Jul 2025<br />Feb–Jun 2026</div>
-              <div><p class="timeline-label">RESEARCH ASSISTANT</p><h3>National Taiwan University · Dept. of Biomechatronics Engineering</h3><p>Supported computer-vision research through image annotation and dataset preparation under Prof. Yan-Fu Kuo, alongside independent multimodal visual–thermal research.</p></div>
-            </article>
+            <article><div class="when">2026–Present</div><div><p class="timeline-label">CURRENT RESEARCH</p><h3>Advanced Robotics Centre, NUS</h3><p>Researching motion planning for robot manipulators in dynamic environments under Prof. Marcelo H. Ang Jr., with a focus on obstacle representation and reliable autonomy.</p></div></article>
+            <article class="timeline-featured"><div class="when">Jul 2025–Jul 2026</div><div><p class="timeline-label">INDUSTRY · AI ENGINEERING INTERN (R&amp;D)</p><h3>ChainSea Information Integration Co. Ltd.</h3><p>Built HAN-Agents and full-stack AI workflow tools; introduced docs-first engineering practices, automated testing workflows, and repository quality gates across production projects.</p></div></article>
+            <article><div class="when">Aug 2024–Jul 2025<br />Feb–Jun 2026</div><div><p class="timeline-label">RESEARCH ASSISTANT</p><h3>National Taiwan University · Dept. of Biomechatronics Engineering</h3><p>Supported computer-vision research through image annotation and dataset preparation under Prof. Yan-Fu Kuo, alongside independent multimodal visual–thermal research.</p></div></article>
           </div>
         </section>
 
         <section id="education" class="section section-anchor">
           <div class="section-heading"><p class="section-kicker">EDUCATION</p><h2>Education & Skills</h2></div>
           <div class="education-grid">
-            <article class="edu-card">
-              <p>2026–Present</p><h3>National University of Singapore</h3>
-              <strong>M.Sc. in Robotics</strong><span>Singapore</span>
-              <span><b>Research:</b> Advanced Robotics Centre (ARC)</span>
-              <span><b>Advisor:</b> Prof. Marcelo H. Ang Jr.</span>
-            </article>
-            <article class="edu-card">
-              <p>2022–2026</p><h3>National Taiwan University</h3>
-              <strong>B.S. in Biomechatronics Engineering</strong><span>GPA 3.75 / 4.3 · AI + Mechatronics & Control certificates</span>
-              <span><b>Research:</b> Lab of Machine Learning and Machine Vision</span>
-              <span><b>Advisor:</b> Prof. Yan-Fu Kuo</span>
-            </article>
+            <article class="edu-card"><p>2026–Present</p><h3>National University of Singapore</h3><strong>M.Sc. in Robotics</strong><span>Singapore</span><span><b>Research:</b> Advanced Robotics Centre (ARC)</span><span><b>Advisor:</b> Prof. Marcelo H. Ang Jr.</span></article>
+            <article class="edu-card"><p>2022–2026</p><h3>National Taiwan University</h3><strong>B.S. in Biomechatronics Engineering</strong><span>GPA 3.75 / 4.3 · AI + Mechatronics & Control certificates</span><span><b>Research:</b> Lab of Machine Learning and Machine Vision</span><span><b>Advisor:</b> Prof. Yan-Fu Kuo</span></article>
           </div>
-
-          <div class="skills">
-            <div><h3>Robotics / Systems</h3><p>Robot kinematics, geometric modelling, Isaac Gym, Isaac Lab, PID/PD control, state machines, Raspberry Pi, Arduino</p></div>
-            <div><h3>AI / Perception</h3><p>PyTorch, TensorFlow, OpenCV, YOLO, CNNs, sensor fusion, multimodal perception</p></div>
-            <div><h3>Software / Engineering</h3><p>Python, C/C++, TypeScript/JavaScript, Linux, Docker, Git, CI/CD, automated testing, AI coding agents (Claude Code, Codex)</p></div>
-            <div><h3>CAD / Prototyping</h3><p>SolidWorks, 3D printing, mechatronic system integration</p></div>
-          </div>
-
-          <div class="award-strip">
-            <div><strong>Fu Bell Award</strong><span>NTU · department's top-ranked incoming student · 2022</span></div>
-            <div><strong>NTU Varsity Basketball</strong><span>Representative player; led department-team training toward Division 1 promotion · 2024–2025</span></div>
-          </div>
+          <div class="skills"><div><h3>Robotics / Systems</h3><p>Robot kinematics, geometric modelling, Isaac Gym, Isaac Lab, PID/PD control, state machines, Raspberry Pi, Arduino</p></div><div><h3>AI / Perception</h3><p>PyTorch, TensorFlow, OpenCV, YOLO, CNNs, sensor fusion, multimodal perception</p></div><div><h3>Software / Engineering</h3><p>Python, C/C++, TypeScript/JavaScript, Linux, Docker, Git, CI/CD, automated testing, AI coding agents (Claude Code, Codex)</p></div><div><h3>CAD / Prototyping</h3><p>SolidWorks, 3D printing, mechatronic system integration</p></div></div>
+          <div class="award-strip"><div><strong>Fu Bell Award</strong><span>NTU · department's top-ranked incoming student · 2022</span></div><div><strong>NTU Varsity Basketball</strong><span>Representative player; led department-team training toward Division 1 promotion · 2024–2025</span></div></div>
         </section>
 
-        <footer>
-          <p>Designed as a research-engineering portfolio. Built with semantic HTML, CSS, and hand-authored SVG diagrams.</p>
-          <div><a href="mailto:chuanhan1013@gmail.com">Email</a><a href="https://github.com/chuanhan1013">GitHub</a><a href="https://linkedin.com/in/chuanhan-li">LinkedIn</a><a href="https://unavatar.io">Avatar via Unavatar</a></div>
-        </footer>
+        <footer><p>Designed as a research-engineering portfolio. Built with semantic HTML, CSS, and hand-authored SVG diagrams.</p><div><a href="mailto:chuanhan1013@gmail.com">Email</a><a href="https://github.com/chuanhan1013">GitHub</a><a href="https://linkedin.com/in/chuanhan-li">LinkedIn</a><a href="https://unavatar.io">Avatar via Unavatar</a></div></footer>
       </div>
     </main>
   </div>
   <script src="script.js"></script>
+  <script>
+    document.querySelectorAll('[data-carousel]').forEach((carousel) => {
+      const slides = [...carousel.querySelectorAll('.carousel-slide')]; const prev = carousel.querySelector('.carousel-btn.prev'); const next = carousel.querySelector('.carousel-btn.next'); const dotsWrap = carousel.querySelector('.carousel-dots');
+      if (slides.length < 2) { prev?.remove(); next?.remove(); dotsWrap?.remove(); return; }
+      let index = 0;
+      const dots = slides.map((_, i) => { const dot = document.createElement('button'); dot.className = 'carousel-dot' + (i === 0 ? ' is-active' : ''); dot.type = 'button'; dot.setAttribute('aria-label', `Show media ${i + 1}`); dot.addEventListener('click', () => show(i)); dotsWrap.appendChild(dot); return dot; });
+      function show(nextIndex) { index = (nextIndex + slides.length) % slides.length; slides.forEach((slide, i) => slide.classList.toggle('is-active', i === index)); dots.forEach((dot, i) => dot.classList.toggle('is-active', i === index)); }
+      prev.addEventListener('click', () => show(index - 1)); next.addEventListener('click', () => show(index + 1));
+      let startX = null; carousel.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive:true}); carousel.addEventListener('touchend', e => { if (startX === null) return; const dx = e.changedTouches[0].clientX - startX; startX = null; if (Math.abs(dx) > 45) show(index + (dx < 0 ? 1 : -1)); }, {passive:true});
+    });
+  </script>
 </body>
 </html>
