@@ -1,0 +1,64 @@
+name: Patch ARC NUS badge
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Replace CDE badge patch with compact NUS vertical mark
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('media-patch.js')
+          s = p.read_text()
+          start = s.index('  /* ARC identity:')
+          end_marker = "  window.addEventListener('DOMContentLoaded', applyCdeBadges, { once: true });\n"
+          end = s.index(end_marker, start) + len(end_marker)
+          replacement = '''  /* ARC identity: use the compact official NUS vertical logo rather than an ARC/CDE text badge. */
+  const applyNusArcBadges = () => {
+    const logo = () => '<img class="arc-nus-logo" src="assets/icons/nus-vertical.jpg" alt="" loading="lazy" decoding="async">';
+
+    document.querySelectorAll('.institution-arc').forEach(mark => {
+      mark.classList.remove('institution-image-mark', 'institution-cde-mark');
+      mark.classList.add('institution-nus-mark');
+      mark.innerHTML = logo();
+    });
+
+    const arcChip = [...document.querySelectorAll('#research .entity-chip')].find(chip => chip.textContent.includes('Advanced Robotics Centre'));
+    const chipMark = arcChip?.querySelector('.entity-chip-mark');
+    if (chipMark) {
+      chipMark.className = 'entity-chip-mark arc-nus-mark arc-nus-chip';
+      chipMark.innerHTML = logo();
+    }
+
+    document.querySelectorAll('.edu-arc-row .org-inline-icon, .edu-arc-row .cde-edu-badge').forEach(mark => {
+      mark.className = 'arc-nus-mark arc-nus-edu';
+      mark.innerHTML = logo();
+    });
+  };
+  window.addEventListener('DOMContentLoaded', applyNusArcBadges, { once: true });
+'''
+          s = s[:start] + replacement + s[end:]
+          insert = "  const arcNusStyle = document.createElement('style');\n  arcNusStyle.textContent = '.arc-nus-mark,.institution-nus-mark{display:inline-grid!important;place-items:center!important;box-sizing:border-box!important;width:28px!important;min-width:28px!important;height:30px!important;flex:0 0 28px!important;padding:2px!important;border:1px solid #d8e3eb!important;border-radius:7px!important;background:#fff!important;overflow:hidden!important;box-shadow:none!important}.arc-nus-logo{display:block!important;width:100%!important;height:100%!important;object-fit:contain!important}.institution-nus-mark{float:none!important;margin:0!important}.arc-nus-chip,.arc-nus-edu{margin:0!important}';\n  document.head.append(arcNusStyle);\n"
+          s = s.replace('  document.head.append(style);\n})();', '  document.head.append(style);\n' + insert + '})();')
+          p.write_text(s)
+          PY
+      - name: Commit patch and remove temporary workflow
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add media-patch.js assets/icons/nus-vertical.jpg
+          git rm .github/workflows/patch-arc-nus-logo.yml
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Use compact NUS vertical mark for ARC'
+          git push origin HEAD:${{ github.head_ref }}
