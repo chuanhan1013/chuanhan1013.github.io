@@ -7,33 +7,50 @@ on:
     branches: [main]
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'push' && github.ref_name || github.event.pull_request.head.sha }}
       - name: Install TeX and converters
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends texlive-latex-base texlive-latex-extra texlive-pictures poppler-utils
+          python -m pip install --disable-pip-version-check scour
       - name: Compile TikZ figure
         working-directory: assets/diagrams/src
         run: |
           pdflatex -interaction=nonstopmode -halt-on-error dynur.tex
-          pdftocairo -svg dynur.pdf ../dynur.generated.svg
+          pdftocairo -svg dynur.pdf ../dynur.raw.svg
+          scour -i ../dynur.raw.svg -o ../dynur.svg --enable-viewboxing --enable-id-stripping --shorten-ids --strip-xml-prolog --remove-metadata
+          rm ../dynur.raw.svg
           pdftoppm -png -r 180 -singlefile dynur.pdf /tmp/dynur-preview
       - name: Validate output
         run: |
-          test -s assets/diagrams/dynur.generated.svg
+          test -s assets/diagrams/dynur.svg
           test -s /tmp/dynur-preview.png
-          grep -q '<svg' assets/diagrams/dynur.generated.svg
+          grep -q '<svg' assets/diagrams/dynur.svg
+      - name: Commit generated SVG
+        if: github.event_name == 'push'
+        run: |
+          if git diff --quiet -- assets/diagrams/dynur.svg; then
+            echo 'Generated SVG is already up to date.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/diagrams/dynur.svg
+          git commit -m 'build: regenerate DynUR SVG from TikZ'
+          git push origin HEAD:redraw-dynur-tikz
       - uses: actions/upload-artifact@v4
         with:
           name: dynur-tikz-preview
           path: |
             assets/diagrams/src/dynur.pdf
-            assets/diagrams/dynur.generated.svg
+            assets/diagrams/dynur.svg
             /tmp/dynur-preview.png
           if-no-files-found: error
