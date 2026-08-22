@@ -1,0 +1,38 @@
+name: Cache official brand assets
+
+on:
+  push:
+    branches: [cache-official-brand-images]
+    paths: [.github/workflows/cache-official-brand-assets.yml]
+
+permissions:
+  contents: write
+
+jobs:
+  cache:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: cache-official-brand-images
+      - name: Download official assets
+        run: |
+          set -euxo pipefail
+          mkdir -p assets/icons
+          curl -L --fail --retry 3 --retry-delay 2 \
+            'https://arc.nus.edu.sg/wordpress/wp-content/uploads/2025/07/arc-logo.jpg' \
+            -o assets/icons/arc-official.jpg
+          curl -L --fail --retry 3 --retry-delay 2 \
+            'https://www.chainsea.com.tw/wp-content/uploads/2021/02/%E7%A8%8B%E6%9B%A6%E9%9B%86%E5%9C%98%E5%8F%B0%E7%81%A3LOGO_%E7%84%A1%E7%B7%9A.png' \
+            -o assets/icons/chainsea-official.png
+          file assets/icons/arc-official.jpg assets/icons/chainsea-official.png
+          test -s assets/icons/arc-official.jpg
+          test -s assets/icons/chainsea-official.png
+      - name: Commit cached assets
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/icons/arc-official.jpg assets/icons/chainsea-official.png
+          git rm .github/workflows/cache-official-brand-assets.yml
+          git commit -m 'cache official ARC and ChainSea logo images'
+          git push origin HEAD:cache-official-brand-images
