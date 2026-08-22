@@ -1,0 +1,67 @@
+name: Fix official icons and SATA gallery once
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.event.pull_request.head.ref == 'fix-official-icons-sata-gallery'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix-official-icons-sata-gallery
+          fetch-depth: 0
+      - name: Cache SATA media and patch portfolio
+        run: |
+          set -euxo pipefail
+          mkdir -p assets/media
+          curl -L --fail --retry 3 'https://raw.githubusercontent.com/chuanhan1013/isaaclab-torque-locomotion/main/results/deck/01_flat_rewardBug_crawl.gif' -o assets/media/sata-early-crawl.gif
+          curl -L --fail --retry 3 'https://raw.githubusercontent.com/chuanhan1013/isaaclab-torque-locomotion/main/results/deck/06_roughReplay_cleanWalk.gif' -o assets/media/sata-rough-walk.gif
+          curl -L --fail --retry 3 'https://raw.githubusercontent.com/chuanhan1013/isaaclab-torque-locomotion/main/results/deck/06_roughReplay_cleanWalk_still.png' -o assets/media/sata-rough-still.png
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          p = Path('index.html')
+          s = p.read_text()
+
+          # Use the downloaded official PNG files directly. No SVG wrapper / no hotlink.
+          s = s.replace('assets/icons/chainsea.svg', 'assets/icons/chainsea-official.png')
+          s = s.replace('assets/icons/arc.svg', 'assets/icons/arc-official.png')
+
+          # Keep animated SATA media uncropped.
+          anchor = '.basketball-demo{background:#0d1720!important}'
+          sata_css = '.sata-demo{background:#101820!important}.sata-demo img{object-fit:contain!important;width:100%!important;height:100%!important;background:#101820}\n    '
+          if '.sata-demo{' not in s and anchor in s:
+              s = s.replace(anchor, sata_css + anchor)
+
+          # Turn SATA's single remote GIF into a 3-slide, repo-local gallery.
+          pattern = re.compile(r'''<article class="feature-card feature-card--project">\s*<div class="feature-media media-real"><img src="https://raw\.githubusercontent\.com/chuanhan1013/isaaclab-torque-locomotion/main/results/deck/06_roughReplay_cleanWalk\.gif"[^>]*><span class="badge">ROBOT LEARNING</span></div>(?=\s*<div class="feature-body">\s*<p class="feature-number">04</p><h3>Bio-Inspired Robot Learning Framework</h3>)''')
+          replacement = '''<article class="feature-card feature-card--project">\n            <div class="feature-media media-carousel" data-carousel aria-label="SATA robot learning media">\n              <div class="carousel-track">\n                <figure class="carousel-slide is-active sata-demo"><img src="assets/media/sata-rough-walk.gif" alt="Quadruped locomotion policy replay on rough terrain in Isaac Lab" loading="lazy" decoding="async" /><figcaption class="carousel-caption">Rough-terrain replay · final policy</figcaption></figure>\n                <figure class="carousel-slide sata-demo"><img data-src="assets/media/sata-early-crawl.gif" alt="Early reward-bug locomotion behaviour during development" decoding="async" /><figcaption class="carousel-caption">Early iteration · reward bug</figcaption></figure>\n                <figure class="carousel-slide sata-demo"><img data-src="assets/media/sata-rough-still.png" alt="Still frame of final quadruped locomotion policy on rough terrain" decoding="async" /><figcaption class="carousel-caption">Final rough-terrain policy · still</figcaption></figure>\n              </div>\n              <button class="carousel-btn prev" type="button" aria-label="Previous SATA media">‹</button><button class="carousel-btn next" type="button" aria-label="Next SATA media">›</button>\n              <div class="carousel-dots" aria-label="Choose SATA project media"></div><span class="badge">ROBOT LEARNING</span>\n            </div>'''
+          s2, n = pattern.subn(replacement, s, count=1)
+          if n != 1:
+              raise SystemExit(f'Expected to patch exactly one SATA card, patched {n}')
+          p.write_text(s2)
+          PY
+          test -s assets/media/sata-early-crawl.gif
+          test -s assets/media/sata-rough-walk.gif
+          test -s assets/media/sata-rough-still.png
+          ! grep -q 'assets/icons/chainsea.svg' index.html
+          ! grep -q 'assets/icons/arc.svg' index.html
+          grep -q 'assets/icons/chainsea-official.png' index.html
+          grep -q 'assets/icons/arc-official.png' index.html
+          grep -q 'aria-label="SATA robot learning media"' index.html
+      - name: Commit patch and remove bootstrap workflow
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html assets/media/sata-early-crawl.gif assets/media/sata-rough-walk.gif assets/media/sata-rough-still.png
+          git rm .github/workflows/fix-icons-sata-once.yml
+          git commit -m 'fix official icons and enrich SATA media'
+          git push origin HEAD:fix-official-icons-sata-gallery
