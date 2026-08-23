@@ -1,1 +1,1 @@
-document.write('<script src="script-core.js"></script><script src="media-patch.js"></script>');
+document.write('<script src="script-core.js"></script><script src="media-patch.js"></script><script src="media-hotfix.js"></script>');
