@@ -25,8 +25,8 @@ jobs:
       - name: Compile basketball TikZ to SVG
         run: |
           mkdir -p /tmp/basketball-build
-          pdflatex -interaction=nonstopmode -halt-on-error -output-directory=/tmp/basketball-build assets/diagrams/src/imu-basketball.tex
-          dvisvgm --pdf --no-fonts --bbox=min --output=assets/diagrams/imu-basketball.svg /tmp/basketball-build/imu-basketball.pdf
+          latex -interaction=nonstopmode -halt-on-error -output-directory=/tmp/basketball-build assets/diagrams/src/imu-basketball.tex
+          dvisvgm --no-fonts --bbox=min --output=assets/diagrams/imu-basketball.svg /tmp/basketball-build/imu-basketball.dvi
           test -s assets/diagrams/imu-basketball.svg
           grep -q '<svg' assets/diagrams/imu-basketball.svg
 
