@@ -1,39 +1,19 @@
 # Portfolio asset wishlist
 
-The first portfolio version is complete without these files. Replacing the schematic placeholders with original media would make the strongest projects more convincing.
+The v1 portfolio now contains original media for the egg-fertility study, basketball sensing system, cleaning robot, triathlon robot, and SATA locomotion project. Core organisation and school marks used by the page are cached locally.
 
-## Highest priority
+## Optional future upgrades
 
 1. **NUS dynamic manipulator research**
-   - UR manipulator photo or short demo clip/GIF in a dynamic-obstacle scene
-   - visualization of the link-centric distance/grid observation, if publication-safe
+   - publication-safe FR3 / UR manipulator demo in a dynamic-obstacle scene
+   - public visualization or result figure once the work is ready to disclose
 
-2. **Multimodal visual–thermal fertility detection**
-   - one paired visible + thermal duck-egg sample
-   - photo of the controlled imaging setup
-   - confusion matrix / representative result figure, if available
-
-3. **Autonomous cleaning robot**
-   - clear final robot photo
+2. **Autonomous cleaning robot**
    - competition-run video/GIF
-   - one frame showing the vision/perception output
+   - representative perception / red-zone detection output
 
-4. **Wearable basketball shot sensing system**
-   - photo of the wearable dual-IMU hardware
-   - dashboard screenshot or short recording
+3. **HAN-Agents**
+   - safe trace, evaluation, or orchestration screenshot
+   - exclude proprietary code, client data, internal URLs, credentials, and secrets
 
-5. **Amphibious tracked vehicle**
-   - final robot photo
-   - CAD render / exploded view
-   - terrain-stage photo or competition video
-
-## Nice to have
-
-6. **ChainSea / HAN-Agents**
-   - dashboard or trace/evaluation screenshot that is safe to publish
-   - avoid screenshots containing proprietary code, client data, internal URLs, or secrets
-
-7. **Profile**
-   - optional professional portrait to replace the GitHub avatar
-
-The hand-authored SVG diagrams in `assets/diagrams/` are intentionally publication-style schematics and can remain alongside original media rather than being removed.
+These are enhancement opportunities, not blockers for v1.

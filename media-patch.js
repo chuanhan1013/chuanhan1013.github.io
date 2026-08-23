@@ -61,7 +61,7 @@
     const img = sataThird.querySelector('img');
     if (img) {
       img.removeAttribute('src');
-      img.dataset.src = 'https://raw.githubusercontent.com/chuanhan1013/isaaclab-torque-locomotion/main/results/gym_reference/ev_stairs.gif';
+      img.dataset.src = 'assets/media/sata-stairs.gif';
       img.alt = 'Isaac Gym reference policy traversing stairs';
       img.referrerPolicy = 'no-referrer';
     }
