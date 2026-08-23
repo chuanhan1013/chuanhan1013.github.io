@@ -29,25 +29,25 @@
     cleaningPlaceholder.replaceWith(carousel);
   }
 
-  /* Basketball: replace the 80×142 demo GIF with a landscape crop from the original recording. */
+  /* Basketball: replace the unusably small 80×142 GIF with a clear frame from the original 1080p recording. */
   const basketball = document.querySelector('[aria-label="Basketball sensing project media"]');
   if (basketball) {
     const demo = [...basketball.querySelectorAll('.carousel-slide')].find(slide => {
       const img = slide.querySelector('img');
       const src = img?.getAttribute('src') || img?.dataset?.src || '';
-      return src.includes('basketball-sensing-demo.gif') || src.includes('basketball-demo-landscape');
+      return src.includes('basketball-sensing-demo.gif') || src.includes('basketball-demo-still.webp');
     });
     if (demo) {
       demo.classList.add('basketball-demo-landscape');
       const img = demo.querySelector('img');
       if (img) {
-        img.src = 'assets/media/basketball-demo-landscape.webp';
+        img.src = 'assets/media/basketball-demo-still.webp';
         img.removeAttribute('data-src');
-        img.alt = 'Landscape crop of the dual-IMU wearable basketball sensing demo with the wearable hardware and live traces visible';
+        img.alt = 'Dual-IMU wearable basketball sensing demo with the wearable hardware and live traces visible';
         img.loading = 'eager';
       }
       const caption = demo.querySelector('.carousel-caption');
-      if (caption) caption.textContent = 'Wearable sensing demo · original recording crop';
+      if (caption) caption.textContent = 'Wearable sensing demo · original recording frame';
     }
   }
 
