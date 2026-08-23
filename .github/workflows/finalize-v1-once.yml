@@ -62,6 +62,7 @@ jobs:
           s = s.replace('https://nus.edu.sg/images/default-source/identity-images/fullcolorlogo.jpg', 'assets/icons/nus-fullcolor.jpg')
           s = s.replace('https://www.ntu.edu.tw/about/doc/Emblem72.jpg', 'assets/icons/ntu-emblem.jpg')
           s = s.replace('https://unavatar.io/linkedin/user:chuanhan-li', 'assets/media/profile-chuanhan.jpg')
+          s = s.replace('assets/media/basketball-sensing-setup.jpg', 'assets/media/basketball-setup.webp')
           s = s.replace(
               'src="assets/diagrams/egg-multimodal.svg" alt="Visible and thermal multimodal fertility-detection pipeline"',
               'src="assets/media/egg-setup.webp" alt="Controlled visible and thermal duck-egg imaging setup"'
