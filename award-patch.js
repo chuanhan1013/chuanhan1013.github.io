@@ -1,5 +1,5 @@
 (() => {
-  const FU_BELL_IMAGE = 'https://cpo.ntu.edu.tw/001/Upload/1513/relpic/101455/207313/7cfaa5e7-d19b-4fc2-b2a6-ceec23b41566%40710x470.jpg';
+  const NTU_EMBLEM = 'assets/icons/ntu-emblem.jpg';
   const NTU_BASKETBALL_BADGE = 'https://uba.tw/Uploads/TeamBadges/B96C7871-F121-41E1-BD8C-B3B008E0B6AF.png';
 
   const awardCards = [...document.querySelectorAll('.award-strip > div')];
@@ -17,7 +17,7 @@
     card.prepend(img);
   };
 
-  addIcon('Fu Bell Award', FU_BELL_IMAGE, 'award-mini-icon--fu', 'Fu Bell at National Taiwan University');
+  addIcon('Fu Bell Award', NTU_EMBLEM, 'award-mini-icon--fu', 'National Taiwan University emblem');
   addIcon('NTU Varsity Basketball', NTU_BASKETBALL_BADGE, 'award-mini-icon--basketball', 'National Taiwan University Owls basketball emblem');
 
   const style = document.createElement('style');
@@ -42,9 +42,9 @@
     }
     .award-strip > div.award-with-icon > strong,
     .award-strip > div.award-with-icon > span{grid-column:2}
-    .award-mini-icon--fu{object-fit:cover;object-position:50% 30%}
+    .award-mini-icon--fu{object-fit:contain;padding:5px}
     .award-mini-icon--basketball{object-fit:contain;padding:3px}
-    .triathlon-hero img{object-position:50% 70%!important}
+    .triathlon-hero img{object-position:50% 76%!important}
   `;
   document.head.append(style);
 })();
