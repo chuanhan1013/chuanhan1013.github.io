@@ -8,7 +8,7 @@
 :root{--ink:#17202a;--muted:#65717d;--line:#dfe5ea;--blue:#1f5f94}
 *{box-sizing:border-box}body{margin:0;background:#f4f6f8;color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.42}
 .page{width:min(900px,calc(100% - 32px));margin:32px auto;padding:42px 52px;background:#fff;box-shadow:0 8px 30px rgba(0,0,0,.08)}
-header{text-align:center;border-bottom:1px solid var(--line);padding-bottom:16px}h1{margin:0;font-size:30px}header p{margin:6px 0 0;color:var(--muted);font-size:12px}.summary{margin:16px 0;font-size:12.5px;text-align:center}
+header{text-align:center;border-bottom:1px solid var(--line);padding-bottom:16px}h1{margin:0;font-size:30px}header p{margin:6px 0 0;color:var(--muted);font-size:12px}header p a{color:inherit;text-decoration:none}header p a:hover{text-decoration:underline}.summary{margin:16px 0;font-size:12.5px;text-align:center}
 h2{margin:19px 0 9px;padding-bottom:4px;border-bottom:1px solid var(--line);font-size:15px;color:var(--blue);text-transform:uppercase;letter-spacing:.06em}.entry{margin:10px 0}.entry-head{display:flex;justify-content:space-between;gap:18px}.entry-head strong{font-size:12.5px}.entry-head span{white-space:nowrap;color:var(--muted);font-size:11px}.sub{color:var(--muted);font-size:11px;margin:2px 0 0}ul{margin:5px 0 0 18px;padding:0}li{margin:2px 0;font-size:11.5px}.skills p{margin:4px 0;font-size:11.5px}.actions{width:min(900px,calc(100% - 32px));margin:20px auto 0;display:flex;justify-content:space-between}.actions a,.actions button{border:1px solid #ccd8e1;background:#fff;padding:8px 12px;border-radius:6px;color:var(--blue);text-decoration:none;font-weight:700;cursor:pointer}
 @media print{body{background:#fff}.actions{display:none}.page{width:auto;margin:0;padding:0;box-shadow:none}}
 @media(max-width:650px){.page{padding:28px 22px}.entry-head{display:block}.entry-head span{display:block;margin-top:2px;white-space:normal}}
@@ -17,7 +17,7 @@ h2{margin:19px 0 9px;padding-bottom:4px;border-bottom:1px solid var(--line);font
 <body>
 <div class="actions"><a href="index.html">← Portfolio</a><button onclick="window.print()">Print / Save PDF</button></div>
 <main class="page">
-<header><h1>Chuan-Han Li</h1><p>Singapore · chuanhan1013@gmail.com · github.com/chuanhan1013 · linkedin.com/in/chuanhan-li</p></header>
+<header><h1>Chuan-Han Li</h1><p>Singapore · <a href="mailto:chuanhan1013@gmail.com">chuanhan1013@gmail.com</a> · <a href="https://chuanhan1013.github.io">chuanhan1013.github.io</a> · <a href="https://linkedin.com/in/chuanhan-li">linkedin.com/in/chuanhan-li</a></p></header>
 <p class="summary">NUS MSc Robotics student with experience in robot learning, mechatronics, multimodal perception, and AI engineering. Currently researching manipulator motion planning in dynamic environments; interested in robotics, embodied AI, and reliable autonomy.</p>
 <h2>Education</h2>
 <div class="entry"><div class="entry-head"><strong>National University of Singapore (NUS) — M.Sc. in Robotics</strong><span>08/2026–05/2028</span></div><p class="sub">Singapore</p></div>
