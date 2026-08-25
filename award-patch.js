@@ -20,6 +20,30 @@
   addIcon('Fu Bell Award', NTU_EMBLEM, 'award-mini-icon--fu', 'National Taiwan University emblem');
   addIcon('NTU Varsity Basketball', NTU_BASKETBALL_BADGE, 'award-mini-icon--basketball', 'National Taiwan University Owls basketball emblem');
 
+  const eggCard = [...document.querySelectorAll('#research .feature-card')]
+    .find(card => card.querySelector('h3')?.textContent.includes('Multimodal Visual'));
+  if (eggCard) {
+    const bodyParagraph = [...eggCard.querySelectorAll('.feature-body > p')]
+      .find(p => !p.classList.contains('feature-number') && !p.classList.contains('meta') && !p.classList.contains('note'));
+    if (bodyParagraph) {
+      bodyParagraph.textContent = 'Built a two-stage object-detection and lightweight-classification pipeline together with a controlled visible + thermal imaging setup for duck eggs. Cross-modal fusion reached ~93% classification accuracy, compared with 92% visible-only and 90% thermal-only baselines.';
+    }
+
+    const metrics = [...eggCard.querySelectorAll('.result-row > div')];
+    if (metrics[0]) {
+      const strong = metrics[0].querySelector('strong');
+      const span = metrics[0].querySelector('span');
+      if (strong) strong.textContent = '~93%';
+      if (span) span.textContent = 'cross-modal fusion';
+    }
+    if (metrics[1]) {
+      const strong = metrics[1].querySelector('strong');
+      const span = metrics[1].querySelector('span');
+      if (strong) strong.textContent = '92% / 90%';
+      if (span) span.textContent = 'visible / thermal baselines';
+    }
+  }
+
   const style = document.createElement('style');
   style.textContent = `
     .award-strip > div.award-with-icon{
