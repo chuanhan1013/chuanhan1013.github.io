@@ -20,6 +20,14 @@
     }
     secondary.textContent = 'With a background spanning biomechatronics, multimodal perception, robot learning, and AI/software engineering, I am interested in embodied AI systems that can perceive, reason, and act reliably in the physical world.';
     secondary.style.marginTop = '10px';
+
+    let openTo = hero.querySelector('.hero-open-to');
+    if (!openTo) {
+      openTo = document.createElement('p');
+      openTo.className = 'hero-open-to';
+      secondary.after(openTo);
+    }
+    openTo.textContent = 'Open to robotics, embodied AI, AI systems, and research engineering opportunities in Singapore.';
   }
 
   const interests = hero.querySelector('.interest-strip');
@@ -37,4 +45,8 @@
       return tag;
     }));
   }
+
+  const style = document.createElement('style');
+  style.textContent = '.hero-open-to{margin:16px 0 0;color:#35536e;font-size:12px;font-weight:720;letter-spacing:.01em}';
+  document.head.append(style);
 })();
