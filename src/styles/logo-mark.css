@@ -6,6 +6,8 @@
  */
 .logo-mark {
   display: inline-grid;
+  /* A definite single cell so the image's 100% height resolves and tall logos are not cropped. */
+  grid-template: minmax(0, 1fr) / minmax(0, 1fr);
   place-items: center;
   overflow: hidden;
   border: 1px solid #d8e3eb;

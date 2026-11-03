@@ -44,10 +44,6 @@
 .timeline-title-row .logo-mark {
   margin: 0;
 }
-/* Tall logos overflow their frame slightly; centre the crop. */
-.timeline-title-row .logo-portrait {
-  align-content: center;
-}
 .timeline h3 {
   margin: 0;
   color: var(--ink);
