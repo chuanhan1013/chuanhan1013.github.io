@@ -115,6 +115,8 @@
 .carousel-slide--contain,
 .carousel-slide--diagram {
   display: grid;
+  /* A definite single cell lets the image's 100% height resolve, so tall images are letterboxed instead of overflowing. */
+  grid-template: minmax(0, 1fr) / minmax(0, 1fr);
   place-items: center;
   padding: var(--slide-padding, 12px);
   background: var(--slide-bg, linear-gradient(180deg, #fcfeff, #f2f7fb));
@@ -124,9 +126,6 @@
   object-fit: contain;
   max-width: 100%;
   max-height: 100%;
-}
-.carousel-slide--diagram {
-  position: relative;
 }
 .carousel-slide--flush {
   background: var(--slide-bg);
