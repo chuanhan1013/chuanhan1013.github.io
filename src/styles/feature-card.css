@@ -21,13 +21,17 @@
   box-shadow: var(--shadow-hover);
 }
 
-/* Off-screen cards skip rendering until they approach the viewport. */
+/*
+ * Off-screen cards skip rendering until they approach the viewport. Only the block size
+ * (height) gets a placeholder: an intrinsic *width* would make grid items at least that
+ * wide and push the page sideways on phones and tablets.
+ */
 .feature-card,
 .edu-card,
 .timeline article,
 .skills > div {
   content-visibility: auto;
-  contain-intrinsic-size: auto 420px;
+  contain-intrinsic-block-size: auto 420px;
 }
 
 .feature-number {
