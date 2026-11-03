@@ -1,0 +1,75 @@
+---
+import type { FeatureCard } from '@/data/types';
+import { cardNumber } from '@/lib/media';
+import FeatureMedia from './FeatureMedia.astro';
+import LogoMark from './LogoMark.astro';
+import TechChip from './TechChip.astro';
+
+interface Props {
+  card: FeatureCard;
+  number: number;
+}
+
+const { card, number } = Astro.props;
+const { chip } = card;
+---
+
+<article class="feature-card" id={card.id}>
+  <FeatureMedia gallery={card.media} />
+  <div class="feature-body">
+    <p class="feature-number">{cardNumber(number)}</p>
+    <h3>{card.title}</h3>
+    <p class="meta">
+      {card.metaLogo && <LogoMark {...card.metaLogo} />}
+      {card.meta}
+    </p>
+    {chip && (
+      <div class="entity-chip">
+        {chip.logo.shape === 'badge' ? (
+          <span class="entity-chip-mark">
+            <img src={chip.logo.src} alt="" loading="lazy" decoding="async" />
+            {chip.logo.abbr}
+          </span>
+        ) : (
+          <LogoMark {...chip.logo} />
+        )}
+        <span>{chip.label}</span>
+      </div>
+    )}
+    <p class="feature-summary">{card.summary}</p>
+    {card.results && (
+      <div class:list={['result-row', { compact: card.results.length === 2 }]}>
+        {card.results.map((r) => (
+          <div>
+            <strong>{r.value}</strong>
+            <span>{r.label}</span>
+          </div>
+        ))}
+      </div>
+    )}
+    {card.platforms && (
+      <div class="platform-strip">
+        {card.platforms.map((chip) => (
+          <TechChip chip={chip} variant="platform" />
+        ))}
+      </div>
+    )}
+    {card.tags && (
+      <div class="tag-row">
+        {card.tags.map((tag) => (
+          <span>{tag}</span>
+        ))}
+      </div>
+    )}
+    {card.links && (
+      <div class="project-links">
+        {card.links.map((link) => (
+          <a href={link.href} {...(link.external && { target: '_blank', rel: 'noreferrer' })}>
+            {link.label}
+          </a>
+        ))}
+      </div>
+    )}
+    {card.note && <p class="note">{card.note}</p>}
+  </div>
+</article>

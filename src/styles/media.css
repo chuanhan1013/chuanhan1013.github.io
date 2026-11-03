@@ -1,0 +1,229 @@
+/*
+ * Card media: a single framed image, or a carousel of slides.
+ * Slide look is chosen per item in the data files via `fit`:
+ *   photo   – framed photo, cropped to fill
+ *   cover   – full-bleed crop (`position` tunes the focal point)
+ *   contain – letterboxed on a soft background (`padding`/`background` optional)
+ *   diagram – like contain, plus the "open" hint
+ *   flush   – letterboxed edge-to-edge on a solid `background`
+ */
+.feature-media {
+  position: relative;
+  min-height: 218px;
+}
+.feature-media img {
+  cursor: zoom-in;
+}
+
+.badge {
+  position: absolute;
+  left: -7px;
+  top: 12px;
+  padding: 6px 10px;
+  border-radius: 7px;
+  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+  color: #fff;
+  font-size: 9px;
+  font-weight: 820;
+  letter-spacing: 0.05em;
+  box-shadow: 0 5px 12px rgba(23, 70, 110, 0.2);
+}
+
+/* ---- Single framed image ---- */
+.diagram-frame {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 12px;
+  border: 1px solid #d8e3eb;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #fcfeff, #f2f7fb);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    0 8px 22px rgba(33, 61, 88, 0.06);
+}
+.diagram-frame img {
+  width: 100%;
+  height: 215px;
+  object-fit: contain;
+}
+
+/* "Click to enlarge" hint on diagrams. */
+.diagram-frame::after,
+.carousel-slide--diagram::after {
+  content: '↗';
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  background: rgba(18, 45, 64, 0.48);
+  backdrop-filter: blur(7px);
+  color: #fff;
+  font-size: 14px;
+  pointer-events: none;
+}
+
+/* ---- Carousel ---- */
+.media-carousel {
+  overflow: hidden;
+  border: 1px solid #d8e3eb;
+  border-radius: 16px;
+  background: var(--carousel-bg, linear-gradient(180deg, #fcfeff, #f2f7fb));
+  box-shadow:
+    inset 0 1px 0 #fff,
+    0 8px 22px rgba(33, 61, 88, 0.06);
+}
+.carousel-track {
+  position: relative;
+  width: 100%;
+  height: 245px;
+}
+.carousel-slide {
+  position: absolute;
+  inset: 0;
+  /* Inset matches the browser's default <figure> margin, which the original design relied on. */
+  margin: 1em 40px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease;
+}
+.carousel-slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: var(--slide-img-bg, transparent);
+}
+
+.carousel-slide--photo {
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid #d8e3eb;
+  background: #edf3f7;
+  box-shadow: 0 8px 22px rgba(33, 61, 88, 0.08);
+}
+.carousel-slide--cover img {
+  object-position: var(--slide-position, 50% 50%);
+}
+.carousel-slide--contain,
+.carousel-slide--diagram {
+  display: grid;
+  place-items: center;
+  padding: var(--slide-padding, 12px);
+  background: var(--slide-bg, linear-gradient(180deg, #fcfeff, #f2f7fb));
+}
+.carousel-slide--contain img,
+.carousel-slide--diagram img {
+  object-fit: contain;
+  max-width: 100%;
+  max-height: 100%;
+}
+.carousel-slide--diagram {
+  position: relative;
+}
+.carousel-slide--flush {
+  background: var(--slide-bg);
+}
+.carousel-slide--flush img {
+  object-fit: contain;
+}
+
+.carousel-caption {
+  position: absolute;
+  left: 12px;
+  bottom: 11px;
+  padding: 5px 8px;
+  border-radius: 7px;
+  background: rgba(13, 34, 53, 0.62);
+  backdrop-filter: blur(7px);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.carousel-btn {
+  position: absolute;
+  z-index: 4;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 42px;
+  border: 0;
+  border-radius: 10px;
+  background: rgba(12, 32, 49, 0.42);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.82;
+  transition: 0.18s ease;
+}
+.carousel-btn:hover {
+  background: rgba(12, 32, 49, 0.62);
+  opacity: 1;
+}
+.carousel-btn.prev {
+  left: 9px;
+}
+.carousel-btn.next {
+  right: 9px;
+}
+.carousel-dots {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  padding: 5px 7px;
+  border-radius: 999px;
+  background: rgba(12, 32, 49, 0.28);
+  backdrop-filter: blur(7px);
+}
+.carousel-dot {
+  width: 6px;
+  height: 6px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.48);
+  cursor: pointer;
+}
+.carousel-dot.is-active {
+  background: #fff;
+  transform: scale(1.15);
+}
+
+@media (max-width: 900px) {
+  .feature-media {
+    max-width: 650px;
+  }
+}
+
+@media (max-width: 700px) {
+  .diagram-frame img {
+    height: auto;
+    min-height: 190px;
+  }
+  .carousel-track {
+    height: 230px;
+  }
+  .carousel-btn {
+    width: 30px;
+    height: 40px;
+  }
+  .carousel-caption {
+    display: none;
+  }
+}

@@ -1,0 +1,71 @@
+---
+import CvEntry from '@/components/CvEntry.astro';
+import { cv } from '@/data/cv';
+import { person } from '@/data/site';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import '@/styles/cv.css';
+
+const websiteLabel = person.website.replace(/^https?:\/\//, '');
+const linkedinLabel = person.linkedin.replace(/^https?:\/\//, '');
+---
+
+<BaseLayout title={cv.title}>
+  <div class="actions">
+    <a href="/">← Portfolio</a>
+    <button type="button" data-print>
+      Print / Save PDF
+    </button>
+  </div>
+  <main class="page">
+    <header>
+      <h1>{person.name}</h1>
+      <p>
+        {person.location} · <a href={`mailto:${person.email}`}>{person.email}</a> ·{' '}
+        <a href={person.website}>{websiteLabel}</a> · <a href={person.linkedin}>{linkedinLabel}</a>
+      </p>
+    </header>
+    <p class="summary">{cv.summary}</p>
+
+    <h2>Education</h2>
+    {cv.education.map((entry) => (
+      <CvEntry entry={entry} />
+    ))}
+
+    <h2>Robotics &amp; AI Systems Projects</h2>
+    {cv.projects.map((entry) => (
+      <CvEntry entry={entry} />
+    ))}
+
+    <h2>Research &amp; Publications</h2>
+    {cv.research.map((entry) => (
+      <CvEntry entry={entry} />
+    ))}
+
+    <h2>Work Experience</h2>
+    {cv.work.map((entry) => (
+      <CvEntry entry={entry} />
+    ))}
+
+    <h2>Technical Skills</h2>
+    <div class="skills">
+      {cv.skills.map((skill) => (
+        <p>
+          <strong>{skill.label}:</strong> {skill.text}
+        </p>
+      ))}
+    </div>
+
+    <h2>Awards &amp; Activities</h2>
+    <ul>
+      {cv.awards.map((award) => (
+        <li>
+          <strong>{award.label}:</strong> {award.text}
+        </li>
+      ))}
+    </ul>
+  </main>
+
+  <script>
+    document.querySelector('[data-print]')?.addEventListener('click', () => window.print());
+  </script>
+</BaseLayout>

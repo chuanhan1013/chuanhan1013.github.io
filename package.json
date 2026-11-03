@@ -1,0 +1,39 @@
+{
+  "name": "chuanhan1013.github.io",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Personal robotics and embodied AI portfolio for Chuan-Han Li.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview --port 4321",
+    "check": "astro check",
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write .",
+    "validate:html": "html-validate \"dist/**/*.html\"",
+    "test": "playwright test",
+    "verify": "npm run check && npm run lint && npm run build && npm run validate:html && npm run test"
+  },
+  "dependencies": {
+    "astro": "7.4.5",
+    "devicon": "2.18.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.12",
+    "@axe-core/playwright": "4.14.0",
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.63.0",
+    "eslint": "10.14.0",
+    "eslint-plugin-astro": "3.2.1",
+    "globals": "17.14.0",
+    "html-validate": "11.18.0",
+    "prettier": "3.9.10",
+    "prettier-plugin-astro": "1.1.2",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.72.1"
+  }
+}

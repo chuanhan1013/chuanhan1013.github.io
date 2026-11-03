@@ -1,0 +1,18 @@
+/* Design tokens. Change colours, shadows and the page width here. */
+:root {
+  --ink: #101828;
+  --text: #475467;
+  --muted: #7b8794;
+  --line: #dfe7ef;
+  --paper: #f4f7fb;
+  --surface: #ffffff;
+  --surface-soft: #f8fbff;
+  --blue: #235f9c;
+  --blue-dark: #123f6b;
+  --blue-bright: #357fc3;
+  --teal: #2a7f83;
+  --blue-soft: #eaf3fb;
+  --shadow: 0 18px 50px rgba(28, 55, 84, 0.08);
+  --shadow-hover: 0 22px 60px rgba(28, 55, 84, 0.13);
+  --page: 1240px;
+}

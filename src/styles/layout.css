@@ -1,0 +1,217 @@
+/* Page shell: sticky top bar, navigation, two-column layout, sections and footer. */
+.site-shell {
+  width: min(var(--page), calc(100% - 40px));
+  margin: 0 auto;
+  padding-bottom: 18px;
+}
+
+/* ---- Top bar & navigation ---- */
+.topbar {
+  position: sticky;
+  top: 12px;
+  z-index: 30;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding: 0 15px 0 18px;
+  border: 1px solid rgba(216, 225, 234, 0.95);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(18px) saturate(1.25);
+  box-shadow: 0 8px 26px rgba(23, 52, 79, 0.07);
+}
+.wordmark {
+  color: var(--ink);
+  font-weight: 780;
+  text-decoration: none;
+  letter-spacing: -0.025em;
+}
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.site-nav a {
+  position: relative;
+  padding: 18px 11px;
+  color: #687586;
+  font-size: 12px;
+  font-weight: 680;
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+.site-nav a:hover,
+.site-nav a.is-active {
+  color: var(--ink);
+}
+.site-nav a::after {
+  content: '';
+  position: absolute;
+  left: 11px;
+  right: 11px;
+  bottom: 8px;
+  height: 2px;
+  border-radius: 99px;
+  background: var(--blue-bright);
+  transform: scaleX(0);
+  transition: transform 0.2s ease;
+}
+.site-nav a:hover::after,
+.site-nav a.is-active::after {
+  transform: scaleX(1);
+}
+.site-nav .nav-accent {
+  margin-left: 4px;
+  padding: 9px 13px;
+  border: 1px solid #cdddea;
+  border-radius: 10px;
+  background: #f5f9fd;
+  color: var(--blue-dark);
+}
+.site-nav .nav-accent::after {
+  display: none;
+}
+.site-nav .nav-accent:hover {
+  border-color: #b8cfdf;
+  background: #edf5fb;
+}
+.menu-toggle {
+  display: none;
+  border: 0;
+  background: none;
+  padding: 10px;
+}
+.menu-toggle span:not(.sr-only) {
+  display: block;
+  width: 21px;
+  height: 2px;
+  margin: 5px;
+  background: #33404d;
+}
+
+/* ---- Two-column layout ---- */
+.layout {
+  display: grid;
+  grid-template-columns: 235px minmax(0, 1fr);
+  gap: 58px;
+  padding-top: 42px;
+}
+.profile-column {
+  position: sticky;
+  top: 92px;
+  align-self: start;
+}
+.content-column {
+  min-width: 0;
+}
+.section-anchor {
+  scroll-margin-top: 92px;
+}
+
+/* ---- Sections ---- */
+.section {
+  padding: 0 0 68px;
+}
+.section-heading {
+  display: flex;
+  align-items: end;
+  gap: 13px;
+  margin: 0 0 18px;
+  padding: 0 2px 12px;
+  border-bottom: 1px solid #dce5ed;
+}
+.section-heading .section-kicker {
+  margin: 0 0 3px;
+}
+.section-heading h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 27px;
+  letter-spacing: -0.035em;
+}
+
+/* ---- Footer ---- */
+footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 4px;
+  padding: 28px 2px 36px;
+  border-top: 1px solid #dce5ed;
+  color: #87939f;
+  font-size: 10px;
+}
+footer p {
+  margin: 0;
+}
+footer div {
+  display: flex;
+  gap: 12px;
+}
+footer a {
+  text-decoration: none;
+  font-weight: 720;
+}
+
+@media (max-width: 900px) {
+  .site-shell {
+    width: min(calc(100% - 28px), var(--page));
+  }
+  .topbar {
+    top: 8px;
+    margin-top: 8px;
+  }
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding-top: 26px;
+  }
+  .profile-column {
+    position: static;
+  }
+}
+
+@media (max-width: 700px) {
+  .site-shell {
+    width: min(calc(100% - 20px), var(--page));
+  }
+  .topbar {
+    min-height: 56px;
+    border-radius: 14px;
+    padding: 0 8px 0 14px;
+  }
+  .menu-toggle {
+    display: block;
+  }
+  .site-nav {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 62px;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 8px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.97);
+    box-shadow: 0 12px 30px rgba(30, 55, 80, 0.1);
+  }
+  .site-nav.is-open {
+    display: flex;
+  }
+  .site-nav a {
+    padding: 11px 10px;
+  }
+  .site-nav a::after {
+    display: none;
+  }
+  .site-nav .nav-accent {
+    margin: 2px 0;
+  }
+  footer {
+    flex-direction: column;
+  }
+}

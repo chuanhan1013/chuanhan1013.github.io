@@ -1,0 +1,81 @@
+---
+import AwardStrip from '@/components/AwardStrip.astro';
+import EducationCard from '@/components/EducationCard.astro';
+import FeatureCard from '@/components/FeatureCard.astro';
+import Hero from '@/components/Hero.astro';
+import Lightbox from '@/components/Lightbox.astro';
+import ProfileCard from '@/components/ProfileCard.astro';
+import Section from '@/components/Section.astro';
+import SiteFooter from '@/components/SiteFooter.astro';
+import SiteHeader from '@/components/SiteHeader.astro';
+import SkillGroup from '@/components/SkillGroup.astro';
+import Timeline from '@/components/Timeline.astro';
+import { awards, education, skills } from '@/data/education';
+import { experience } from '@/data/experience';
+import { projects } from '@/data/projects';
+import { research } from '@/data/research';
+import { seo } from '@/data/site';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import '@/styles/global.css';
+---
+
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  og={{ title: seo.ogTitle, description: seo.ogDescription }}
+  themeColor={seo.themeColor}
+>
+  <script is:inline slot="head">
+    // Enable scroll-reveal before first paint so cards don't flash in and then fade.
+    if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('reveal-ready');
+    }
+  </script>
+
+  <div class="site-shell">
+    <SiteHeader />
+    <main class="layout">
+      <ProfileCard />
+      <div class="content-column">
+        <Hero />
+
+        <Section id="research" kicker="FEATURED" title="Research">
+          {research.map((card, i) => (
+            <FeatureCard card={card} number={i + 1} />
+          ))}
+        </Section>
+
+        <Section id="projects" kicker="SELECTED" title="Engineering & AI Systems">
+          {projects.map((card, i) => (
+            <FeatureCard card={card} number={research.length + i + 1} />
+          ))}
+        </Section>
+
+        <Section id="experience" kicker="BACKGROUND" title="Experience">
+          <Timeline entries={experience} />
+        </Section>
+
+        <Section id="education" kicker="EDUCATION" title="Education & Skills">
+          <div class="education-grid">
+            {education.map((entry) => (
+              <EducationCard entry={entry} />
+            ))}
+          </div>
+          <div class="skills">
+            {skills.map((group) => (
+              <SkillGroup group={group} />
+            ))}
+          </div>
+          <AwardStrip awards={awards} />
+        </Section>
+
+        <SiteFooter />
+      </div>
+    </main>
+  </div>
+  <Lightbox />
+
+  <script>
+    import '@/scripts/main';
+  </script>
+</BaseLayout>

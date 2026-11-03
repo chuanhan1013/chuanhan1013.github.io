@@ -1,0 +1,31 @@
+---
+import type { EducationEntry } from '@/data/types';
+import LogoMark from './LogoMark.astro';
+
+interface Props {
+  entry: EducationEntry;
+}
+
+const { entry } = Astro.props;
+---
+
+<article class="edu-card">
+  <div class:list={['school-brand', { 'school-brand--square': entry.brand.shape === 'square' }]}>
+    <img src={entry.brand.src} alt={entry.brand.alt} loading="lazy" decoding="async" />
+  </div>
+  <p>{entry.period}</p>
+  <h3>{entry.school}</h3>
+  <strong>{entry.degree}</strong>
+  {entry.details.map((detail) => (
+    <span>{detail}</span>
+  ))}
+  <span class="edu-research-row">
+    <LogoMark {...entry.research.logo} />
+    <span>
+      <b>Research:</b> {entry.research.label}
+    </span>
+  </span>
+  <span>
+    <b>Advisor:</b> {entry.advisor}
+  </span>
+</article>

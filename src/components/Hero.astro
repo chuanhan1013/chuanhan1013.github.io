@@ -1,0 +1,17 @@
+---
+import { hero } from '@/data/site';
+---
+
+<section id="about" class="hero section-anchor">
+  <p class="kicker">{hero.kicker}</p>
+  <h2>{hero.headline}</h2>
+  {hero.ledes.map((lede) => (
+    <p class="hero-lede">{lede}</p>
+  ))}
+  <p class="hero-open-to">{hero.openTo}</p>
+  <ul class="interest-strip" aria-label="Research interests">
+    {hero.interests.map((interest) => (
+      <li>{interest}</li>
+    ))}
+  </ul>
+</section>

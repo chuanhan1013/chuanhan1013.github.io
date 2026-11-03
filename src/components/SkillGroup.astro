@@ -1,0 +1,25 @@
+---
+import type { SkillGroup } from '@/data/types';
+import { iconUrl } from '@/lib/icons';
+import TechChip from './TechChip.astro';
+
+interface Props {
+  group: SkillGroup;
+}
+
+const { group } = Astro.props;
+---
+
+<div>
+  <h3>
+    <span class="skill-heading-icon">
+      <img src={iconUrl(group.icon)} alt="" loading="lazy" decoding="async" />
+    </span>
+    {group.title}
+  </h3>
+  <div class="skill-items">
+    {group.items.map((chip) => (
+      <TechChip chip={chip} variant="skill" />
+    ))}
+  </div>
+</div>

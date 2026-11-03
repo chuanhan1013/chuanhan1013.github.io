@@ -1,0 +1,96 @@
+/* Full-screen media viewer opened from any card image. */
+.media-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: none;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-rows: 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 28px;
+  background: rgba(8, 20, 30, 0.86);
+  backdrop-filter: blur(10px);
+}
+.media-lightbox.is-open {
+  display: grid;
+}
+.media-lightbox .lb-stage {
+  grid-column: 2;
+  grid-row: 1;
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  min-height: 0;
+}
+.media-lightbox img {
+  display: block;
+  max-width: min(1280px, 88vw);
+  max-height: 84vh;
+  width: auto;
+  height: auto;
+  border-radius: 18px;
+  background: #f8fbfd;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.36);
+}
+.media-lightbox .lb-close {
+  position: fixed;
+  top: 20px;
+  right: 22px;
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+  font-size: 27px;
+  cursor: pointer;
+}
+.media-lightbox .lb-nav {
+  width: 48px;
+  height: 58px;
+  border: 0;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  font-size: 34px;
+  cursor: pointer;
+}
+.media-lightbox .lb-prev {
+  grid-column: 1;
+  grid-row: 1;
+}
+.media-lightbox .lb-next {
+  grid-column: 3;
+  grid-row: 1;
+}
+.media-lightbox .lb-caption {
+  grid-column: 1/-1;
+  grid-row: 2;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+  text-align: center;
+}
+.media-lightbox.is-single .lb-nav {
+  visibility: hidden;
+}
+body.lightbox-open {
+  overflow: hidden;
+}
+
+@media (max-width: 700px) {
+  .media-lightbox {
+    padding: 12px;
+    gap: 4px;
+  }
+  .media-lightbox img {
+    max-width: 82vw;
+    max-height: 80vh;
+  }
+  .media-lightbox .lb-nav {
+    width: 36px;
+    height: 50px;
+    font-size: 28px;
+  }
+}
