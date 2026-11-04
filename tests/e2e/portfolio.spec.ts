@@ -107,6 +107,35 @@ test.describe('lightbox', () => {
     await expect(first).toBeFocused();
   });
 
+  test('shows the real image for slides that were never displayed in the card', async ({ page }) => {
+    // Slow the media down so the lightbox renders while the deferred image is still in flight.
+    await page.route(/\/assets\/media\/basketball-/, async (route) => {
+      await new Promise((resolve) => setTimeout(resolve, 600));
+      await route.continue();
+    });
+    await page.goto('/');
+    const carousel = page.getByRole('region', { name: 'Basketball sensing project media' });
+    await carousel.scrollIntoViewIfNeeded();
+    await carousel.locator('.carousel-slide.is-active img').dispatchEvent('click');
+    const lbImg = page.getByRole('dialog', { name: 'Media viewer' }).locator('.lb-stage img');
+    await expect.poll(() => lbImg.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBeGreaterThan(1);
+
+    await page.keyboard.press('ArrowRight');
+    await expect(lbImg).toHaveAttribute('src', /basketball-wearable\.webp$/);
+    await expect.poll(() => lbImg.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBeGreaterThan(1);
+  });
+
+  test('keeps the no-referrer policy of remote images', async ({ page }) => {
+    await page.goto('/');
+    const carousel = page.getByRole('region', { name: 'NUS dynamic manipulator research media' });
+    await carousel.scrollIntoViewIfNeeded();
+    await carousel.locator('.carousel-slide.is-active img').dispatchEvent('click');
+    const lbImg = page.getByRole('dialog', { name: 'Media viewer' }).locator('.lb-stage img');
+    await expect(lbImg).toHaveJSProperty('referrerPolicy', 'no-referrer');
+    await page.keyboard.press('ArrowRight');
+    await expect(lbImg).toHaveJSProperty('referrerPolicy', '');
+  });
+
   test('single-image media hides gallery arrows', async ({ page }) => {
     await page.goto('/');
     const img = page.locator('#han-agents .feature-media img');

@@ -27,7 +27,11 @@ export function initLightbox(): void {
     const img = gallery[galleryIndex];
     if (!img) return;
     hydrate(img);
-    lbImg.src = img.currentSrc || img.src;
+    // Keep the card image's referrer policy (remote hosts may reject hotlinks with a Referer).
+    lbImg.referrerPolicy = img.referrerPolicy;
+    // `img.src`, not `currentSrc`: right after hydration `currentSrc` still points at the
+    // placeholder until the real image has loaded.
+    lbImg.src = img.src;
     lbImg.alt = img.alt;
     const counter = gallery.length > 1 ? ` · ${galleryIndex + 1} / ${gallery.length}` : '';
     lbCaption.textContent = captionOf(img) + counter;
