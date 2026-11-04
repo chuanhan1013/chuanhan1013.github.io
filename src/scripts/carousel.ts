@@ -1,7 +1,6 @@
 /** Media carousels rendered by `FeatureMedia.astro` (`[data-carousel]`). */
 import { hydrate } from './lazy-media';
-
-const SWIPE_THRESHOLD_PX = 45;
+import { onSwipe } from './swipe';
 
 function setupCarousel(carousel: HTMLElement): void {
   const slides = [...carousel.querySelectorAll<HTMLElement>('.carousel-slide')];
@@ -32,25 +31,7 @@ function setupCarousel(carousel: HTMLElement): void {
   carousel.querySelector('.carousel-btn.next')?.addEventListener('click', () => show(index + 1));
   dots.forEach((dot, i) => dot.addEventListener('click', () => show(i)));
 
-  let startX: number | null = null;
-  carousel.addEventListener(
-    'touchstart',
-    (event) => {
-      startX = event.touches[0]?.clientX ?? null;
-    },
-    { passive: true },
-  );
-  carousel.addEventListener(
-    'touchend',
-    (event) => {
-      const endX = event.changedTouches[0]?.clientX;
-      if (startX === null || endX === undefined) return;
-      const dx = endX - startX;
-      startX = null;
-      if (Math.abs(dx) > SWIPE_THRESHOLD_PX) show(index + (dx < 0 ? 1 : -1));
-    },
-    { passive: true },
-  );
+  onSwipe(carousel, (direction) => show(index + direction));
 }
 
 export function initCarousels(root: ParentNode = document): void {

@@ -5,8 +5,8 @@
  */
 import { PLACEHOLDER_SRC } from '@/lib/media';
 import { hydrate } from './lazy-media';
+import { onSwipe } from './swipe';
 
-const SWIPE_THRESHOLD_PX = 45;
 const MEDIA_IMG = '.feature-media img';
 
 export function initLightbox(): void {
@@ -121,23 +121,5 @@ export function initLightbox(): void {
     if (event.target === lb) close();
   });
 
-  let touchX: number | null = null;
-  lb.addEventListener(
-    'touchstart',
-    (event) => {
-      touchX = event.touches[0]?.clientX ?? null;
-    },
-    { passive: true },
-  );
-  lb.addEventListener(
-    'touchend',
-    (event) => {
-      const endX = event.changedTouches[0]?.clientX;
-      if (touchX === null || endX === undefined) return;
-      const dx = endX - touchX;
-      touchX = null;
-      if (Math.abs(dx) > SWIPE_THRESHOLD_PX) move(dx < 0 ? 1 : -1);
-    },
-    { passive: true },
-  );
+  onSwipe(lb, move);
 }

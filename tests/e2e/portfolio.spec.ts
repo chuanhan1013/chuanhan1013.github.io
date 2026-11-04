@@ -78,6 +78,36 @@ test.describe('carousel', () => {
   });
 });
 
+test('horizontal swipes change slides; vertical scrolling gestures do not', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'touch gestures');
+  await page.goto('/');
+  const carousel = page.getByRole('region', { name: 'Triathlon robot project media' });
+  await carousel.scrollIntoViewIfNeeded();
+  const swipe = (dx: number, dy: number) =>
+    carousel.evaluate(
+      (el, { dx, dy }) => {
+        const r = el.getBoundingClientRect();
+        const x = r.left + r.width / 2;
+        const y = r.top + r.height / 2;
+        const touch = (cx: number, cy: number) =>
+          new Touch({ identifier: 1, target: el, clientX: cx, clientY: cy });
+        el.dispatchEvent(new TouchEvent('touchstart', { touches: [touch(x, y)], bubbles: true }));
+        el.dispatchEvent(
+          new TouchEvent('touchend', { changedTouches: [touch(x + dx, y + dy)], bubbles: true }),
+        );
+      },
+      { dx, dy },
+    );
+  const slides = carousel.locator('.carousel-slide');
+
+  await swipe(-60, 120); // mostly vertical: a page scroll, not a swipe
+  await expect(slides.nth(0)).toHaveClass(/is-active/);
+  await swipe(-80, 10); // swipe left → next
+  await expect(slides.nth(1)).toHaveClass(/is-active/);
+  await swipe(80, -10); // swipe right → previous
+  await expect(slides.nth(0)).toHaveClass(/is-active/);
+});
+
 test('only the visible slide is reachable by keyboard and screen readers', async ({ page }) => {
   await page.goto('/');
   const carousel = page.getByRole('region', { name: 'Triathlon robot project media' });
