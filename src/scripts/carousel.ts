@@ -15,7 +15,11 @@ function setupCarousel(carousel: HTMLElement): void {
 
   const show = (next: number) => {
     index = (next + slides.length) % slides.length;
-    slides.forEach((slide, i) => slide.classList.toggle('is-active', i === index));
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('is-active', i === index);
+      // Hidden slides are only transparent; `inert` also drops them from tab order and the a11y tree.
+      slide.inert = i !== index;
+    });
     dots.forEach((dot, i) => {
       dot.classList.toggle('is-active', i === index);
       if (i === index) dot.setAttribute('aria-current', 'true');

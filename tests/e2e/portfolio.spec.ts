@@ -78,6 +78,24 @@ test.describe('carousel', () => {
   });
 });
 
+test('only the visible slide is reachable by keyboard and screen readers', async ({ page }) => {
+  await page.goto('/');
+  const carousel = page.getByRole('region', { name: 'Triathlon robot project media' });
+  await carousel.scrollIntoViewIfNeeded();
+  const reachable = () =>
+    carousel.evaluate((el) =>
+      [...el.querySelectorAll<HTMLElement>('.carousel-slide img')]
+        .filter((img) => !img.closest('[inert]') && img.tabIndex >= 0)
+        .map((img) => img.closest('.carousel-slide')?.classList.contains('is-active')),
+    );
+  expect(await reachable()).toEqual([true]);
+
+  await carousel.locator('.carousel-btn.next').dispatchEvent('click');
+  expect(await reachable()).toEqual([true]);
+  await expect(carousel.locator('.carousel-slide').nth(0)).toHaveAttribute('inert');
+  await expect(carousel.locator('.carousel-slide').nth(1)).not.toHaveAttribute('inert');
+});
+
 test.describe('lightbox', () => {
   test('opens from a card image, navigates, and closes with focus restored', async ({ page }) => {
     await page.goto('/');
