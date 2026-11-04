@@ -20,6 +20,19 @@ export function initLightbox(): void {
   let galleryIndex = 0;
   let opener: HTMLElement | null = null;
 
+  /** Modal behaviour: everything except the dialog is inert while it is open. */
+  const setBackgroundInert = (inert: boolean) => {
+    for (const el of document.body.children) {
+      if (el !== lb && el instanceof HTMLElement && el.tagName !== 'SCRIPT') el.inert = inert;
+    }
+  };
+
+  /** Visible, focusable controls inside the dialog (hidden prev/next are skipped). */
+  const focusables = () =>
+    [...lb.querySelectorAll<HTMLButtonElement>('button')].filter(
+      (btn) => getComputedStyle(btn).visibility !== 'hidden',
+    );
+
   const captionOf = (img: HTMLImageElement) =>
     img.closest('figure')?.querySelector('figcaption')?.textContent?.trim() || img.alt || '';
 
@@ -46,12 +59,14 @@ export function initLightbox(): void {
     render();
     lb.classList.add('is-open');
     document.body.classList.add('lightbox-open');
+    setBackgroundInert(true);
     closeBtn.focus();
   };
 
   const close = () => {
     lb.classList.remove('is-open');
     document.body.classList.remove('lightbox-open');
+    setBackgroundInert(false);
     lbImg.src = PLACEHOLDER_SRC;
     gallery = [];
     opener?.focus();
@@ -78,6 +93,22 @@ export function initLightbox(): void {
       return;
     }
     if (!isOpen()) return;
+    if (event.key === 'Tab') {
+      // Wrap focus between the dialog's own controls.
+      const items = focusables();
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (!first || !last) return;
+      const current = document.activeElement;
+      if (event.shiftKey && (current === first || !lb.contains(current))) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (current === last || !lb.contains(current))) {
+        event.preventDefault();
+        first.focus();
+      }
+      return;
+    }
     if (event.key === 'Escape') close();
     else if (event.key === 'ArrowLeft') move(-1);
     else if (event.key === 'ArrowRight') move(1);

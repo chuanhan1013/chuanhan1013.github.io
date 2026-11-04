@@ -136,6 +136,26 @@ test.describe('lightbox', () => {
     await expect(lbImg).toHaveJSProperty('referrerPolicy', '');
   });
 
+  test('keeps keyboard focus inside the open dialog', async ({ page }) => {
+    await page.goto('/');
+    const carousel = page.getByRole('region', {
+      name: 'Duck egg visible and thermal fertility research media',
+    });
+    await carousel.scrollIntoViewIfNeeded();
+    await carousel.locator('.carousel-slide.is-active img').dispatchEvent('click');
+    const lightbox = page.getByRole('dialog', { name: 'Media viewer' });
+    await expect(lightbox.locator('.lb-close')).toBeFocused();
+
+    for (let i = 0; i < 6; i++) {
+      await page.keyboard.press('Tab');
+      const inside = await page.evaluate(() => !!document.activeElement?.closest('.media-lightbox'));
+      expect(inside, `focus escaped the dialog after ${i + 1} Tab presses`).toBe(true);
+    }
+
+    await page.keyboard.press('Escape');
+    await expect(page.locator('.site-shell')).not.toHaveAttribute('inert');
+  });
+
   test('single-image media hides gallery arrows', async ({ page }) => {
     await page.goto('/');
     const img = page.locator('#han-agents .feature-media img');
