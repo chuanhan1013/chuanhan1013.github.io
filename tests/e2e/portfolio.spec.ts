@@ -48,6 +48,25 @@ test.describe('portfolio page', () => {
   });
 });
 
+test('cards fade in on scroll when the page script runs', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('html')).toHaveClass(/reveal-ready/);
+  await expect(page.locator('html')).toHaveAttribute('data-reveal-active');
+  const card = page.locator('.feature-card').last();
+  await expect(card).not.toHaveClass(/is-visible/);
+  await card.scrollIntoViewIfNeeded();
+  await expect(card).toHaveClass(/is-visible/);
+  await expect.poll(() => card.evaluate((el) => getComputedStyle(el).opacity)).toBe('1');
+});
+
+test('content stays visible when the page script fails to load', async ({ page }) => {
+  await page.route(/\/_astro\/.*\.js$/, (route) => route.abort());
+  await page.goto('/');
+  const card = page.locator('.feature-card').first();
+  await card.scrollIntoViewIfNeeded();
+  await expect.poll(() => card.evaluate((el) => getComputedStyle(el).opacity), { timeout: 5000 }).toBe('1');
+});
+
 test.describe('carousel', () => {
   const label = 'Triathlon robot project media';
 
