@@ -1,18 +1,22 @@
 name: CI / Deploy
 
-# Every push and pull request is type-checked, linted, built, validated and tested.
-# Pushes to `main` that pass are deployed to GitHub Pages.
+# Pull requests and pushes to `main` are type-checked, linted, built, validated and tested.
+# Pushes to `main` that pass are deployed to GitHub Pages. (Feature branches are covered by
+# their pull request, so each commit is tested once.)
 on:
   push:
+    branches: [main]
   pull_request:
   workflow_dispatch:
 
 permissions:
   contents: read
 
+# A newer commit on the same PR supersedes the older run; runs on `main` are never
+# cancelled so an in-flight Pages deployment always finishes.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
   verify:

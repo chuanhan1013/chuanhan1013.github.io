@@ -80,7 +80,7 @@ docs/
 
 ## Deployment
 
-`.github/workflows/ci.yml` runs on every push and pull request: type-check → lint → build → HTML
+`.github/workflows/ci.yml` runs on every pull request and every push to `main`: type-check → lint → build → HTML
 validation → tests. When a push to `main` passes, the built `dist/` is deployed to GitHub Pages.
 
 > **One-time setting:** in the repository's _Settings → Pages_, set **Source** to
