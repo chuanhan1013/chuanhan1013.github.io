@@ -26,7 +26,11 @@ import mail from '@/assets/icons/ui/mail.svg?url';
 import perception from '@/assets/icons/ui/perception.svg?url';
 import robotics from '@/assets/icons/ui/robotics.svg?url';
 
-export const deviconUrls = {
+import type { DeviconName, IconName, UiIconName } from './icon-names';
+
+export type { DeviconName, IconName, UiIconName } from './icon-names';
+
+export const deviconUrls: Record<DeviconName, string> = {
   arduino,
   cplusplus,
   docker,
@@ -41,14 +45,10 @@ export const deviconUrls = {
   raspberrypi,
   tensorflow,
   typescript,
-} as const;
+};
 
 /** Hand-drawn line icons used by the site chrome. */
-export const uiIconUrls = { code, cube, mail, perception, robotics } as const;
-
-export type DeviconName = keyof typeof deviconUrls;
-export type UiIconName = keyof typeof uiIconUrls;
-export type IconName = DeviconName | UiIconName;
+export const uiIconUrls: Record<UiIconName, string> = { code, cube, mail, perception, robotics };
 
 export function iconUrl(name: IconName): string {
   return name in deviconUrls ? deviconUrls[name as DeviconName] : uiIconUrls[name as UiIconName];

@@ -3,7 +3,7 @@
  * script in `index.astro` sets before first paint (skipped for reduced motion); if this
  * module never runs, that script removes the class again so nothing stays hidden.
  */
-const REVEAL_TARGETS = '.feature-card, .timeline article, .edu-card, .skills > div, .award-strip > div';
+const REVEAL_TARGETS = '.reveal';
 
 export function initReveal(): void {
   const root = document.documentElement;

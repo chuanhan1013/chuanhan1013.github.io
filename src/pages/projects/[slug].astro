@@ -1,0 +1,144 @@
+---
+/** One page per entry in src/content/projects (research and projects alike). */
+import { render } from 'astro:content';
+import Gallery from '@/components/Gallery.astro';
+import LogoMark from '@/components/LogoMark.astro';
+import Results from '@/components/Results.astro';
+import Stack from '@/components/Stack.astro';
+import StatusBadge from '@/components/StatusBadge.astro';
+import { categories } from '@/data/categories';
+import { person } from '@/data/site';
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import { getAllProjects, projectUrl, transitionName, type ProjectEntry } from '@/lib/projects';
+
+export async function getStaticPaths() {
+  const all = await getAllProjects();
+  return all.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: { entry, prev: all[i - 1], next: all[i + 1] },
+  }));
+}
+
+interface Props {
+  entry: ProjectEntry;
+  prev?: ProjectEntry | undefined;
+  next?: ProjectEntry | undefined;
+}
+
+const { entry, prev, next } = Astro.props;
+const p = entry.data;
+const { Content } = await render(entry);
+const section = p.kind === 'research' ? 'research' : 'projects';
+---
+
+<SiteLayout title={`${p.title} — ${person.name}`} description={p.summary}>
+  <article class="project-page">
+    <div class="container">
+      <a class="back-link" href={`/#${section}`}>
+        ← Back to {p.kind === 'research' ? 'research' : 'projects'}
+      </a>
+
+      <header class="project-head">
+        <div class="card-meta">
+          <StatusBadge status={p.status} />
+          {p.categories.map((c) => (
+            <span>{categories[c].short}</span>
+          ))}
+        </div>
+        <h1 style={`view-transition-name:${transitionName(entry, 'title')}`}>{p.title}</h1>
+        <p class="card-context">
+          {p.contextLogo && <LogoMark {...p.contextLogo} />}
+          <span>{p.context}</span>
+        </p>
+        {p.links && (
+          <div class="project-head__links">
+            {p.links.map((link) => (
+              <a
+                class="button button--sm"
+                href={link.href}
+                {...(link.external && { target: '_blank', rel: 'noreferrer' })}
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        )}
+      </header>
+
+      <Gallery
+        items={p.media.items}
+        label={`${p.title} media`}
+        badge={p.media.badge}
+        transitionName={transitionName(entry, 'cover')}
+        eager
+      />
+
+      <div class="project-layout">
+        <div>
+          <p class="project-lead">{p.summary}</p>
+          {p.results && <Results results={p.results} />}
+          {p.note && <p class="card-note">{p.note}</p>}
+          <div class="prose">
+            <Content />
+          </div>
+        </div>
+
+        <aside class="project-aside" aria-label="Project facts">
+          <dl>
+            <div>
+              <dt>Period</dt>
+              <dd>{p.period}</dd>
+            </div>
+            {p.team && (
+              <div>
+                <dt>Team</dt>
+                <dd>{p.team}</dd>
+              </div>
+            )}
+            <div>
+              <dt>Status</dt>
+              <dd>
+                <StatusBadge status={p.status} />
+              </dd>
+            </div>
+            {p.stack && (
+              <div>
+                <dt>Stack</dt>
+                <dd>
+                  <Stack items={p.stack} label="Tech stack" />
+                </dd>
+              </div>
+            )}
+            {p.tags && (
+              <div>
+                <dt>Topics</dt>
+                <dd>
+                  <ul class="pill-list">
+                    {p.tags.map((tag) => (
+                      <li class="pill">{tag}</li>
+                    ))}
+                  </ul>
+                </dd>
+              </div>
+            )}
+          </dl>
+        </aside>
+      </div>
+
+      <nav class="project-pager" aria-label="More projects">
+        {prev && (
+          <a class="prev" href={projectUrl(prev)}>
+            <small>← Previous</small>
+            {prev.data.title}
+          </a>
+        )}
+        {next && (
+          <a class="next" href={projectUrl(next)}>
+            <small>Next →</small>
+            {next.data.title}
+          </a>
+        )}
+      </nav>
+    </div>
+  </article>
+</SiteLayout>

@@ -8,11 +8,10 @@ interface Props {
 const { awards } = Astro.props;
 ---
 
-<div class="award-strip">
+<ul class="awards">
   {awards.map((award) => (
-    <div>
+    <li class="award reveal">
       <img
-        class="award-icon"
         src={award.icon.src}
         alt={award.icon.alt}
         style={`--icon-padding:${award.icon.padding}`}
@@ -22,6 +21,6 @@ const { awards } = Astro.props;
       />
       <strong>{award.title}</strong>
       <span>{award.text}</span>
-    </div>
+    </li>
   ))}
-</div>
+</ul>

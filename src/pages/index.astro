@@ -1,87 +1,93 @@
 ---
 import AwardStrip from '@/components/AwardStrip.astro';
 import EducationCard from '@/components/EducationCard.astro';
-import FeatureCard from '@/components/FeatureCard.astro';
 import Hero from '@/components/Hero.astro';
-import Lightbox from '@/components/Lightbox.astro';
-import ProfileCard from '@/components/ProfileCard.astro';
-import Section from '@/components/Section.astro';
-import SiteFooter from '@/components/SiteFooter.astro';
-import SiteHeader from '@/components/SiteHeader.astro';
+import ProjectCard from '@/components/ProjectCard.astro';
+import ResearchCard from '@/components/ResearchCard.astro';
+import SectionHead from '@/components/SectionHead.astro';
 import SkillGroup from '@/components/SkillGroup.astro';
 import Timeline from '@/components/Timeline.astro';
 import { awards, education, skills } from '@/data/education';
 import { experience } from '@/data/experience';
-import { projects } from '@/data/projects';
-import { research } from '@/data/research';
-import { seo } from '@/data/site';
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import '@/styles/global.css';
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import { getAllProjects, usedCategories } from '@/lib/projects';
+
+const all = await getAllProjects();
+const research = all.filter((p) => p.data.kind === 'research');
+const projects = all.filter((p) => p.data.kind === 'project');
+const filters = usedCategories(projects);
 ---
 
-<BaseLayout
-  title={seo.title}
-  description={seo.description}
-  og={{ title: seo.ogTitle, description: seo.ogDescription }}
-  themeColor={seo.themeColor}
->
-  <script is:inline slot="head">
-    // Enable scroll-reveal before first paint so cards don't flash in and then fade.
-    // Module scripts always run before DOMContentLoaded: if reveal.ts has not taken over by
-    // then (script blocked, failed or threw), drop the class so content is never left hidden.
-    if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      const root = document.documentElement;
-      root.classList.add('reveal-ready');
-      document.addEventListener('DOMContentLoaded', () => {
-        if (!root.hasAttribute('data-reveal-active')) root.classList.remove('reveal-ready');
-      });
-    }
-  </script>
+<SiteLayout home>
+  <div id="top"></div>
+  <Hero />
 
-  <div class="site-shell">
-    <SiteHeader />
-    <main class="layout">
-      <ProfileCard />
-      <div class="content-column">
-        <Hero />
-
-        <Section id="research" kicker="FEATURED" title="Research">
-          {research.map((card, i) => (
-            <FeatureCard card={card} number={i + 1} />
-          ))}
-        </Section>
-
-        <Section id="projects" kicker="SELECTED" title="Engineering & AI Systems">
-          {projects.map((card, i) => (
-            <FeatureCard card={card} number={research.length + i + 1} />
-          ))}
-        </Section>
-
-        <Section id="experience" kicker="BACKGROUND" title="Experience">
-          <Timeline entries={experience} />
-        </Section>
-
-        <Section id="education" kicker="EDUCATION" title="Education & Skills">
-          <div class="education-grid">
-            {education.map((entry) => (
-              <EducationCard entry={entry} />
-            ))}
-          </div>
-          <div class="skills">
-            {skills.map((group) => (
-              <SkillGroup group={group} />
-            ))}
-          </div>
-          <AwardStrip awards={awards} />
-        </Section>
-
-        <SiteFooter />
+  <section id="research" class="section" aria-labelledby="research-title">
+    <div class="container">
+      <SectionHead
+        id="research"
+        eyebrow="Featured"
+        title="Research"
+        description="Current and past research, from learning-based manipulation to multimodal perception."
+      />
+      <div class="research-list">
+        {research.map((entry) => (
+          <ResearchCard entry={entry} />
+        ))}
       </div>
-    </main>
-  </div>
-  <Lightbox />
+    </div>
+  </section>
 
-  <script>
-    import '@/scripts/main';
-  </script>
-</BaseLayout>
+  <section id="projects" class="section" aria-labelledby="projects-title">
+    <div class="container">
+      <SectionHead
+        id="projects"
+        eyebrow="Selected work"
+        title="Projects"
+        description="Robotics, robot learning and engineering projects. Filter by area; open a card for the full write-up."
+      />
+      <div class="filter" role="group" aria-label="Filter projects by area" data-filter>
+        <button type="button" aria-pressed="true" data-category="all">
+          All <span class="count">{projects.length}</span>
+        </button>
+        {filters.map((c) => (
+          <button type="button" aria-pressed="false" data-category={c.key}>
+            {c.short} <span class="count">{c.count}</span>
+          </button>
+        ))}
+      </div>
+      <ul class="project-grid" data-project-grid>
+        {projects.map((entry) => (
+          <li class="reveal" data-categories={entry.data.categories.join(' ')}>
+            <ProjectCard entry={entry} />
+          </li>
+        ))}
+      </ul>
+      <p class="sr-only" aria-live="polite" data-filter-status></p>
+    </div>
+  </section>
+
+  <section id="experience" class="section" aria-labelledby="experience-title">
+    <div class="container">
+      <SectionHead id="experience" eyebrow="Background" title="Experience" />
+      <Timeline entries={experience} />
+    </div>
+  </section>
+
+  <section id="education" class="section" aria-labelledby="education-title">
+    <div class="container">
+      <SectionHead id="education" eyebrow="Education" title="Education & Skills" />
+      <div class="education-grid">
+        {education.map((entry) => (
+          <EducationCard entry={entry} />
+        ))}
+      </div>
+      <div class="skills">
+        {skills.map((group) => (
+          <SkillGroup group={group} />
+        ))}
+      </div>
+      <AwardStrip awards={awards} />
+    </div>
+  </section>
+</SiteLayout>

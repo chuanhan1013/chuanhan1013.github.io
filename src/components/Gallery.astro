@@ -1,0 +1,95 @@
+---
+/**
+ * Media gallery. One item → a single framed image; several → a carousel
+ * (behaviour in src/scripts/carousel.ts; every image opens the lightbox).
+ */
+import type { MediaItem } from '@/data/schemas';
+import { isVideo, mediaStyle, PLACEHOLDER_SRC } from '@/lib/media';
+
+interface Props {
+  items: MediaItem[];
+  label: string;
+  badge?: string;
+  /** view-transition-name for the first image (links a card cover to its detail page). */
+  transitionName?: string;
+  /** Load the first image eagerly (above-the-fold galleries). */
+  eager?: boolean;
+}
+
+const { items, label, badge, transitionName, eager = false } = Astro.props;
+const isCarousel = items.length > 1;
+---
+
+<section
+  class="gallery"
+  data-carousel={isCarousel ? '' : undefined}
+  aria-roledescription={isCarousel ? 'carousel' : undefined}
+  aria-label={label}
+>
+  <div class="gallery__stage">
+    {items.map((item, i) => (
+      <figure
+        class:list={[
+          'gallery__slide',
+          {
+            'gallery__slide--cover': item.fit === 'cover',
+            'gallery__slide--diagram': item.fit === 'diagram',
+          },
+          { 'is-active': i === 0 },
+        ]}
+        style={mediaStyle(item, 'slide')}
+        inert={i > 0}
+      >
+        {isVideo(item) ? (
+          <video
+            src={i === 0 ? item.src : undefined}
+            data-src={i === 0 ? undefined : item.src}
+            poster={item.poster}
+            muted
+            loop
+            playsinline
+            preload={i === 0 ? 'metadata' : 'none'}
+            style={i === 0 && transitionName ? `view-transition-name:${transitionName}` : undefined}
+          />
+        ) : (
+          <img
+            src={i === 0 ? item.src : PLACEHOLDER_SRC}
+            data-src={i === 0 ? undefined : item.src}
+            alt={item.alt}
+            loading={i === 0 && eager ? 'eager' : 'lazy'}
+            decoding="async"
+            referrerpolicy={item.remote ? 'no-referrer' : undefined}
+            tabindex="0"
+            role="button"
+            style={i === 0 && transitionName ? `view-transition-name:${transitionName}` : undefined}
+          />
+        )}
+        {isVideo(item) && <p class="sr-only">{item.alt}</p>}
+        {item.caption && <figcaption>{item.caption}</figcaption>}
+      </figure>
+    ))}
+    {badge && <span class="gallery__badge">{badge}</span>}
+    {isCarousel && (
+      <>
+        <button class="gallery__btn prev" type="button" aria-label="Previous media">
+          ‹
+        </button>
+        <button class="gallery__btn next" type="button" aria-label="Next media">
+          ›
+        </button>
+      </>
+    )}
+  </div>
+  {isCarousel && (
+    <div class="gallery__dots" role="group" aria-label={`Choose ${label}`}>
+      {items.map((_, i) => (
+        <button
+          class:list={['gallery__dot', { 'is-active': i === 0 }]}
+          type="button"
+          aria-label={`Show media ${i + 1}`}
+          aria-current={i === 0 ? 'true' : undefined}
+        />
+      ))}
+    </div>
+  )}
+</section>

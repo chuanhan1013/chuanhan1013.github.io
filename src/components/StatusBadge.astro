@@ -1,0 +1,11 @@
+---
+import { statuses, type StatusKey } from '@/data/categories';
+
+interface Props {
+  status: StatusKey;
+}
+
+const { status } = Astro.props;
+---
+
+<span class={`status status--${status}`}>{statuses[status]}</span>

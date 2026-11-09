@@ -24,7 +24,6 @@ export const seo = {
 } as const;
 
 export const nav: Link[] = [
-  { label: 'About', href: '#about' },
   { label: 'Research', href: '#research' },
   { label: 'Projects', href: '#projects' },
   { label: 'Experience', href: '#experience' },
@@ -33,28 +32,28 @@ export const nav: Link[] = [
 
 export const profile = {
   avatar: { src: '/assets/media/profile-chuanhan.jpg', alt: 'Chuan-Han Li' },
-  eyebrow: 'ROBOTICS · EMBODIED AI',
-  role: ['M.Sc. Robotics', 'National University of Singapore'],
-  subdegree: ['B.S. Biomechatronics Engineering', 'National Taiwan University'],
-  facts: [
-    { term: 'Based in', value: person.location },
-    { term: 'Focus', value: 'Robotics · Embodied AI · AI Engineering · Software Engineering' },
-  ],
+  role: 'M.Sc. Robotics · National University of Singapore',
   links: [
-    { icon: 'mail', label: person.email, href: `mailto:${person.email}` },
-    { icon: 'github', label: 'github.com/chuanhan1013', href: person.github, external: true },
-    { icon: 'linkedin', label: 'linkedin.com/in/chuanhan-li', href: person.linkedin, external: true },
+    { icon: 'mail', label: 'Email', href: `mailto:${person.email}` },
+    { icon: 'github', label: 'GitHub', href: person.github, external: true },
+    { icon: 'linkedin', label: 'LinkedIn', href: person.linkedin, external: true },
   ] satisfies (Link & { icon: IconName })[],
 };
 
 export const hero = {
-  kicker: 'BUILDING RELIABLE INTELLIGENT ROBOTS',
-  headline: 'I build robotic systems across perception, planning, and reliable autonomy.',
+  eyebrow: 'Robotics · Embodied AI',
+  /** The words inside {…} are highlighted. */
+  headline: 'I build robotic systems across perception, planning, and {reliable autonomy}.',
   ledes: [
     'My current research focuses on deep reinforcement learning for robot manipulator motion planning in dynamic environments.',
     'With a background spanning biomechatronics, multimodal perception, robot learning, and AI/software engineering, I am interested in embodied AI systems that can perceive, reason, and act reliably in the physical world.',
   ],
   openTo: 'Open to robotics, embodied AI, AI systems, and research engineering opportunities in Singapore.',
+  facts: [
+    { term: 'Based in', value: person.location },
+    { term: 'Education', value: 'M.Sc. Robotics, NUS · B.S. Biomechatronics, NTU' },
+    { term: 'Focus', value: 'Robotics · Embodied AI · AI Engineering · Software Engineering' },
+  ],
   interests: [
     'Deep Reinforcement Learning',
     'Motion Planning',

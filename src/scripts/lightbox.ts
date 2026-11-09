@@ -1,13 +1,43 @@
 /**
  * Full-screen viewer for card media (`Lightbox.astro`). Clicking — or pressing
- * Enter/Space on — any `.feature-media img` opens it with the rest of that card's
- * media as the gallery.
+ * Enter/Space on — any `.gallery img` opens it with the rest of that gallery's media.
+ * Where the View Transitions API is available (and motion is allowed), the image
+ * morphs from its thumbnail into the viewer and back.
  */
 import { PLACEHOLDER_SRC } from '@/lib/media';
 import { hydrate } from './lazy-media';
 import { onSwipe } from './swipe';
 
-const MEDIA_IMG = '.feature-media img';
+const MEDIA_IMG = '.gallery img';
+const MORPH_NAME = 'lightbox-media';
+
+const canMorph = () =>
+  'startViewTransition' in document && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/**
+ * Run `update` inside a view transition that morphs `from` into `to`. Elements may already
+ * carry a view-transition-name (cross-page card covers), so it is swapped temporarily.
+ */
+function morph(from: HTMLElement | null, to: HTMLElement, update: () => void | Promise<void>): void {
+  if (!from || !canMorph()) {
+    void update();
+    return;
+  }
+  const original = from.style.viewTransitionName;
+  from.style.viewTransitionName = MORPH_NAME;
+  const transition = document.startViewTransition(async () => {
+    from.style.viewTransitionName = original;
+    await update();
+    to.style.viewTransitionName = MORPH_NAME;
+  });
+  void transition.finished.finally(() => {
+    to.style.viewTransitionName = '';
+  });
+}
+
+/** Wait until the image can be painted (bounded, so a slow network never blocks the UI). */
+const ready = (img: HTMLImageElement) =>
+  Promise.race([img.decode().catch(() => undefined), new Promise((r) => setTimeout(r, 400))]);
 
 export function initLightbox(): void {
   const lb = document.querySelector<HTMLElement>('.media-lightbox');
@@ -52,25 +82,36 @@ export function initLightbox(): void {
   };
 
   const open = (img: HTMLImageElement) => {
-    const media = img.closest('.feature-media');
+    const media = img.closest('.gallery');
     gallery = media ? [...media.querySelectorAll('img')] : [img];
     galleryIndex = Math.max(0, gallery.indexOf(img));
     opener = img;
-    render();
-    lb.classList.add('is-open');
-    document.body.classList.add('lightbox-open');
-    setBackgroundInert(true);
-    closeBtn.focus();
+    morph(img, lbImg, async () => {
+      render();
+      lb.classList.add('is-open');
+      document.body.classList.add('lightbox-open');
+      setBackgroundInert(true);
+      closeBtn.focus();
+      await ready(lbImg);
+    });
   };
 
   const close = () => {
-    lb.classList.remove('is-open');
-    document.body.classList.remove('lightbox-open');
-    setBackgroundInert(false);
-    lbImg.src = PLACEHOLDER_SRC;
-    gallery = [];
-    opener?.focus();
-    opener = null;
+    const target = opener;
+    // Morph back only if the viewer still shows the image that opened it.
+    const morphBack = target && gallery[galleryIndex] === target;
+    const finish = () => {
+      lb.classList.remove('is-open');
+      document.body.classList.remove('lightbox-open');
+      setBackgroundInert(false);
+      lbImg.src = PLACEHOLDER_SRC;
+      gallery = [];
+      opener = null;
+      // Background is interactive again, so focus can return to the image that opened it.
+      target?.focus();
+    };
+    if (morphBack) morph(lbImg, target, finish);
+    else finish();
   };
 
   const move = (delta: number) => {

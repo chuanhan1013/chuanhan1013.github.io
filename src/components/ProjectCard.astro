@@ -1,0 +1,63 @@
+---
+import { categories } from '@/data/categories';
+import { mediaStyle, stillOf } from '@/lib/media';
+import { coverOf, projectUrl, transitionName, type ProjectEntry } from '@/lib/projects';
+import Results from './Results.astro';
+import Stack from './Stack.astro';
+import StatusBadge from './StatusBadge.astro';
+
+interface Props {
+  entry: ProjectEntry;
+}
+
+const { entry } = Astro.props;
+const p = entry.data;
+const cover = coverOf(entry);
+const [firstCategory] = p.categories;
+const primary = firstCategory ? categories[firstCategory].short : undefined;
+---
+
+<article class="project-card">
+  <figure
+    class:list={['project-card__cover', { 'project-card__cover--diagram': cover.fit === 'diagram' }]}
+    style={mediaStyle(cover, 'cover')}
+  >
+    <img
+      src={stillOf(cover)}
+      alt=""
+      loading="lazy"
+      decoding="async"
+      referrerpolicy={cover.remote ? 'no-referrer' : undefined}
+      style={`view-transition-name:${transitionName(entry, 'cover')}`}
+    />
+    <StatusBadge status={p.status} />
+  </figure>
+  <div class="project-card__body">
+    <div class="card-meta">
+      {primary && <span>{primary}</span>}
+      {primary && (
+        <span class="sep" aria-hidden="true">
+          ·
+        </span>
+      )}
+      <span>{p.period}</span>
+    </div>
+    <h3 style={`view-transition-name:${transitionName(entry, 'title')}`}>
+      <a href={projectUrl(entry)}>{p.title}</a>
+    </h3>
+    <p class="card-context">
+      <span>
+        {p.context}
+        {p.team && ` · ${p.team}`}
+      </span>
+    </p>
+    <p class="project-card__summary">{p.summary}</p>
+    {p.results && <Results results={p.results.slice(0, 2)} />}
+    <div class="project-card__footer">
+      {p.stack && <Stack items={p.stack.slice(0, 4)} label="Tech stack" />}
+      <span class="text-link" aria-hidden="true">
+        Details <span class="arrow">→</span>
+      </span>
+    </div>
+  </div>
+</article>

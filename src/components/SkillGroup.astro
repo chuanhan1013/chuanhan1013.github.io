@@ -1,7 +1,7 @@
 ---
 import type { SkillGroup } from '@/data/types';
 import { iconUrl } from '@/lib/icons';
-import TechChip from './TechChip.astro';
+import Stack from './Stack.astro';
 
 interface Props {
   group: SkillGroup;
@@ -10,16 +10,10 @@ interface Props {
 const { group } = Astro.props;
 ---
 
-<div>
+<div class="skill-group reveal">
   <h3>
-    <span class="skill-heading-icon">
-      <img src={iconUrl(group.icon)} alt="" loading="lazy" decoding="async" />
-    </span>
+    <img src={iconUrl(group.icon)} alt="" width="30" height="30" loading="lazy" />
     {group.title}
   </h3>
-  <div class="skill-items">
-    {group.items.map((chip) => (
-      <TechChip chip={chip} variant="skill" />
-    ))}
-  </div>
+  <Stack items={group.items} dots label={group.title} />
 </div>

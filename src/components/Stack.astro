@@ -1,0 +1,30 @@
+---
+import type { TechChip } from '@/data/schemas';
+import { iconUrl } from '@/lib/icons';
+
+interface Props {
+  items: TechChip[];
+  /** Show a dot for chips without an icon or glyph (skills list). */
+  dots?: boolean;
+  label?: string;
+}
+
+const { items, dots = false, label } = Astro.props;
+---
+
+<ul class="stack" aria-label={label}>
+  {items.map((chip) => (
+    <li>
+      {'icon' in chip ? (
+        <img src={iconUrl(chip.icon)} alt="" loading="lazy" decoding="async" />
+      ) : 'glyph' in chip ? (
+        <span class="glyph" aria-hidden="true">
+          {chip.glyph}
+        </span>
+      ) : (
+        dots && <span class="skill-dot" aria-hidden="true" />
+      )}
+      {chip.label}
+    </li>
+  ))}
+</ul>

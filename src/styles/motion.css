@@ -1,0 +1,78 @@
+/*
+ * Motion layer. Everything here is gated on `prefers-reduced-motion: no-preference`;
+ * with reduced motion the page is fully static. Only opacity/transform-type properties
+ * animate, so nothing triggers layout.
+ *
+ * Scroll reveal uses the individual `translate` property, so it composes with the
+ * `transform` used by hover effects instead of overriding it.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  /* ---- Hero entrance: staggered rise (order set per element via --i). ---- */
+  .rise {
+    animation: rise var(--dur-slow) var(--ease-out) both;
+    animation-delay: calc(var(--i, 0) * 70ms + 60ms);
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      translate: 0 18px;
+    }
+  }
+
+  /* ---- Scroll reveal (class set by an inline script before first paint). ---- */
+  .reveal-ready .reveal {
+    opacity: 0;
+    translate: 0 22px;
+    transition:
+      opacity var(--dur-slow) var(--ease-out),
+      translate var(--dur-slow) var(--ease-out),
+      transform var(--dur) var(--ease-out),
+      box-shadow var(--dur) ease,
+      border-color var(--dur) ease;
+  }
+  .reveal-ready .reveal.is-visible {
+    opacity: 1;
+    translate: none;
+  }
+
+  /* ---- Live dot on ongoing work. ---- */
+  .status--ongoing::before {
+    animation: pulse 2.4s var(--ease-in-out) infinite;
+  }
+  @keyframes pulse {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 rgba(31, 122, 77, 0.45);
+    }
+    60% {
+      box-shadow: 0 0 0 6px rgba(31, 122, 77, 0);
+    }
+  }
+
+  /* ---- Timeline rail draws itself while the section scrolls through. ---- */
+  @supports (animation-timeline: view()) {
+    .timeline::before {
+      animation: draw-rail linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 55%;
+    }
+    @keyframes draw-rail {
+      from {
+        transform: scaleY(0);
+      }
+    }
+  }
+
+  /* ---- Cross-page transitions (portfolio ↔ project pages ↔ CV). ---- */
+  @view-transition {
+    navigation: auto;
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.28s;
+  }
+  ::view-transition-group(*) {
+    animation-duration: 0.42s;
+    animation-timing-function: var(--ease-out);
+  }
+}

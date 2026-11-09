@@ -1,10 +1,10 @@
 /**
- * Deferred images: inactive carousel slides render a placeholder `src` and keep the
- * real URL in `data-src` until they are first shown.
+ * Deferred media: inactive carousel slides keep the real URL in `data-src` (images start with a
+ * placeholder `src`; videos with none) until they are first shown.
  */
-export function hydrate(img: HTMLImageElement | null | undefined): void {
-  const src = img?.dataset['src'];
-  if (!img || !src) return;
-  img.src = src;
-  delete img.dataset['src'];
+export function hydrate(media: HTMLImageElement | HTMLVideoElement | null | undefined): void {
+  const src = media?.dataset['src'];
+  if (!media || !src) return;
+  media.src = src;
+  delete media.dataset['src'];
 }
