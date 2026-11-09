@@ -30,7 +30,8 @@ export function usedCategories(entries: ProjectEntry[]) {
 }
 
 /** The image used on cards: the first gallery item. */
-export const coverOf = (entry: ProjectEntry): MediaItem => entry.data.media.items[0] as MediaItem;
+export const coverOf = (entry: ProjectEntry): MediaItem =>
+  entry.data.media.card ?? (entry.data.media.items[0] as MediaItem);
 
 /** Unique, CSS-safe view-transition names linking a card to its detail page. */
 export const transitionName = (entry: ProjectEntry, part: 'cover' | 'title') => `${part}-${entry.id}`;

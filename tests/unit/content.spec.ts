@@ -28,7 +28,10 @@ function loadProjects() {
 }
 
 const mediaPaths = (data: ProjectData) => [
-  ...data.media.items.flatMap((item) => [item.src, item.poster]),
+  ...[...data.media.items, ...(data.media.card ? [data.media.card] : [])].flatMap((item) => [
+    item.src,
+    item.poster,
+  ]),
   data.contextLogo?.src,
 ];
 

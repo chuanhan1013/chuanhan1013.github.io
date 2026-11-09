@@ -37,6 +37,11 @@ links:
     }
 media:
   badge: Robot Learning
+  card:
+    src: /assets/media/sata/card.mp4
+    poster: /assets/media/sata/card-poster.webp
+    fit: cover
+    alt: Quadruped walking on rough terrain
   items:
     - src: /assets/media/sata-rough-walk.gif
       alt: Quadruped locomotion policy trained in Isaac Lab, replayed on rough terrain in the Isaac Gym viewer

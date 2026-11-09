@@ -1,4 +1,4 @@
-/* Full-width introduction: identity + positioning on the left, motion-planning artwork on the right. */
+/* Full-width introduction: identity, positioning, quick facts and interests. */
 .hero {
   position: relative;
   padding-block: clamp(40px, 7vw, 88px) clamp(48px, 7vw, 88px);
@@ -17,11 +17,8 @@
     linear-gradient(90deg, rgba(18, 63, 107, 0.045) 1px, transparent 1px) 0 0 / 32px 32px;
   mask-image: linear-gradient(to bottom, #000 55%, transparent);
 }
-.hero__grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
-  align-items: center;
-  gap: clamp(32px, 5vw, 64px);
+.hero__grid > div {
+  max-width: 920px;
 }
 .hero__identity {
   display: flex;
@@ -129,34 +126,6 @@
   margin-top: 22px;
 }
 
-/* ---- Artwork panel ---- */
-.hero__art {
-  position: relative;
-  margin: 0;
-  padding: 14px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.72);
-  box-shadow: var(--shadow-lg);
-  backdrop-filter: blur(6px);
-}
-.hero__art figcaption {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px 6px 2px;
-  color: var(--muted);
-  font-size: var(--fs-xs);
-}
-
-@media (max-width: 960px) {
-  .hero__grid {
-    grid-template-columns: 1fr;
-  }
-  .hero__art {
-    max-width: 560px;
-  }
-}
 @media (max-width: 560px) {
   .hero__facts {
     grid-template-columns: 1fr;

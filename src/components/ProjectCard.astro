@@ -1,6 +1,6 @@
 ---
 import { categories } from '@/data/categories';
-import { mediaStyle, stillOf } from '@/lib/media';
+import { isVideo, mediaStyle, stillOf } from '@/lib/media';
 import { coverOf, projectUrl, transitionName, type ProjectEntry } from '@/lib/projects';
 import Results from './Results.astro';
 import Stack from './Stack.astro';
@@ -22,14 +22,28 @@ const primary = firstCategory ? categories[firstCategory].short : undefined;
     class:list={['project-card__cover', { 'project-card__cover--diagram': cover.fit === 'diagram' }]}
     style={mediaStyle(cover, 'cover')}
   >
-    <img
-      src={stillOf(cover)}
-      alt=""
-      loading="lazy"
-      decoding="async"
-      referrerpolicy={cover.remote ? 'no-referrer' : undefined}
-      style={`view-transition-name:${transitionName(entry, 'cover')}`}
-    />
+    {isVideo(cover) ? (
+      <video
+        class="card-clip"
+        muted
+        loop
+        playsinline
+        preload="none"
+        poster={cover.poster}
+        data-src={cover.src}
+        aria-hidden="true"
+        style={`view-transition-name:${transitionName(entry, 'cover')}`}
+      />
+    ) : (
+      <img
+        src={stillOf(cover)}
+        alt=""
+        loading="lazy"
+        decoding="async"
+        referrerpolicy={cover.remote ? 'no-referrer' : undefined}
+        style={`view-transition-name:${transitionName(entry, 'cover')}`}
+      />
+    )}
     <StatusBadge status={p.status} />
   </figure>
   <div class="project-card__body">

@@ -27,6 +27,11 @@ stack:
 tags: [Safety, LLM Integration, Humanoid, Simulation]
 media:
   badge: ROS 2 · Gazebo
+  card:
+    src: /assets/media/g1/card.mp4
+    poster: /assets/media/g1/card-poster.webp
+    fit: cover
+    alt: The G1 in Gazebo executing gated joint trajectories
   items:
     - src: /assets/media/g1/pipeline-demo.webp
       alt: Gazebo view of the Unitree G1 next to a terminal running all six pipeline stages

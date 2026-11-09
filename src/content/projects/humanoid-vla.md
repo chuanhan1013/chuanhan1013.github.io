@@ -32,6 +32,11 @@ note: >-
   first contact, and every object is held at the wrist while walking.
 media:
   badge: VLM · MuJoCo
+  card:
+    src: /assets/media/vla/card.mp4
+    poster: /assets/media/vla/card-poster.webp
+    fit: cover
+    alt: The simulated G1 walks to the table and grasps the blue cube
   items:
     - src: /assets/media/vla/demo-cube.mp4
       poster: /assets/media/vla/demo-cube-poster.webp

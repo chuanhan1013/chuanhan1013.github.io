@@ -82,6 +82,8 @@ export const projectSchema = z.object({
   media: z.object({
     badge: z.string(),
     items: z.array(mediaItemSchema).min(1),
+    /** Optional card thumbnail (e.g. a short, small loop); defaults to the first item. */
+    card: mediaItemSchema.optional(),
   }),
 });
 

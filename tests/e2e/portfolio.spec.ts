@@ -216,11 +216,13 @@ test.describe('lightbox', () => {
 
   test('keeps the no-referrer policy of remote images', async ({ page }) => {
     await page.goto('/projects/dynamic-manipulator-planning.html');
-    await page.locator('.gallery__slide.is-active img').dispatchEvent('click');
+    // Open the first image (the gallery starts with a clip), then step to the remote photo.
+    await page.locator('.gallery__slide img').first().dispatchEvent('click');
     const lbImg = page.getByRole('dialog', { name: 'Media viewer' }).locator('.lb-stage img');
     await expect(lbImg).toHaveJSProperty('referrerPolicy', '');
-    // The remote photo is the last slide, so step backwards (wraps around).
-    await page.keyboard.press('ArrowLeft');
+    for (let i = 0; i < 3 && !(await lbImg.getAttribute('src'))?.startsWith('https:'); i++) {
+      await page.keyboard.press('ArrowRight');
+    }
     await expect(lbImg).toHaveAttribute('src', /^https:/);
     await expect(lbImg).toHaveJSProperty('referrerPolicy', 'no-referrer');
   });
@@ -284,18 +286,6 @@ test.describe('motion', () => {
     await expect.poll(() => card.evaluate((el) => getComputedStyle(el).opacity), { timeout: 5000 }).toBe('1');
   });
 
-  test('hero end-effector travels along its path', async ({ page }) => {
-    await page.goto('/');
-    const ee = page.locator('.traj__ee');
-    // The marker only animates while the illustration is on screen (it sits below the fold on phones).
-    await page.locator('.hero__art').scrollIntoViewIfNeeded();
-    await page.waitForTimeout(300);
-    const a = await ee.evaluate((el) => (el as SVGGElement).style.transform);
-    await page.waitForTimeout(700);
-    const b = await ee.evaluate((el) => (el as SVGGElement).style.transform);
-    expect(a).not.toBe(b);
-  });
-
   test('with reduced motion, nothing is hidden and clips do not autoplay', async ({ browser }) => {
     const context = await browser.newContext({ reducedMotion: 'reduce' });
     const page = await context.newPage();
@@ -322,5 +312,28 @@ test.describe('mobile navigation', () => {
     await nav.getByRole('link', { name: 'Experience' }).click();
     await expect(nav).toBeHidden();
     await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+  });
+});
+
+test.describe('card clips', () => {
+  test('load only when scrolled into view, then play', async ({ page }) => {
+    await page.goto('/');
+    const clip = page.locator('.project-card video.card-clip').first();
+    await expect(clip).toHaveAttribute('data-src', /\.mp4$/);
+    expect(await clip.evaluate((v: HTMLVideoElement) => v.getAttribute('src'))).toBeNull();
+    await clip.scrollIntoViewIfNeeded();
+    await expect.poll(() => clip.evaluate((v: HTMLVideoElement) => !v.paused && !!v.currentSrc)).toBe(true);
+  });
+
+  test('keep their poster and never load with reduced motion', async ({ browser }) => {
+    const context = await browser.newContext({ reducedMotion: 'reduce' });
+    const page = await context.newPage();
+    await page.goto('/');
+    const clip = page.locator('.project-card video.card-clip').first();
+    await clip.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(500);
+    expect(await clip.evaluate((v: HTMLVideoElement) => v.getAttribute('src'))).toBeNull();
+    await expect(clip).toHaveAttribute('poster', /\.webp$/);
+    await context.close();
   });
 });
