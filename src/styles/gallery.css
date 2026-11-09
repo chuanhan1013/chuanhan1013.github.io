@@ -136,31 +136,30 @@
 .gallery__dots {
   display: flex;
   justify-content: center;
-  gap: 6px;
-  margin-top: 12px;
+  margin-top: 6px;
 }
+/* 24×24 px tap target (WCAG 2.2) around a small visual dot. */
 .gallery__dot {
-  width: 8px;
-  height: 8px;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
   padding: 0;
   border: 0;
+  background: none;
+  cursor: pointer;
+}
+.gallery__dot::before {
+  content: '';
+  width: 8px;
+  height: 8px;
   border-radius: 999px;
   background: var(--line-strong);
-  cursor: pointer;
   transition:
     width var(--dur) var(--ease-out),
     background var(--dur-fast) ease;
 }
-.gallery__dot.is-active {
-  width: 22px;
+.gallery__dot.is-active::before {
+  width: 20px;
   background: var(--blue);
-}
-/* Larger tap targets without changing the look. */
-.gallery__dot {
-  position: relative;
-}
-.gallery__dot::before {
-  content: '';
-  position: absolute;
-  inset: -8px -3px;
 }

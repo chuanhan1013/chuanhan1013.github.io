@@ -5,6 +5,7 @@
 .back-link {
   display: inline-flex;
   align-items: center;
+  min-height: 32px;
   gap: 6px;
   color: var(--muted);
   font-size: var(--fs-sm);

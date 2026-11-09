@@ -84,7 +84,7 @@
   border-radius: 4px;
   background: var(--accent-soft);
   color: var(--blue-dark);
-  font-size: 10px;
+  font-size: var(--fs-xs);
   font-weight: 800;
   letter-spacing: 0.02em;
 }
@@ -98,6 +98,7 @@
 .text-link {
   display: inline-flex;
   align-items: center;
+  min-height: 32px;
   gap: 6px;
   color: var(--blue);
   font-size: var(--fs-md);

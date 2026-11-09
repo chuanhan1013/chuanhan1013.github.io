@@ -156,6 +156,9 @@
   gap: 18px;
 }
 .site-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
   color: var(--muted);
   font-weight: 600;
   text-decoration: none;

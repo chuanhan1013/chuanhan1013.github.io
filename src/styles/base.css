@@ -67,6 +67,24 @@ svg {
   border: 0;
 }
 
+/* Skip link: hidden until focused with the keyboard. */
+.skip-link {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: var(--ink);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+.skip-link:focus {
+  transform: none;
+}
+
 .container {
   width: min(var(--page), 100% - 2 * var(--gutter));
   margin-inline: auto;
