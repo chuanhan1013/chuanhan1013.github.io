@@ -25,6 +25,7 @@ const isCarousel = items.length > 1;
   data-carousel={isCarousel ? '' : undefined}
   aria-roledescription={isCarousel ? 'carousel' : undefined}
   aria-label={label}
+  data-vt-name={isCarousel ? transitionName : undefined}
 >
   <div class="gallery__stage">
     {items.map((item, i) => (

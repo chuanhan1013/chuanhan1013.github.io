@@ -4,6 +4,7 @@
  */
 import { z } from 'astro/zod';
 import { iconNames } from '@/lib/icon-names';
+import { isVideo } from '@/lib/media';
 import { categoryKeys, statusKeys } from './categories';
 
 export const linkSchema = z.object({
@@ -45,7 +46,7 @@ export const mediaItemSchema = z
     /** Hosted elsewhere: loaded with `referrerpolicy="no-referrer"`. */
     remote: z.boolean().optional(),
   })
-  .refine((item) => !/\.(mp4|webm)$/i.test(item.src) || !!item.poster, {
+  .refine((item) => !isVideo(item) || !!item.poster, {
     message: 'Video media needs a `poster` image.',
     path: ['poster'],
   });

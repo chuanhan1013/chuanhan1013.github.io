@@ -1,6 +1,6 @@
 /**
  * Scroll-reveal for cards. Active only when `<html>` has `.reveal-ready`, which an inline
- * script in `index.astro` sets before first paint (skipped for reduced motion); if this
+ * script in `SiteLayout.astro` sets before first paint (skipped for reduced motion); if this
  * module never runs, that script removes the class again so nothing stays hidden.
  */
 const REVEAL_TARGETS = '.reveal';
@@ -24,6 +24,6 @@ export function initReveal(): void {
     el.style.transitionDelay = `${Math.min(i % 3, 2) * 55}ms`;
     observer.observe(el);
   });
-  // Tells the inline fallback in index.astro that cards will be revealed.
+  // Tells the inline fallback in SiteLayout.astro that cards will be revealed.
   root.setAttribute('data-reveal-active', '');
 }

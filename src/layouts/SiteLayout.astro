@@ -27,6 +27,14 @@ const { title = seo.title, description = seo.description, home = false } = Astro
   themeColor={seo.themeColor}
 >
   <script is:inline slot="head">
+    // Cross-page view transitions can be skipped by the browser (e.g. a quick second
+    // navigation); swallow those expected rejections instead of logging page errors.
+    for (const type of ['pageswap', 'pagereveal']) {
+      addEventListener(type, (event) => {
+        const t = event.viewTransition;
+        if (t) for (const p of [t.ready, t.finished, t.updateCallbackDone]) p?.catch(() => {});
+      });
+    }
     // Enable scroll-reveal before first paint so content doesn't flash in and then fade.
     // Module scripts always run before DOMContentLoaded: if reveal.ts has not taken over by
     // then (script blocked, failed or threw), drop the class so content is never left hidden.

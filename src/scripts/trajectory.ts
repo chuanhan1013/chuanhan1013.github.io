@@ -25,21 +25,18 @@ export function initTrajectory(): void {
     return typeof t === 'number' ? t : now - startedAt;
   };
 
-  let visible = true;
+  let frameId = 0;
   const frame = (now: number) => {
-    if (visible) {
-      const phase = (clock(now) % LOOP_MS) / LOOP_MS;
-      const progress = easeInOut(Math.min(phase / TRAVEL, 1));
-      const point = path.getPointAtLength(progress * length);
-      ee.style.transform = `translate(${point.x}px, ${point.y}px)`;
-    }
-    requestAnimationFrame(frame);
+    const phase = (clock(now) % LOOP_MS) / LOOP_MS;
+    const progress = easeInOut(Math.min(phase / TRAVEL, 1));
+    const point = path.getPointAtLength(progress * length);
+    ee.style.transform = `translate(${point.x}px, ${point.y}px)`;
+    frameId = requestAnimationFrame(frame);
   };
 
-  // Skip the per-frame work while the illustration is off-screen.
+  // Run the loop only while the illustration is on screen.
   new IntersectionObserver(([entry]) => {
-    visible = !!entry?.isIntersecting;
+    cancelAnimationFrame(frameId);
+    if (entry?.isIntersecting) frameId = requestAnimationFrame(frame);
   }).observe(ee.ownerSVGElement ?? ee);
-
-  requestAnimationFrame(frame);
 }

@@ -133,6 +133,18 @@ test.describe('carousel', () => {
     await expect(carousel.locator('.gallery__dot').nth(2)).toHaveAttribute('aria-current', 'true');
   });
 
+  test('the cross-page transition name follows the visible slide', async ({ page }) => {
+    await page.goto('/');
+    const carousel = page.getByRole('region', { name: EGG });
+    const name = await carousel.getAttribute('data-vt-name');
+    expect(name).toBeTruthy();
+    const media = carousel.locator('.gallery__slide img');
+    await expect(media.nth(0)).toHaveCSS('view-transition-name', name ?? '');
+    await carousel.locator('.gallery__btn.next').dispatchEvent('click');
+    await expect(media.nth(1)).toHaveCSS('view-transition-name', name ?? '');
+    await expect(media.nth(0)).toHaveCSS('view-transition-name', 'none');
+  });
+
   test('horizontal swipes change slides; vertical scrolling gestures do not', async ({ page, isMobile }) => {
     test.skip(!isMobile, 'touch gestures');
     await page.goto('/');
@@ -225,6 +237,19 @@ test.describe('lightbox', () => {
     }
     await page.keyboard.press('Escape');
     await expect(page.locator('main')).not.toHaveAttribute('inert');
+  });
+
+  test('counts clips and images in carousel order', async ({ page }) => {
+    await page.goto('/projects/catchpoint.html');
+    const slides = await page.locator('.gallery__slide').count();
+    await page.locator('.gallery__slide.is-active img').dispatchEvent('click');
+    const lightbox = page.getByRole('dialog', { name: 'Media viewer' });
+    await expect(lightbox.locator('.lb-caption')).toHaveText(new RegExp(`· 1 / ${slides}$`));
+    await page.keyboard.press('ArrowRight');
+    await expect(lightbox.locator('.lb-stage video')).toBeVisible();
+    await expect(lightbox.locator('.lb-stage img')).toBeHidden();
+    await page.keyboard.press('Escape');
+    await expect(lightbox).toBeHidden();
   });
 
   test('single-image media hides gallery arrows', async ({ page }) => {

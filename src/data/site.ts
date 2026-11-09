@@ -4,8 +4,6 @@ import type { Link } from './types';
 
 export const person = {
   name: 'Chuan-Han Li',
-  /** Name split across lines on the profile card. */
-  nameLines: ['Chuan-Han', 'Li'],
   location: 'Singapore',
   email: 'chuanhan1013@gmail.com',
   website: 'https://chuanhan1013.github.io',
@@ -17,7 +15,6 @@ export const seo = {
   title: 'Chuan-Han Li — Robotics & Embodied AI',
   description:
     'Chuan-Han Li — Robotics, embodied AI, motion planning, multimodal perception, and reliable autonomy.',
-  ogTitle: 'Chuan-Han Li — Robotics & Embodied AI',
   ogDescription:
     'Research and engineering portfolio in robotics, embodied AI, motion planning, multimodal perception, and AI engineering.',
   themeColor: '#f7f9fc',

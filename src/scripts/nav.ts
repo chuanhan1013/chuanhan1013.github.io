@@ -71,11 +71,13 @@ export function initNav(): void {
   const first = sections[0];
   if (first) {
     const checkTop = () => {
-      if (first.getBoundingClientRect().top > window.innerHeight * 0.4) setActive(undefined);
+      if (current && first.getBoundingClientRect().top > window.innerHeight * 0.4) setActive(undefined);
     };
     checkTop();
     window.addEventListener('scroll', checkTop, { passive: true });
   }
 
-  window.addEventListener('resize', () => moveIndicator(current), { passive: true });
+  // Link widths change on resize and when the web font replaces the fallback font.
+  new ResizeObserver(() => moveIndicator(current)).observe(nav);
+  void document.fonts?.ready.then(() => moveIndicator(current));
 }

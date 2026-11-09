@@ -17,7 +17,7 @@ export function mediaStyle(item: MediaItem, prefix: 'slide' | 'cover'): string |
 }
 
 /** Short clips are rendered as muted, looping <video> elements. */
-export const isVideo = (item: Pick<MediaItem, 'src'>) => /\.(mp4|webm)$/i.test(item.src);
+export const isVideo = (item: { src: string }) => /\.(mp4|webm)$/i.test(item.src);
 
 /** The still image that represents an item on cards (poster for clips). */
 export const stillOf = (item: MediaItem) => (isVideo(item) ? (item.poster ?? item.src) : item.src);

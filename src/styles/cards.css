@@ -270,7 +270,6 @@
 }
 .project-card__cover--diagram {
   --cover-bg: #fff;
-  --cover-fit: contain;
   /* Extra top space keeps the status badge clear of the diagram. */
   padding: 44px 16px 14px;
   border-bottom: 1px solid var(--line);
@@ -336,14 +335,6 @@
 .project-card .results dt {
   font-size: var(--fs-base);
 }
-.empty-state {
-  padding: 40px;
-  border: 1px dashed var(--line-strong);
-  border-radius: var(--radius);
-  color: var(--muted);
-  text-align: center;
-}
-
 @media (max-width: 900px) {
   .research-card,
   .research-card:nth-child(even) {
