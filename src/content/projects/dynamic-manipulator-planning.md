@@ -9,17 +9,26 @@ context: Advanced Robotics Centre, NUS · Advisor Prof. Marcelo H. Ang Jr.
 contextLogo: { src: /assets/icons/nus-vertical.jpg, shape: portrait }
 summary: >-
   Researching learning-based reaching and collision avoidance for a 7-DoF manipulator among moving
-  obstacles, in simulation — including how a policy should perceive obstacles along the whole arm,
-  and how to evaluate such controllers rigorously against simple baselines.
+  obstacles, in simulation. A learned risk-aware selector decides when a reinforcement-learning
+  avoidance policy should take over from a nominal reaching policy, and when to hand back.
 tags: [Manipulation, Motion Planning, Reinforcement Learning, Dynamic Obstacles, Franka Research 3]
 links:
   - { label: FR3 platform ↗, href: 'https://franka.de/franka-research-3', external: true }
 note: >-
-  Research in progress. Public portfolio intentionally shows the research direction rather than
-  unpublished internal results.
+  Research in progress. This page describes the research questions and the system design only;
+  unpublished results are not shown.
 media:
   badge: NUS ARC · Ongoing
   items:
+    - src: /assets/diagrams/dynur-architecture.svg
+      alt: >-
+        System architecture: the simulated scene feeds an observation of arm state, goal and proximity
+        along the arm to a learned risk-aware selector, which hands control either to a nominal reaching
+        policy from the lab or to a learned avoidance policy; their output passes a joint-feasibility
+        guard (joint limits only) and returns to the scene as a joint command. A geometry layer generates
+        scenarios and audits runs for collisions, and an evaluation harness checks every run.
+      caption: System architecture (conceptual)
+      fit: diagram
     - src: /assets/diagrams/dynur.svg
       alt: Method diagram for dynamic manipulator motion planning and link-centric obstacle representation
       caption: Research-method overview
@@ -31,21 +40,50 @@ media:
       remote: true
 ---
 
-## Research direction
+## Research questions
 
 A manipulator working near people and other machines has to keep reaching its goal while
 obstacles move through its workspace. Avoidance must protect the **whole arm**, not just the
-gripper, and it must react on the timescale of the obstacle's motion.
+gripper, and it must react on the timescale of the obstacle's motion. The project asks:
 
-The project explores:
+1. **When to yield.** When should the arm interrupt reaching to avoid a moving obstacle, and when
+   should it hand control back?
+2. **What to observe.** What should an avoidance policy know about obstacles along the whole arm,
+   so it can tell which part is at risk and from which direction?
+3. **How to tell it works.** How can a learned controller be shown to beat a simple, well-tuned
+   baseline, rather than only looking good on favourable scenarios?
 
-- **Learning-based control** for reaching and avoidance on a 7-DoF arm;
-- **Obstacle representations** that describe proximity along the arm's links, so a policy can
-  tell which part of the arm is at risk and from which direction;
-- **Evaluation methodology**: comparing learned controllers against simple, well-tuned baselines
-  under fixed protocols, and reporting negative results as readily as gains.
+## System
+
+The work splits reaching and avoidance instead of training one policy to do both:
+
+- **Nominal reaching policy.** An existing reaching policy from the lab drives the arm towards its
+  goal when nothing is in the way.
+- **Learned avoidance policy.** A reinforcement-learning policy takes over to move the arm out of an
+  obstacle's path.
+- **Risk-aware selector.** A learned selector watches the scene and decides when to hand control to
+  the avoidance policy and when to hand it back.
+- **Geometry and safety layer.**
+  - Exact arm–obstacle distance is used to generate test scenarios and to audit every run for
+    collisions.
+  - A joint-feasibility guard keeps commands within the joint limits. It is not an obstacle
+    guarantee: avoiding obstacles is the learned components' job.
+- **Evaluation.** Protocols are fixed before a run, controllers are compared on paired scenarios,
+  and simple baselines and blind controls are always included. Negative results are reported as
+  readily as gains.
+
+## Current direction
+
+The current work is on the observation: a **surface-proximity** representation that describes,
+for each region of the arm's surface, how far the nearest obstacle is, in which direction, and how
+fast it is approaching.
 
 ## Status
 
 This is ongoing work at the Advanced Robotics Centre, NUS, and is currently in simulation. Results
-and method details will be shared here once they are published.
+will be shared here once they are published.
+
+## Credits
+
+The nominal reaching policy was developed by a senior labmate. The research is supervised by Prof.
+Marcelo H. Ang Jr.

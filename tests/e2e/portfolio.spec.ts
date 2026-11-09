@@ -219,7 +219,9 @@ test.describe('lightbox', () => {
     await page.locator('.gallery__slide.is-active img').dispatchEvent('click');
     const lbImg = page.getByRole('dialog', { name: 'Media viewer' }).locator('.lb-stage img');
     await expect(lbImg).toHaveJSProperty('referrerPolicy', '');
-    await page.keyboard.press('ArrowRight');
+    // The remote photo is the last slide, so step backwards (wraps around).
+    await page.keyboard.press('ArrowLeft');
+    await expect(lbImg).toHaveAttribute('src', /^https:/);
     await expect(lbImg).toHaveJSProperty('referrerPolicy', 'no-referrer');
   });
 
