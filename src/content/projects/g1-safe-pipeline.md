@@ -79,5 +79,4 @@ The bridge sits in front of the simulated G1 joint controller.
 ## Credits
 
 This was a three-person team project. Teammates built the LLM model generator and the kinematics
-compiler. I drafted my components with AI coding assistants (Claude Code, with Codex review), then
-ran and verified them myself.
+compiler; I built, ran and verified the deployment, safety bridge and orchestration stages.

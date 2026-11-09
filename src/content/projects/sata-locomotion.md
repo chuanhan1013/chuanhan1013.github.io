@@ -6,6 +6,7 @@ order: 40
 status: completed
 period: Spring 2026
 context: Adaptive Control Systems · NTU
+team: Individual course project
 summary: >-
   Reproduced SATA (RSS 2025) torque-based quadruped locomotion on Isaac Gym, ablated its bio-inspired
   actuator mechanisms across 48 policies, and tested robustness and actuator feasibility. Then ported

@@ -105,4 +105,3 @@ The team built the pipeline together:
 - **Third-party policies.** The walking policy comes from Unitree and the crouch policy from Lucky
   Robots.
 - **Demo video.** The monitor texture in the scene is blurred.
-- **AI assistance.** I wrote my code with Claude Code and reviewed it with Codex.

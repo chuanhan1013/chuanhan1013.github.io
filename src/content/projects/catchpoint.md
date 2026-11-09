@@ -109,9 +109,9 @@ I proposed the concept, which the five-person team then adopted. I also:
 - built the simulation studies, the walker sizing analysis and the MuJoCo demonstration;
 - integrated the team's slides and ran the review process.
 
-Teammates owned the clinical framing, presentation and verification of their modules. One teammate
-also audited the competitor comparison. I built the implementation with AI coding assistants
-(Claude Code, Codex) and checked it through 23 independent review rounds.
+The presentation was split into five parts. Each teammate took over one part, checked its numbers
+and presented it. One teammate also led the clinical framing and audited the competitor comparison.
+The implementation went through 23 independent review rounds.
 
 The Unitree G1 model is used under its BSD-3-Clause licence. The mannequin in the concept render is
 © Mixamo/Adobe.

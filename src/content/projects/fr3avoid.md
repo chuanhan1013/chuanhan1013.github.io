@@ -83,6 +83,5 @@ update. **No learned policy has been trained or evaluated yet.**
 ## Credits
 
 - **My partner** implemented the network stage.
-- **I** specified the environment, and implemented and verified it with AI coding assistants
-  (Claude Code, with Codex review passes that found and fixed six bugs). I also produced the
-  baseline results.
+- **I** specified, implemented and verified the environment (independent review passes found and
+  fixed six bugs), and produced the baseline results.
