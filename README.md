@@ -60,7 +60,8 @@ schema in `src/data/schemas.ts`, and the body is the write-up on `/projects/<slu
   - `contain` letterboxes the whole image (optional `background`);
   - `diagram` shows it on white with an "open" hint.
 
-  Short clips (`.mp4`) need a `poster` image. They play muted while on screen and never autoplay
+  Short clips (`.mp4`) need a `poster` image. A card can show its own small loop: add
+  `media.card` (same fields as an item); otherwise the card uses the first item. They play muted while on screen and never autoplay
   with reduced motion. Keep clips to a few hundred KB, for example with
   `ffmpeg -i in.mp4 -an -c:v libx264 -crf 30 -vf scale=960:-2 -movflags +faststart out.mp4`.
 
@@ -89,6 +90,7 @@ tests/
   unit/               Content checks (schema, media exist, drafts not shipped)
 docs/
   diagrams/           TikZ sources for the SVG diagrams
+  illustrations/      Source of rendered illustration clips (MuJoCo)
   drafts/             Media for draft entries (never deployed)
 ```
 

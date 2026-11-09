@@ -15,3 +15,6 @@ blob-report/
 .env.*
 .DS_Store
 *.log
+docs/illustrations/**/fr3.xml
+docs/illustrations/**/assets/
+docs/illustrations/**/raw.mp4

@@ -1,7 +1,6 @@
 ---
 import { hero, person, profile } from '@/data/site';
 import { iconUrl } from '@/lib/icons';
-import TrajectoryArt from './TrajectoryArt.astro';
 
 // "{…}" in the headline marks the highlighted phrase.
 const [before = '', highlight = '', after = ''] = hero.headline.split(/[{}]/);
@@ -68,9 +67,6 @@ const [before = '', highlight = '', after = ''] = hero.headline.split(/[{}]/);
           <li class="pill">{interest}</li>
         ))}
       </ul>
-    </div>
-    <div class="rise" style="--i:3">
-      <TrajectoryArt />
     </div>
   </div>
 </section>

@@ -20,6 +20,13 @@ note: >-
 media:
   badge: NUS ARC · Ongoing
   items:
+    - src: /assets/media/dynur/arm-avoidance.mp4
+      poster: /assets/media/dynur/arm-avoidance-poster.webp
+      alt: >-
+        Illustration: a simulated Franka FR3 arm keeps reaching for alternating targets while an orange ball
+        passes its elbow; the arm bends away, and a line marks the closest point between the ball and the arm
+      caption: Illustration of whole-arm avoidance (simple controller on the public FR3 model; not research results)
+      fit: cover
     - src: /assets/diagrams/dynur-architecture.svg
       alt: >-
         System architecture: the simulated scene feeds an observation of arm state, goal and proximity
@@ -85,5 +92,9 @@ will be shared here once they are published.
 
 ## Credits
 
-The nominal reaching policy was developed by a senior labmate. The research is supervised by Prof.
-Marcelo H. Ang Jr.
+- The nominal reaching policy was developed by a senior labmate. The research is supervised by Prof.
+  Marcelo H. Ang Jr.
+- The animation at the top is an illustration, not the research method or its results. It runs a
+  simple whole-arm avoidance controller written for this page on the Franka FR3 model from
+  [MuJoCo Menagerie](https://github.com/google-deepmind/mujoco_menagerie) (Apache-2.0). Its
+  source is in `docs/illustrations/fr3-avoidance/`.

@@ -4,8 +4,7 @@ import { initFilter } from './filter';
 import { initLightbox } from './lightbox';
 import { initNav } from './nav';
 import { initReveal } from './reveal';
-import { initTrajectory } from './trajectory';
-import { initVideos } from './video';
+import { initCardClips, initVideos } from './video';
 
 // Each feature initialises independently, so a failure in one cannot disable the others.
 for (const init of [
@@ -14,8 +13,8 @@ for (const init of [
   initLightbox,
   initFilter,
   initReveal,
-  initTrajectory,
   initVideos,
+  initCardClips,
 ]) {
   try {
     init();
