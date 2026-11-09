@@ -1,0 +1,170 @@
+/* Left-hand profile card and CV shortcut. */
+.profile-card {
+  padding: 20px;
+  border: 1px solid rgba(220, 229, 237, 0.95);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow);
+}
+.avatar {
+  width: 172px;
+  height: 172px;
+  object-fit: cover;
+  margin: 0 auto 2px;
+  border-radius: 22px;
+  border: 1px solid #d4dfe8;
+  box-shadow: 0 12px 28px rgba(20, 52, 80, 0.12);
+}
+.profile-card h1 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 32px;
+  line-height: 1.03;
+  letter-spacing: -0.045em;
+}
+.profile-role {
+  margin: 13px 0 0;
+  font-size: 13px;
+  color: #5f6e7d;
+}
+.profile-subdegree {
+  display: block;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(91, 119, 139, 0.18);
+  font-size: 0.78em;
+  line-height: 1.45;
+  color: #667988;
+  font-weight: 500;
+}
+.profile-rule {
+  height: 1px;
+  background: var(--line);
+  margin: 21px 0 16px;
+}
+.profile-facts {
+  margin: 0;
+}
+.profile-facts div {
+  margin: 0 0 12px;
+}
+.profile-facts dt {
+  color: #8b96a3;
+  font-size: 9px;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+.profile-facts dd {
+  margin: 2px 0 0;
+  color: #344454;
+  font-size: 12px;
+  font-weight: 650;
+}
+.profile-links {
+  display: grid;
+  gap: 8px;
+  margin-top: 21px;
+}
+.profile-links a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #596979;
+  font-size: 11px;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.profile-links a:hover {
+  color: var(--blue);
+}
+.profile-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 25px;
+  width: 25px;
+  height: 25px;
+  overflow: hidden;
+  border: 1px solid #d5e2eb;
+  border-radius: 7px;
+  background: #f8fbfd;
+}
+.profile-icon img {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+}
+
+.download-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding: 14px 16px;
+  border: 1px solid #d6e2ec;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #f9fcff, #edf5fb);
+  box-shadow: 0 8px 22px rgba(31, 80, 120, 0.05);
+  text-decoration: none;
+  color: var(--ink);
+  transition: 0.2s ease;
+}
+.download-card:hover {
+  transform: translateY(-2px);
+  border-color: #bad0df;
+  box-shadow: 0 12px 28px rgba(31, 80, 120, 0.09);
+}
+.download-card small {
+  display: block;
+  color: #83909d;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+}
+.download-card strong {
+  font-size: 11px;
+}
+.download-card b {
+  color: var(--blue);
+}
+
+@media (max-width: 900px) {
+  .profile-card {
+    display: grid;
+    grid-template-columns: 132px 1fr;
+    column-gap: 20px;
+  }
+  .avatar {
+    width: 132px;
+    height: 132px;
+    margin: 0;
+    grid-row: 1/6;
+  }
+  .eyebrow {
+    margin-top: 4px;
+  }
+  .profile-rule,
+  .profile-facts,
+  .profile-links {
+    grid-column: 2;
+  }
+  .download-card {
+    max-width: 360px;
+  }
+}
+
+@media (max-width: 700px) {
+  .profile-card {
+    display: block;
+    padding: 18px;
+  }
+  .avatar {
+    width: 136px;
+    height: 136px;
+    margin: 0;
+  }
+  .profile-rule,
+  .profile-facts,
+  .profile-links {
+    grid-column: auto;
+  }
+}

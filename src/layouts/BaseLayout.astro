@@ -1,0 +1,36 @@
+---
+/**
+ * Document shell shared by every page. Page-specific CSS is imported by the page itself.
+ */
+interface Props {
+  title: string;
+  description?: string;
+  og?: { title: string; description: string };
+  themeColor?: string;
+}
+
+const { title, description, og, themeColor } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {description && <meta name="description" content={description} />}
+    {themeColor && <meta name="theme-color" content={themeColor} />}
+    {og && (
+      <>
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={og.title} />
+        <meta property="og:description" content={og.description} />
+      </>
+    )}
+    <title>{title}</title>
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <slot name="head" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

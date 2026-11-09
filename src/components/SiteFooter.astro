@@ -1,0 +1,12 @@
+---
+import { footer } from '@/data/site';
+---
+
+<footer>
+  <p>{footer.text}</p>
+  <div>
+    {footer.links.map((link) => (
+      <a href={link.href}>{link.label}</a>
+    ))}
+  </div>
+</footer>

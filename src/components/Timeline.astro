@@ -1,0 +1,26 @@
+---
+import type { TimelineEntry } from '@/data/types';
+import LogoMark from './LogoMark.astro';
+
+interface Props {
+  entries: TimelineEntry[];
+}
+
+const { entries } = Astro.props;
+---
+
+<div class="timeline">
+  {entries.map((entry) => (
+    <article class:list={{ 'timeline-featured': entry.featured }}>
+      <div class="when">{entry.when}</div>
+      <div>
+        <p class="timeline-label">{entry.label}</p>
+        <div class="timeline-title-row">
+          {entry.logo && <LogoMark {...entry.logo} />}
+          <h3>{entry.title}</h3>
+        </div>
+        <p>{entry.text}</p>
+      </div>
+    </article>
+  ))}
+</div>

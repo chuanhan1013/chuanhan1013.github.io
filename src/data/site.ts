@@ -1,0 +1,74 @@
+/** Identity, contact details and page-level copy shared by the portfolio and the CV. */
+import type { IconName } from '@/lib/icons';
+import type { Link } from './types';
+
+export const person = {
+  name: 'Chuan-Han Li',
+  /** Name split across lines on the profile card. */
+  nameLines: ['Chuan-Han', 'Li'],
+  location: 'Singapore',
+  email: 'chuanhan1013@gmail.com',
+  website: 'https://chuanhan1013.github.io',
+  github: 'https://github.com/chuanhan1013',
+  linkedin: 'https://linkedin.com/in/chuanhan-li',
+} as const;
+
+export const seo = {
+  title: 'Chuan-Han Li — Robotics & Embodied AI',
+  description:
+    'Chuan-Han Li — Robotics, embodied AI, motion planning, multimodal perception, and reliable autonomy.',
+  ogTitle: 'Chuan-Han Li — Robotics & Embodied AI',
+  ogDescription:
+    'Research and engineering portfolio in robotics, embodied AI, motion planning, multimodal perception, and AI engineering.',
+  themeColor: '#f7f9fc',
+} as const;
+
+export const nav: Link[] = [
+  { label: 'About', href: '#about' },
+  { label: 'Research', href: '#research' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Education', href: '#education' },
+];
+
+export const profile = {
+  avatar: { src: '/assets/media/profile-chuanhan.jpg', alt: 'Chuan-Han Li' },
+  eyebrow: 'ROBOTICS · EMBODIED AI',
+  role: ['M.Sc. Robotics', 'National University of Singapore'],
+  subdegree: ['B.S. Biomechatronics Engineering', 'National Taiwan University'],
+  facts: [
+    { term: 'Based in', value: person.location },
+    { term: 'Focus', value: 'Robotics · Embodied AI · AI Engineering · Software Engineering' },
+  ],
+  links: [
+    { icon: 'mail', label: person.email, href: `mailto:${person.email}` },
+    { icon: 'github', label: 'github.com/chuanhan1013', href: person.github, external: true },
+    { icon: 'linkedin', label: 'linkedin.com/in/chuanhan-li', href: person.linkedin, external: true },
+  ] satisfies (Link & { icon: IconName })[],
+};
+
+export const hero = {
+  kicker: 'BUILDING RELIABLE INTELLIGENT ROBOTS',
+  headline: 'I build robotic systems across perception, planning, and reliable autonomy.',
+  ledes: [
+    'My current research focuses on deep reinforcement learning for robot manipulator motion planning in dynamic environments.',
+    'With a background spanning biomechatronics, multimodal perception, robot learning, and AI/software engineering, I am interested in embodied AI systems that can perceive, reason, and act reliably in the physical world.',
+  ],
+  openTo: 'Open to robotics, embodied AI, AI systems, and research engineering opportunities in Singapore.',
+  interests: [
+    'Deep Reinforcement Learning',
+    'Motion Planning',
+    'Embodied AI',
+    'Multimodal Perception',
+    'Reliable Autonomy',
+  ],
+};
+
+export const footer = {
+  text: 'Designed as a research-engineering portfolio. Built with semantic HTML, CSS, and hand-authored SVG diagrams.',
+  links: [
+    { label: 'Email', href: `mailto:${person.email}` },
+    { label: 'GitHub', href: person.github },
+    { label: 'LinkedIn', href: person.linkedin },
+  ] satisfies Link[],
+};

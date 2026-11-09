@@ -1,0 +1,23 @@
+---
+import type { TechChip } from '@/data/types';
+import { iconUrl } from '@/lib/icons';
+
+interface Props {
+  chip: TechChip;
+  /** `platform`: project cards; `skill`: skills section (falls back to a dot). */
+  variant: 'platform' | 'skill';
+}
+
+const { chip, variant } = Astro.props;
+---
+
+<span class={variant === 'platform' ? 'platform-item' : 'skill-item'}>
+  {'icon' in chip ? (
+    <img src={iconUrl(chip.icon)} alt="" loading="lazy" decoding="async" />
+  ) : 'glyph' in chip ? (
+    <span class="platform-glyph">{chip.glyph}</span>
+  ) : (
+    variant === 'skill' && <span class="skill-dot" />
+  )}
+  <span>{chip.label}</span>
+</span>

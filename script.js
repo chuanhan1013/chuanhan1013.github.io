@@ -1,1 +1,0 @@
-document.write('<script src="script-core.js"></script><script src="media-patch.js"></script><script src="media-hotfix.js"></script><script src="intro-patch.js"></script><script src="award-patch.js"></script>');
