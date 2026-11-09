@@ -206,7 +206,8 @@ test.describe('lightbox', () => {
       await route.continue();
     });
     await page.goto('/projects/basketball-sensing.html');
-    await page.locator('.gallery__slide.is-active img').dispatchEvent('click');
+    // The gallery opens on a clip, so the first image is itself a slide that was never shown.
+    await page.locator('.gallery__slide img').first().dispatchEvent('click');
     const lbImg = page.getByRole('dialog', { name: 'Media viewer' }).locator('.lb-stage img');
     await expect.poll(() => lbImg.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBeGreaterThan(1);
     await page.keyboard.press('ArrowRight');
