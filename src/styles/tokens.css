@@ -1,18 +1,51 @@
-/* Design tokens. Change colours, shadows and the page width here. */
+/* Design tokens. Colours meet WCAG AA on --surface and --paper unless noted. */
 :root {
-  --ink: #101828;
-  --text: #475467;
-  --muted: #7b8794;
-  --line: #dfe7ef;
-  --paper: #f4f7fb;
+  /* Colour */
+  --ink: #0f1b2d;
+  --text: #3b4858;
+  --muted: #566475;
+  --line: #e3e9f0;
+  --line-strong: #cdd8e3;
+  --paper: #f4f7fa;
   --surface: #ffffff;
-  --surface-soft: #f8fbff;
-  --blue: #235f9c;
+  --surface-soft: #f8fafc;
+  --blue: #1d5c96;
   --blue-dark: #123f6b;
-  --blue-bright: #357fc3;
-  --teal: #2a7f83;
-  --blue-soft: #eaf3fb;
-  --shadow: 0 18px 50px rgba(28, 55, 84, 0.08);
-  --shadow-hover: 0 22px 60px rgba(28, 55, 84, 0.13);
-  --page: 1240px;
+  --blue-bright: #2f7fc1;
+  --teal: #237276;
+  --accent-soft: #e9f2fb;
+  --ok: #1f7a4d;
+  --warn: #9a5b07;
+
+  /* Type */
+  --font: 'Inter Variable', Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --fs-xs: 0.75rem; /* 12px — smallest size used anywhere */
+  --fs-sm: 0.8125rem; /* 13px */
+  --fs-md: 0.9375rem; /* 15px */
+  --fs-base: 1rem; /* 16px */
+  --fs-lg: 1.125rem; /* 18px */
+  --fs-xl: 1.375rem; /* 22px */
+  --fs-2xl: 1.75rem; /* 28px */
+  --fs-3xl: clamp(2rem, 3.4vw, 2.5rem);
+  --fs-hero: clamp(2.5rem, 5.6vw, 4.25rem);
+
+  /* Space & shape */
+  --page: 1180px;
+  --gutter: clamp(16px, 4vw, 32px);
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 22px;
+  --shadow-sm: 0 1px 2px rgba(15, 27, 45, 0.05), 0 4px 12px rgba(15, 27, 45, 0.04);
+  --shadow: 0 2px 6px rgba(15, 27, 45, 0.04), 0 14px 36px rgba(15, 27, 45, 0.07);
+  --shadow-lg: 0 6px 16px rgba(15, 27, 45, 0.06), 0 28px 60px rgba(15, 27, 45, 0.12);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 0.18s;
+  --dur: 0.35s;
+  --dur-slow: 0.7s;
+
+  /* Header height, used for scroll offsets. */
+  --header-h: 64px;
 }

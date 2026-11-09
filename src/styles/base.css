@@ -1,46 +1,60 @@
-/* Element defaults and utilities shared by every page. */
-* {
+/* Element defaults, typography and shared utilities. */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 16px);
+  -webkit-text-size-adjust: 100%;
 }
 body {
   margin: 0;
   color: var(--text);
-  background:
-    radial-gradient(circle at 8% 3%, rgba(53, 127, 195, 0.09), transparent 29rem),
-    radial-gradient(circle at 94% 18%, rgba(42, 127, 131, 0.07), transparent 25rem),
-    linear-gradient(rgba(20, 63, 107, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(20, 63, 107, 0.025) 1px, transparent 1px), var(--paper);
-  background-size:
-    auto,
-    auto,
-    40px 40px,
-    40px 40px,
-    auto;
-  font-family:
-    Inter,
-    ui-sans-serif,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    sans-serif;
+  background: var(--paper);
+  font-family: var(--font);
+  font-size: var(--fs-base);
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1,
+h2,
+h3,
+h4 {
+  color: var(--ink);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
 }
 a {
   color: var(--blue);
   text-underline-offset: 3px;
 }
-img {
+img,
+svg {
   display: block;
   max-width: 100%;
 }
 ::selection {
-  background: #d9ebfa;
+  background: #d4e6f7;
   color: var(--ink);
 }
+:focus-visible {
+  outline: 2px solid var(--blue-bright);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -53,24 +67,131 @@ img {
   border: 0;
 }
 
-/* Small uppercase label used above headings (profile, hero, section headings). */
-.eyebrow,
-.kicker,
-.section-kicker {
-  margin: 18px 0 8px;
-  color: var(--blue);
-  font-size: 9px;
-  font-weight: 820;
-  letter-spacing: 0.16em;
+/* Skip link: hidden until focused with the keyboard. */
+.skip-link {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: var(--ink);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+.skip-link:focus {
+  transform: none;
 }
 
-@media (max-width: 700px) {
-  body {
-    background-size:
-      auto,
-      auto,
-      28px 28px,
-      28px 28px,
-      auto;
-  }
+.container {
+  width: min(var(--page), 100% - 2 * var(--gutter));
+  margin-inline: auto;
+}
+
+/* Small uppercase label above headings. */
+.eyebrow {
+  margin: 0 0 10px;
+  color: var(--blue);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Rounded keyword pill. */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: var(--fs-sm);
+  font-weight: 550;
+  line-height: 1.3;
+}
+.pill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Buttons and button-like links. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 10px 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: var(--fs-md);
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background var(--dur-fast) ease,
+    border-color var(--dur-fast) ease,
+    transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) ease;
+}
+.button:hover {
+  border-color: var(--blue);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+.button--primary {
+  border-color: var(--blue-dark);
+  background: var(--blue-dark);
+  color: #fff;
+}
+.button--primary:hover {
+  background: var(--blue);
+}
+.button--sm {
+  min-height: 34px;
+  padding: 6px 13px;
+  font-size: var(--fs-sm);
+}
+.button img {
+  width: 16px;
+  height: 16px;
+}
+
+/* Status badge (Ongoing research / Completed / …). */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--blue-dark);
+  font-size: var(--fs-xs);
+  font-weight: 650;
+  letter-spacing: 0.02em;
+}
+.status::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.status--ongoing {
+  background: #e7f5ee;
+  color: var(--ok);
+}
+.status--prototype,
+.status--in-progress {
+  background: #fdf3e2;
+  color: var(--warn);
 }

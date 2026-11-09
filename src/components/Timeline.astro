@@ -9,18 +9,18 @@ interface Props {
 const { entries } = Astro.props;
 ---
 
-<div class="timeline">
+<ol class="timeline">
   {entries.map((entry) => (
-    <article class:list={{ 'timeline-featured': entry.featured }}>
-      <div class="when">{entry.when}</div>
+    <li class:list={['timeline__item', 'reveal', { 'timeline__item--featured': entry.featured }]}>
+      <div class="timeline__when">{entry.when}</div>
       <div>
-        <p class="timeline-label">{entry.label}</p>
-        <div class="timeline-title-row">
+        <p class="timeline__label">{entry.label}</p>
+        <div class="timeline__title">
           {entry.logo && <LogoMark {...entry.logo} />}
           <h3>{entry.title}</h3>
         </div>
         <p>{entry.text}</p>
       </div>
-    </article>
+    </li>
   ))}
-</div>
+</ol>

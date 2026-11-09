@@ -1,0 +1,61 @@
+---
+/**
+ * Shell for portfolio pages: fonts, global styles, header, footer, lightbox and scripts.
+ */
+import '@fontsource-variable/inter';
+import '@/styles/global.css';
+import Lightbox from '@/components/Lightbox.astro';
+import SiteFooter from '@/components/SiteFooter.astro';
+import SiteHeader from '@/components/SiteHeader.astro';
+import { seo } from '@/data/site';
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Home page: nav links are in-page anchors. */
+  home?: boolean;
+}
+
+const { title = seo.title, description = seo.description, home = false } = Astro.props;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  og={{ title, description: home ? seo.ogDescription : description }}
+  themeColor={seo.themeColor}
+>
+  <script is:inline slot="head">
+    // Cross-page view transitions can be skipped by the browser (e.g. a quick second
+    // navigation); swallow those expected rejections instead of logging page errors.
+    for (const type of ['pageswap', 'pagereveal']) {
+      addEventListener(type, (event) => {
+        const t = event.viewTransition;
+        if (t) for (const p of [t.ready, t.finished, t.updateCallbackDone]) p?.catch(() => {});
+      });
+    }
+    // Enable scroll-reveal before first paint so content doesn't flash in and then fade.
+    // Module scripts always run before DOMContentLoaded: if reveal.ts has not taken over by
+    // then (script blocked, failed or threw), drop the class so content is never left hidden.
+    if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const root = document.documentElement;
+      root.classList.add('reveal-ready');
+      document.addEventListener('DOMContentLoaded', () => {
+        if (!root.hasAttribute('data-reveal-active')) root.classList.remove('reveal-ready');
+      });
+    }
+  </script>
+  <a class="skip-link" href="#main">
+    Skip to content
+  </a>
+  <SiteHeader home={home} />
+  <main id="main">
+    <slot />
+  </main>
+  <SiteFooter />
+  <Lightbox />
+  <script>
+    import '@/scripts/main';
+  </script>
+</BaseLayout>

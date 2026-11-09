@@ -1,0 +1,165 @@
+/*
+ * Media gallery: a 16:10 stage with one or more slides (carousel when > 1).
+ * Per-slide look comes from data (`fit`, `background`, `position`) via custom properties.
+ */
+.gallery {
+  position: relative;
+  min-width: 0;
+}
+.gallery__stage {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: #e9eef3;
+  box-shadow: inset 0 0 0 1px rgba(15, 27, 45, 0.06);
+}
+.gallery__slide {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  background: var(--slide-bg, #e9eef3);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur) ease;
+}
+.gallery__slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.gallery__slide img,
+.gallery__slide video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: var(--slide-position, 50% 50%);
+}
+.gallery__slide img {
+  cursor: zoom-in;
+}
+.gallery__slide--cover img,
+.gallery__slide--cover video {
+  object-fit: cover;
+}
+.gallery__slide--diagram {
+  padding: clamp(12px, 3%, 24px);
+  background: var(--slide-bg, #fff);
+}
+.gallery__slide figcaption {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  max-width: calc(100% - 24px - 72px);
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: rgba(10, 24, 38, 0.66);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  line-height: 1.4;
+}
+.gallery__badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 3;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--shadow-sm);
+  color: var(--blue-dark);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  backdrop-filter: blur(6px);
+}
+/* "Open" hint on diagrams. */
+.gallery__slide--diagram::after {
+  content: '↗';
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: rgba(10, 24, 38, 0.55);
+  color: #fff;
+  font-size: 15px;
+  pointer-events: none;
+}
+
+/* Controls (carousels only). */
+.gallery__btn {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--shadow);
+  color: var(--ink);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-50%) scale(0.92);
+  transition:
+    opacity var(--dur-fast) ease,
+    transform var(--dur-fast) var(--ease-out);
+}
+.gallery__btn.prev {
+  left: 12px;
+}
+.gallery__btn.next {
+  right: 12px;
+}
+.gallery:hover .gallery__btn,
+.gallery:focus-within .gallery__btn {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+}
+@media (hover: none) {
+  .gallery__btn {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+}
+.gallery__dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 6px;
+}
+/* 24×24 px tap target (WCAG 2.2) around a small visual dot. */
+.gallery__dot {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.gallery__dot::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--line-strong);
+  transition:
+    width var(--dur) var(--ease-out),
+    background var(--dur-fast) ease;
+}
+.gallery__dot.is-active::before {
+  width: 20px;
+  background: var(--blue);
+}

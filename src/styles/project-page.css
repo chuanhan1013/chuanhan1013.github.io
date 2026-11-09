@@ -1,0 +1,212 @@
+/* Project detail page (/projects/<slug>.html). */
+.project-page {
+  padding-block: clamp(28px, 5vw, 56px) clamp(56px, 8vw, 96px);
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  gap: 6px;
+  color: var(--muted);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-decoration: none;
+}
+.back-link:hover {
+  color: var(--blue);
+}
+.project-head {
+  max-width: 860px;
+  margin: 24px 0 32px;
+}
+.project-head h1 {
+  margin: 14px 0 0;
+  font-size: var(--fs-3xl);
+  letter-spacing: -0.04em;
+}
+.project-head .card-context {
+  margin-top: 12px;
+  font-size: var(--fs-md);
+}
+.project-head__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+.project-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  align-items: start;
+  gap: clamp(28px, 5vw, 64px);
+  margin-top: clamp(28px, 4vw, 44px);
+}
+.project-lead {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--fs-lg);
+  line-height: 1.7;
+}
+.project-aside {
+  position: sticky;
+  top: calc(var(--header-h) + 20px);
+  display: grid;
+  gap: 18px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.project-aside dl {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+}
+.project-aside dt {
+  color: var(--muted);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.project-aside dd {
+  margin: 4px 0 0;
+  color: var(--ink);
+  font-size: var(--fs-sm);
+  font-weight: 550;
+}
+.project-aside .pill-list .pill {
+  font-size: var(--fs-xs);
+  padding: 3px 9px;
+}
+
+/* Long-form Markdown body. */
+.prose {
+  margin-top: 28px;
+  font-size: var(--fs-base);
+  line-height: 1.75;
+}
+.prose > :first-child {
+  margin-top: 0;
+}
+.prose h2 {
+  margin: 2.2em 0 0.6em;
+  font-size: var(--fs-xl);
+  letter-spacing: -0.025em;
+}
+.prose h3 {
+  margin: 1.8em 0 0.5em;
+  font-size: var(--fs-lg);
+}
+.prose p,
+.prose ul,
+.prose ol {
+  margin: 0.9em 0;
+}
+.prose ul,
+.prose ol {
+  padding-left: 1.3em;
+}
+.prose li + li {
+  margin-top: 0.4em;
+}
+.prose strong {
+  color: var(--ink);
+}
+.prose code {
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: var(--surface-soft);
+  box-shadow: inset 0 0 0 1px var(--line);
+  font-size: 0.9em;
+}
+.prose table {
+  width: 100%;
+  margin: 1.2em 0;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+  font-variant-numeric: tabular-nums;
+}
+.prose th,
+.prose td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+.prose th {
+  color: var(--ink);
+  font-weight: 650;
+  background: var(--surface-soft);
+}
+.prose blockquote {
+  margin: 1.2em 0;
+  padding: 12px 16px;
+  border-left: 3px solid var(--blue-bright);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: var(--accent-soft);
+  color: var(--text);
+}
+.prose blockquote p {
+  margin: 0;
+}
+.table-scroll {
+  overflow-x: auto;
+}
+
+/* Previous / next project. */
+.project-pager {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: clamp(40px, 6vw, 64px);
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+.project-pager a {
+  display: grid;
+  gap: 4px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  font-weight: 650;
+  text-decoration: none;
+  transition:
+    border-color var(--dur-fast) ease,
+    transform var(--dur-fast) var(--ease-out);
+}
+.project-pager a:hover {
+  border-color: var(--blue);
+  transform: translateY(-2px);
+}
+.project-pager small {
+  color: var(--muted);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.project-pager .next {
+  grid-column: 2;
+  text-align: right;
+}
+
+@media (max-width: 900px) {
+  .project-layout {
+    grid-template-columns: 1fr;
+  }
+  .project-aside {
+    position: static;
+    order: -1;
+  }
+}
+@media (max-width: 560px) {
+  .project-pager {
+    grid-template-columns: 1fr;
+  }
+  .project-pager .next {
+    grid-column: auto;
+  }
+}

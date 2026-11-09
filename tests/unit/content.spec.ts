@@ -1,46 +1,69 @@
 /**
- * Content integrity checks that run without a browser: every asset referenced from the
- * data files must exist in `public/`, and ids must be unique.
+ * Content integrity checks that run without a browser. They validate every project file against
+ * the same Zod schema the site uses, and make sure media referenced by published entries exists
+ * while media for drafts is never shipped from public/.
  */
 import { expect, test } from '@playwright/test';
-import { existsSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { parse } from 'yaml';
 import { awards, education } from '../../src/data/education';
 import { experience } from '../../src/data/experience';
-import { projects } from '../../src/data/projects';
-import { research } from '../../src/data/research';
+import { projectSchema, type ProjectData } from '../../src/data/schemas';
 import { profile } from '../../src/data/site';
 
-const publicFile = (src: string) => join(process.cwd(), 'public', src);
+const root = process.cwd();
+const projectsDir = join(root, 'src/content/projects');
+const inPublic = (src: string) => existsSync(join(root, 'public', src));
 
-const referencedAssets = (): string[] => {
-  const srcs: string[] = [profile.avatar.src];
-  for (const card of [...research, ...projects]) {
-    srcs.push(...card.media.items.map((item) => item.src));
-    if (card.metaLogo) srcs.push(card.metaLogo.src);
-    if (card.chip) srcs.push(card.chip.logo.src);
+function loadProjects() {
+  return readdirSync(projectsDir)
+    .filter((file) => file.endsWith('.md'))
+    .map((file) => {
+      const text = readFileSync(join(projectsDir, file), 'utf8');
+      const match = /^---\n([\s\S]*?)\n---\n/.exec(text);
+      if (!match?.[1]) throw new Error(`${file}: missing front matter`);
+      return { file, raw: parse(match[1]) as unknown, body: text.slice(match[0].length) };
+    });
+}
+
+const mediaPaths = (data: ProjectData) => [
+  ...data.media.items.flatMap((item) => [item.src, item.poster]),
+  data.contextLogo?.src,
+];
+
+test('every project file matches the content schema', () => {
+  for (const { file, raw } of loadProjects()) {
+    const result = projectSchema.safeParse(raw);
+    expect(result.success, `${file}: ${result.success ? '' : result.error.message}`).toBe(true);
   }
-  for (const entry of experience) if (entry.logo) srcs.push(entry.logo.src);
-  for (const entry of education) srcs.push(entry.brand.src, entry.research.logo.src);
-  for (const award of awards) srcs.push(award.icon.src);
-  return srcs.filter((src) => src.startsWith('/'));
-};
-
-test('all locally referenced assets exist', () => {
-  const missing = referencedAssets().filter((src) => !existsSync(publicFile(src)));
-  expect(missing).toEqual([]);
 });
 
-test('feature card ids and carousel labels are unique', () => {
-  const cards = [...research, ...projects];
-  const ids = cards.map((c) => c.id);
-  const labels = cards.map((c) => c.media.label);
-  expect(new Set(ids).size).toBe(ids.length);
-  expect(new Set(labels).size).toBe(labels.length);
+test('published projects only reference media that exists; drafts ship no media', () => {
+  for (const { file, raw } of loadProjects()) {
+    const data = projectSchema.parse(raw);
+    const local = mediaPaths(data).filter((src): src is string => !!src && src.startsWith('/'));
+    for (const src of local) {
+      if (data.draft)
+        expect(inPublic(src), `${file}: draft media must not be in public/: ${src}`).toBe(false);
+      else expect(inPublic(src), `${file}: missing ${src}`).toBe(true);
+    }
+  }
 });
 
-test('every image has alt text', () => {
-  for (const card of [...research, ...projects]) {
-    for (const item of card.media.items) expect(item.alt.trim(), item.src).not.toBe('');
-  }
+test('project titles are unique and every project has a write-up', () => {
+  const projects = loadProjects();
+  const titles = projects.map((p) => projectSchema.parse(p.raw).title);
+  expect(new Set(titles).size).toBe(titles.length);
+  for (const { file, body } of projects) expect(body.trim().length, file).toBeGreaterThan(100);
+});
+
+test('profile, timeline, education and award assets exist', () => {
+  const srcs = [
+    profile.avatar.src,
+    ...experience.flatMap((e) => (e.logo ? [e.logo.src] : [])),
+    ...education.flatMap((e) => [e.brand.src, e.research.logo.src]),
+    ...awards.map((a) => a.icon.src),
+  ].filter((src) => src.startsWith('/'));
+  expect(srcs.filter((src) => !inPublic(src))).toEqual([]);
 });

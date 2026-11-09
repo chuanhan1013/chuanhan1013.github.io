@@ -1,22 +1,66 @@
 /**
- * Full-screen viewer for card media (`Lightbox.astro`). Clicking — or pressing
- * Enter/Space on — any `.feature-media img` opens it with the rest of that card's
- * media as the gallery.
+ * Full-screen viewer for gallery media (`Lightbox.astro`). Clicking — or pressing
+ * Enter/Space on — any `.gallery img` opens it with the rest of that gallery's media
+ * (images and clips, in carousel order).
+ * Where the View Transitions API is available (and motion is allowed), the image
+ * morphs from its thumbnail into the viewer and back.
  */
 import { PLACEHOLDER_SRC } from '@/lib/media';
 import { hydrate } from './lazy-media';
 import { onSwipe } from './swipe';
 
-const MEDIA_IMG = '.feature-media img';
+const MEDIA_IMG = '.gallery img';
+const MORPH_NAME = 'lightbox-media';
+
+const canMorph = () =>
+  'startViewTransition' in document && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/**
+ * Run `update` inside a view transition that morphs `from` into `to`. Both elements may
+ * already carry a view-transition-name (cross-page card covers), so names are swapped
+ * temporarily and restored afterwards. While it runs, `.lb-morphing` on <html> suspends
+ * every other named element so nothing else is lifted above the backdrop.
+ */
+function morph(from: HTMLElement | null, to: HTMLElement, update: () => void | Promise<void>): void {
+  if (!from || !canMorph()) {
+    void update();
+    return;
+  }
+  const root = document.documentElement;
+  const fromName = from.style.viewTransitionName;
+  const toName = to.style.viewTransitionName;
+  root.classList.add('lb-morphing');
+  from.dataset['morph'] = '';
+  from.style.viewTransitionName = MORPH_NAME;
+  const transition = document.startViewTransition(async () => {
+    from.style.viewTransitionName = fromName;
+    delete from.dataset['morph'];
+    await update();
+    to.dataset['morph'] = '';
+    to.style.viewTransitionName = MORPH_NAME;
+  });
+  void transition.finished.finally(() => {
+    to.style.viewTransitionName = toName;
+    delete to.dataset['morph'];
+    root.classList.remove('lb-morphing');
+  });
+}
+
+/** Wait until the image can be painted (bounded, so a slow network never blocks the UI). */
+const ready = (img: HTMLImageElement) =>
+  Promise.race([img.decode().catch(() => undefined), new Promise((r) => setTimeout(r, 400))]);
+
+type Media = HTMLImageElement | HTMLVideoElement;
 
 export function initLightbox(): void {
   const lb = document.querySelector<HTMLElement>('.media-lightbox');
   const lbImg = lb?.querySelector<HTMLImageElement>('.lb-stage img');
+  const lbVideo = lb?.querySelector<HTMLVideoElement>('.lb-stage video');
   const lbCaption = lb?.querySelector<HTMLElement>('.lb-caption');
   const closeBtn = lb?.querySelector<HTMLButtonElement>('.lb-close');
-  if (!lb || !lbImg || !lbCaption || !closeBtn) return;
+  if (!lb || !lbImg || !lbVideo || !lbCaption || !closeBtn) return;
 
-  let gallery: HTMLImageElement[] = [];
+  let gallery: Media[] = [];
   let galleryIndex = 0;
   let opener: HTMLElement | null = null;
 
@@ -33,44 +77,81 @@ export function initLightbox(): void {
       (btn) => getComputedStyle(btn).visibility !== 'hidden',
     );
 
-  const captionOf = (img: HTMLImageElement) =>
-    img.closest('figure')?.querySelector('figcaption')?.textContent?.trim() || img.alt || '';
+  const captionOf = (media: Media) => {
+    const figure = media.closest('figure');
+    const label =
+      media instanceof HTMLImageElement ? media.alt : figure?.querySelector('.sr-only')?.textContent;
+    return figure?.querySelector('figcaption')?.textContent?.trim() || label?.trim() || '';
+  };
+
+  const stopVideo = () => {
+    lbVideo.pause();
+    lbVideo.removeAttribute('src');
+    lbVideo.load();
+  };
+
+  /** The element currently shown on the stage (image or clip). */
+  const stageMedia = (): HTMLElement => (lbVideo.hidden ? lbImg : lbVideo);
 
   const render = () => {
-    const img = gallery[galleryIndex];
-    if (!img) return;
-    hydrate(img);
-    // Keep the card image's referrer policy (remote hosts may reject hotlinks with a Referer).
-    lbImg.referrerPolicy = img.referrerPolicy;
-    // `img.src`, not `currentSrc`: right after hydration `currentSrc` still points at the
-    // placeholder until the real image has loaded.
-    lbImg.src = img.src;
-    lbImg.alt = img.alt;
+    const media = gallery[galleryIndex];
+    if (!media) return;
+    hydrate(media);
+    if (media instanceof HTMLVideoElement) {
+      lbImg.hidden = true;
+      lbImg.src = PLACEHOLDER_SRC;
+      lbVideo.hidden = false;
+      lbVideo.poster = media.poster;
+      lbVideo.src = media.src;
+      if (canMorph()) void lbVideo.play().catch(() => undefined);
+    } else {
+      stopVideo();
+      lbVideo.hidden = true;
+      lbImg.hidden = false;
+      // Keep the card image's referrer policy (remote hosts may reject hotlinks with a Referer).
+      lbImg.referrerPolicy = media.referrerPolicy;
+      // `src`, not `currentSrc`: right after hydration `currentSrc` still points at the
+      // placeholder until the real image has loaded.
+      lbImg.src = media.src;
+      lbImg.alt = media.alt;
+    }
     const counter = gallery.length > 1 ? ` · ${galleryIndex + 1} / ${gallery.length}` : '';
-    lbCaption.textContent = captionOf(img) + counter;
+    lbCaption.textContent = captionOf(media) + counter;
     lb.classList.toggle('is-single', gallery.length < 2);
   };
 
   const open = (img: HTMLImageElement) => {
-    const media = img.closest('.feature-media');
-    gallery = media ? [...media.querySelectorAll('img')] : [img];
+    const container = img.closest('.gallery');
+    gallery = container ? [...container.querySelectorAll<Media>('img, video')] : [img];
     galleryIndex = Math.max(0, gallery.indexOf(img));
     opener = img;
-    render();
-    lb.classList.add('is-open');
-    document.body.classList.add('lightbox-open');
-    setBackgroundInert(true);
-    closeBtn.focus();
+    morph(img, lbImg, async () => {
+      render();
+      lb.classList.add('is-open');
+      document.body.classList.add('lightbox-open');
+      setBackgroundInert(true);
+      closeBtn.focus();
+      await ready(lbImg);
+    });
   };
 
   const close = () => {
-    lb.classList.remove('is-open');
-    document.body.classList.remove('lightbox-open');
-    setBackgroundInert(false);
-    lbImg.src = PLACEHOLDER_SRC;
-    gallery = [];
-    opener?.focus();
-    opener = null;
+    const target = opener;
+    // Morph back only if the viewer still shows the image that opened it.
+    const morphBack = target && gallery[galleryIndex] === target;
+    const finish = () => {
+      lb.classList.remove('is-open');
+      document.body.classList.remove('lightbox-open');
+      setBackgroundInert(false);
+      stopVideo();
+      lbImg.src = PLACEHOLDER_SRC;
+      gallery = [];
+      opener = null;
+      // Background is interactive again, so focus can return to the image that opened it.
+      target?.focus();
+    };
+    if (morphBack) morph(stageMedia(), target, finish);
+    else finish();
   };
 
   const move = (delta: number) => {

@@ -27,11 +27,41 @@ export const cv = {
   ] satisfies CvEntry[],
   projects: [
     {
-      title: 'Bio-Inspired Robot Learning Framework',
+      title: 'CatchPoint — Recoverability-Aware Balance Assistance (ME5412, NUS) — Team of 5',
+      period: 'Fall 2026',
+      bullets: [
+        'Proposed the concept adopted by the team and led its control design: a capture-point controller that stays hands-off, applies a minimum-norm pelvic nudge, or escalates to a harness catch.',
+        'In a 2,000-push pendulum Monte Carlo, 54.6% of pushes were recovered without a harness catch vs 9.6% for a threshold lock at a matched ~5% fall rate (simulation); built the walker sizing study and a MuJoCo humanoid demonstration.',
+      ],
+    },
+    {
+      title: 'Safe LLM-to-Simulation Pipeline for the Unitree G1 (EE5112, NUS) — Team of 3',
+      period: 'Fall 2026',
+      bullets: [
+        'Built the ROS 2 safety bridge and six-stage orchestrator that gate LLM-generated robot models before any joint command reaches the simulated G1; 20/20 live end-to-end trials with 4/4 tampered models refused, 85/85 bridge test outcomes.',
+      ],
+    },
+    {
+      title: 'Language-Guided Humanoid Manipulation in MuJoCo (EE5112, NUS) — Team of 3',
+      period: 'Fall 2026',
+      bullets: [
+        'Owned robot execution and led integration, evaluation and the live demo for a language → VLM grounding → plan → walk-and-manipulate loop on a simulated Unitree G1; final frozen batch 24/24 end-to-end with live API calls (finger grasp for the cube, contact attachment for other objects; simulation).',
+        'Diagnosed why friction grasps failed during walking, built an offline API-replay harness (138/144 under perception noise), and added a perception-driven Dex3 finger grasp.',
+      ],
+    },
+    {
+      title: 'FR3Avoid — Gymnasium Benchmark for Whole-Arm Obstacle Avoidance (ME5418, NUS) — Team of 2',
+      period: 'Fall 2026',
+      bullets: [
+        'Specified and verified a Franka Research 3 environment with capsule collision geometry, a braking-curve action limiter and held-out obstacle directions; a privileged potential-field baseline reaches 96% success (RL training is the next stage).',
+      ],
+    },
+    {
+      title: 'Bio-Inspired Torque-Based Locomotion — SATA Reproduction & Isaac Lab Port',
       period: 'Spring 2026',
       bullets: [
-        'Reproduced the SATA (RSS 2025) torque-based locomotion pipeline and analysed policy behaviour and training stability in simulation.',
-        'Adapted the implementation from Isaac Gym to Isaac Lab and examined training behaviour after the migration.',
+        'Reproduced SATA (RSS 2025) on Isaac Gym and ablated its actuator mechanisms across 48 policies: removing activation or fatigue raised reward but exceeded a realisable actuator envelope (peak torque 42.5 vs 22.5 N·m, simulation).',
+        'Ported the full stack to Isaac Lab and traced the remaining reward gap to the Gym reference term by term.',
       ],
     },
     {
@@ -62,7 +92,7 @@ export const cv = {
       period: '07/2026–Present',
       sub: 'Advanced Robotics Centre, NUS · Advisor: Prof. Marcelo H. Ang Jr.',
       bullets: [
-        'Developing a link-centric surface-distance grid that encodes obstacle proximity by link segment and approach direction; evaluating it as a policy observation for dynamic obstacle avoidance.',
+        'Researching learning-based reaching and collision avoidance for a 7-DoF manipulator among moving obstacles (simulation), with a focus on whole-arm obstacle representations and baseline-controlled evaluation.',
       ],
     },
     {

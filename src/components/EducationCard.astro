@@ -9,23 +9,27 @@ interface Props {
 const { entry } = Astro.props;
 ---
 
-<article class="edu-card">
-  <div class:list={['school-brand', { 'school-brand--square': entry.brand.shape === 'square' }]}>
+<article class="edu-card reveal">
+  <div class:list={['edu-card__brand', { 'edu-card__brand--square': entry.brand.shape === 'square' }]}>
     <img src={entry.brand.src} alt={entry.brand.alt} loading="lazy" decoding="async" />
   </div>
-  <p>{entry.period}</p>
+  <p class="edu-card__period">{entry.period}</p>
   <h3>{entry.school}</h3>
-  <strong>{entry.degree}</strong>
-  {entry.details.map((detail) => (
-    <span>{detail}</span>
-  ))}
-  <span class="edu-research-row">
-    <LogoMark {...entry.research.logo} />
-    <span>
-      <b>Research:</b> {entry.research.label}
-    </span>
-  </span>
-  <span>
-    <b>Advisor:</b> {entry.advisor}
-  </span>
+  <p class="edu-card__degree">{entry.degree}</p>
+  <ul class="edu-card__details">
+    {entry.details.map((detail) => (
+      <li>{detail}</li>
+    ))}
+    <li>
+      <LogoMark {...entry.research.logo} />
+      <span>
+        <b>Research:</b> {entry.research.label}
+      </span>
+    </li>
+    <li>
+      <span>
+        <b>Advisor:</b> {entry.advisor}
+      </span>
+    </li>
+  </ul>
 </article>

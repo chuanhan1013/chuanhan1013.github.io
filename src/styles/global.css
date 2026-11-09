@@ -1,13 +1,13 @@
-/* Portfolio stylesheet entry point. Order matters: tokens → base → layout → components. */
+/* Portfolio stylesheet entry point. Order: tokens → base → layout → components → motion. */
 @import './tokens.css';
 @import './base.css';
 @import './layout.css';
-@import './profile.css';
 @import './hero.css';
-@import './feature-card.css';
-@import './media.css';
+@import './cards.css';
+@import './gallery.css';
+@import './project-page.css';
 @import './logo-mark.css';
 @import './timeline.css';
 @import './education.css';
 @import './lightbox.css';
-@import './reveal.css';
+@import './motion.css';

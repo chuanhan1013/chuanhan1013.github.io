@@ -23,7 +23,8 @@
   min-width: 0;
   min-height: 0;
 }
-.media-lightbox img {
+.media-lightbox img,
+.media-lightbox video {
   display: block;
   max-width: min(1280px, 88vw);
   max-height: 84vh;
@@ -84,7 +85,8 @@ body.lightbox-open {
     padding: 12px;
     gap: 4px;
   }
-  .media-lightbox img {
+  .media-lightbox img,
+  .media-lightbox video {
     max-width: 82vw;
     max-height: 80vh;
   }
@@ -93,4 +95,8 @@ body.lightbox-open {
     height: 50px;
     font-size: 28px;
   }
+}
+
+.media-lightbox [hidden] {
+  display: none;
 }

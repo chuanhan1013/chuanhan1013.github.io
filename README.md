@@ -29,53 +29,67 @@ First time running tests locally: `npx playwright install chromium`.
 
 ## Editing content
 
-Almost every change is a data edit — no HTML or CSS needed.
+Almost every change is a content edit — no HTML or CSS needed.
 
-| To change…                                  | Edit                     |
-| ------------------------------------------- | ------------------------ |
-| Name, contact links, SEO text, hero, footer | `src/data/site.ts`       |
-| Research cards                              | `src/data/research.ts`   |
-| Project cards                               | `src/data/projects.ts`   |
-| Experience timeline                         | `src/data/experience.ts` |
-| Education, skills, awards                   | `src/data/education.ts`  |
-| Printable CV (`/cv.html`)                   | `src/data/cv.ts`         |
-| Organisation logos                          | `src/data/logos.ts`      |
+| To change…                                  | Edit                             |
+| ------------------------------------------- | -------------------------------- |
+| A research or project entry (card + page)   | `src/content/projects/<slug>.md` |
+| Project categories (filter chips)           | `src/data/categories.ts`         |
+| Name, contact links, SEO text, hero, footer | `src/data/site.ts`               |
+| Experience timeline                         | `src/data/experience.ts`         |
+| Education, skills, awards                   | `src/data/education.ts`          |
+| Printable CV (`/cv.html`)                   | `src/data/cv.ts`                 |
 
-The shapes of all of these are defined in `src/data/types.ts`; `npm run check` fails if a field is
-missing or misspelled.
+Every project is one Markdown file: the front matter is the card data, validated by the Zod
+schema in `src/data/schemas.ts`, and the body is the write-up on `/projects/<slug>.html`.
+`npm run check` and the build fail if a field is missing or misspelled.
 
 ### Common tasks
 
-- **Add a project:** append an object to `projects` in `src/data/projects.ts`. Card numbers are
-  assigned automatically in display order.
-- **Add a photo/GIF to a card:** put the file in `public/assets/media/` and add an item to the
-  card's `media.items`. Pick a `fit` (see the comment at the top of `src/styles/media.css`):
-  `photo`, `cover` (+ optional `position`), `contain` (+ optional `padding` / `background`),
-  `diagram`, or `flush` (+ `background`). The first item is shown first; the rest load on demand.
-- **Add a technology logo:** chips accept any icon registered in `src/lib/icons.ts`. Logos come
-  from the pinned [`devicon`](https://devicon.dev) package — import the SVG there and add it to
-  `deviconUrls`.
-- **Change colours / spacing:** design tokens live in `src/styles/tokens.css`; each component has
-  its own stylesheet in `src/styles/`.
+- **Add a project.** Copy an existing file in `src/content/projects/`, then:
+  - set `kind` (`research` or `project`), `categories`, `status` and `order` (lower comes first);
+  - put its media in `public/assets/media/<slug>/`.
+
+  It then appears on the home page, in the filter counts, and as its own page.
+
+- **Keep a project unpublished.** Set `draft: true` and keep its media outside `public/` (for
+  example in `docs/drafts/`). Drafts never reach the build, and a unit test fails if a draft's
+  media sits in `public/`.
+- **Add media.** Pick a `fit`:
+  - `cover` crops to fill the frame (optional `position`);
+  - `contain` letterboxes the whole image (optional `background`);
+  - `diagram` shows it on white with an "open" hint.
+
+  Short clips (`.mp4`) need a `poster` image. They play muted while on screen and never autoplay
+  with reduced motion. Keep clips to a few hundred KB, for example with
+  `ffmpeg -i in.mp4 -an -c:v libx264 -crf 30 -vf scale=960:-2 -movflags +faststart out.mp4`.
+
+- **Add a category.** Add a key to `src/data/categories.ts`. Empty categories are hidden.
+- **Add a technology logo.** Chips accept any icon registered in `src/lib/icons.ts` and
+  `src/lib/icon-names.ts`. Logos come from the pinned [`devicon`](https://devicon.dev) package.
+- **Change colours, type or motion.** Edit the design tokens in `src/styles/tokens.css`. All motion
+  lives in `src/styles/motion.css` and respects `prefers-reduced-motion`.
 
 ## Project structure
 
 ```
-public/assets/        Images, GIFs, logos and diagrams (served as-is at /assets/…)
+public/assets/        Images, clips, logos and diagrams (served as-is at /assets/…)
 src/
-  data/               All site content (typed)
+  content/projects/   One Markdown file per research/project entry
+  data/               Schemas, categories and the remaining site content (typed)
   components/         One Astro component per UI block
-  layouts/            HTML document shell
-  pages/              index.astro → /, cv.astro → /cv.html
-  scripts/            Client-side behaviour: carousel, lightbox, nav, scroll reveal
-  styles/             Global tokens/base + one stylesheet per component
-  lib/                Icon registry and small helpers
+  layouts/            Document shell and the shared site layout
+  pages/              index → /, projects/[slug] → /projects/<slug>.html, cv → /cv.html
+  scripts/            Client behaviour: carousel, lightbox, filter, nav, reveal, video, hero art
+  styles/             Design tokens, base styles, one stylesheet per component, motion layer
+  lib/                Icon registry and helpers
   assets/icons/ui/    Line icons used by the site chrome
 tests/
   e2e/                Playwright browser tests (desktop + Pixel 7) incl. axe a11y scan
-  unit/               Content integrity checks (assets exist, unique ids, alt text)
+  unit/               Content checks (schema, media exist, drafts not shipped)
 docs/
   diagrams/           TikZ sources for the SVG diagrams
+  drafts/             Media for draft entries (never deployed)
 ```
 
 ## Deployment
