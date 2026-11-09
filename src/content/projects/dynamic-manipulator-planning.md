@@ -1,5 +1,5 @@
 ---
-title: Motion Planning for Robot Manipulators in Dynamic Environments
+title: DRL-Based Collision-Free Motion Planning in Dynamic Environments
 kind: research
 categories: [motion-planning, robot-learning]
 order: 10
