@@ -1,6 +1,10 @@
 /**
  * Printable CV (`/cv.html`). Wording is CV-specific, so it is kept separate from the
  * portfolio cards; contact details come from `site.ts`.
+ *
+ * Source of truth: the private repository `chuanhan1013/cv-private` (`src/general.tex`).
+ * Shared entries mirror its wording; this page may list more projects. Never copy its
+ * phone number, and leave out A*STAR until the owner says it can be published.
  */
 export interface CvEntry {
   title: string;
@@ -12,7 +16,7 @@ export interface CvEntry {
 export const cv = {
   title: 'Chuan-Han Li — CV',
   summary:
-    'NUS MSc Robotics student with experience in robot learning, mechatronics, multimodal perception, and AI engineering. Currently researching manipulator motion planning in dynamic environments; interested in robotics, embodied AI, and reliable autonomy.',
+    'NUS MSc Robotics student with experience in motion planning, robot learning, and hardware–software integration.',
   education: [
     {
       title: 'National University of Singapore (NUS) — M.Sc. in Robotics',
@@ -30,8 +34,7 @@ export const cv = {
       title: 'CatchPoint — Recoverability-Aware Balance Assistance (ME5412, NUS) — Team of 5',
       period: 'Fall 2026',
       bullets: [
-        'Proposed the concept adopted by the team and led its control design: a capture-point controller that stays hands-off, applies a minimum-norm pelvic nudge, or escalates to a harness catch.',
-        'In a 2,000-push pendulum Monte Carlo, 54.6% of pushes were recovered without a harness catch vs 9.6% for a threshold lock at a matched ~5% fall rate (simulation); built the walker sizing study and a MuJoCo humanoid demonstration.',
+        'Designed capture-point control for hands-off recovery, pelvic assistance or harness catch. In 2,000 pendulum-model perturbations, recovery without a catch was 54.6% vs 9.6% for a threshold lock at a matched ~5% fall rate.',
       ],
     },
     {
@@ -45,8 +48,8 @@ export const cv = {
       title: 'Language-Guided Humanoid Manipulation in MuJoCo (EE5112, NUS) — Team of 3',
       period: 'Fall 2026',
       bullets: [
-        'Owned robot execution and led integration, evaluation and the live demo for a language → VLM grounding → plan → walk-and-manipulate loop on a simulated Unitree G1; final frozen batch 24/24 end-to-end with live API calls (finger grasp for the cube, contact attachment for other objects; simulation).',
-        'Diagnosed why friction grasps failed during walking, built an offline API-replay harness (138/144 under perception noise), and added a perception-driven Dex3 finger grasp.',
+        'Owned robot execution and led integration on a simulated Unitree G1; added perception-driven Dex3 finger grasping and visual grasp/place verification.',
+        'Completed 24/24 end-to-end simulation tasks (finger grasp for the cube; contact attachment for other objects).',
       ],
     },
     {
@@ -60,22 +63,22 @@ export const cv = {
       title: 'Bio-Inspired Torque-Based Locomotion — SATA Reproduction & Isaac Lab Port',
       period: 'Spring 2026',
       bullets: [
-        'Reproduced SATA (RSS 2025) on Isaac Gym and ablated its actuator mechanisms across 48 policies: removing activation or fatigue raised reward but exceeded a realisable actuator envelope (peak torque 42.5 vs 22.5 N·m, simulation).',
-        'Ported the full stack to Isaac Lab and traced the remaining reward gap to the Gym reference term by term.',
+        'Reproduced SATA and evaluated 48 PPO policies across actuator ablations; ported effort control and bio-actuator models from Isaac Gym to Isaac Lab, retrained across 8 seeds, and analysed cross-engine reward differences.',
       ],
     },
     {
       title: 'Autonomous Cleaning Robot (Raspberry Pi + Arduino)',
       period: 'Fall 2025',
       bullets: [
-        'Integrated vision, wall-following, obstacle avoidance, and task-execution logic across a Raspberry Pi + Arduino architecture for autonomous competition runs.',
+        'Integrated camera, ultrasonic and IMU sensing with motor control via Raspberry Pi–Arduino serial communication; implemented wall-following, visual hazard avoidance, and task execution on a physical mobile robot.',
       ],
     },
     {
       title: 'Wearable Basketball Shot Sensing System — Solo',
       period: 'Fall 2025',
       bullets: [
-        'Built an end-to-end dual-IMU sensing system spanning wireless acquisition, preprocessing, automated shot segmentation, feature extraction, and a Python web dashboard; received top-tier project recognition and a cash award.',
+        'Independently built a dual-IMU wearable with Arduino firmware and 100 Hz wireless acquisition; implemented shot segmentation, feature extraction, and a FastAPI/WebSocket dashboard for live analysis and replay.',
+        'Received top-tier project recognition and a cash award.',
       ],
     },
     {
@@ -88,11 +91,12 @@ export const cv = {
   ] satisfies CvEntry[],
   research: [
     {
-      title: 'Motion Planning for Robot Manipulators in Dynamic Environments',
+      title: 'DRL-Based Collision-Free Motion Planning in Dynamic Environments',
       period: '07/2026–Present',
       sub: 'Advanced Robotics Centre, NUS · Advisor: Prof. Marcelo H. Ang Jr.',
       bullets: [
-        'Researching learning-based reaching and collision avoidance for a 7-DoF manipulator among moving obstacles (simulation), with a focus on whole-arm obstacle representations and baseline-controlled evaluation.',
+        'Implemented exact whole-arm distance and collision checks on the lab’s arm model for dynamic obstacle avoidance.',
+        'Built training and closed-loop simulation pipelines to compare reaching/avoidance baselines and diagnose failure modes in dynamic environments.',
       ],
     },
     {
@@ -100,8 +104,8 @@ export const cv = {
       period: '09/2024–12/2025',
       sub: 'Lab of Machine Learning and Machine Vision, NTU · Advisor: Prof. Yan-Fu Kuo',
       bullets: [
-        'Built a 2-stage object-detection and lightweight-classification pipeline plus a controlled visible + thermal imaging setup for duck eggs; achieved ~93% classification accuracy with cross-modal fusion.',
-        'Extended abstract accepted to ACPA 2025; oral presentation.',
+        'Built a two-stage detection/classification pipeline and visible–thermal imaging setup for duck eggs; achieved ~93% accuracy through multimodal fusion.',
+        'Presented the work at ACPA 2025 as an extended abstract and oral presentation.',
       ],
     },
   ] satisfies CvEntry[],
@@ -111,25 +115,28 @@ export const cv = {
       period: '07/2025–07/2026',
       sub: 'Taipei, Taiwan',
       bullets: [
-        'Built HAN-Agents, an AI harness for test generation, execution, validation, and iterative refinement; reduced time to the first executable unit-test suite from weeks to ~1 day.',
-        'Developed full-stack AI workflow tools and introduced docs-first engineering practices and repository quality gates across production projects.',
+        'Built HAN-Agents with persistent memory, AST-backed code graphs, hierarchical task orchestration, and tool-verified quality gates for AI coding workflows.',
+        'Delivered full-stack AI tools for test generation and validation; reduced time to the first executable unit-test suite from weeks to ~1 day.',
       ],
     },
   ] satisfies CvEntry[],
   skills: [
+    { label: 'Programming & Web', text: 'Python, C/C++, Java, Assembly, TypeScript/JavaScript, React' },
     {
-      label: 'Robotics / Systems',
-      text: 'robot kinematics, geometric modelling, Isaac Gym, Isaac Lab, PID/PD control, state machines, Raspberry Pi, Arduino',
+      label: 'Robotics',
+      text: 'ROS/ROS 2, motion planning, collision checking, forward/inverse kinematics, PID/PD control',
     },
     {
       label: 'AI & Perception',
-      text: 'PyTorch, TensorFlow, OpenCV, YOLO, CNNs, sensor fusion, multimodal perception',
+      text: 'PyTorch, TensorFlow, NumPy, OpenCV, YOLO, reinforcement learning, sensor fusion, VLMs',
     },
+    { label: 'Simulation', text: 'MuJoCo, Gazebo, CoppeliaSim, Isaac Gym, Isaac Lab, Gymnasium' },
     {
-      label: 'Software & CAD',
-      text: 'Python, C/C++, TypeScript/JavaScript, Linux, Docker, Git, CI/CD, automated testing, AI coding agents (Claude Code, Codex), SolidWorks, 3D printing',
+      label: 'Engineering Tools',
+      text: 'Linux, Git, Docker, CI/CD, automated testing, Claude Code, Codex',
     },
-    { label: 'Languages', text: 'Mandarin (Native), English (IELTS Academic 7.0)' },
+    { label: 'Hardware & CAD', text: 'Raspberry Pi, Arduino, SolidWorks, 3D printing' },
+    { label: 'Languages', text: 'Mandarin (native); English (IELTS Academic 7.0)' },
   ],
   awards: [
     { label: 'Fu Bell Award, NTU (2022)', text: "Department's top-ranked incoming student." },
