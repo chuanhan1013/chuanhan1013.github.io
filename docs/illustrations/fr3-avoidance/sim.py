@@ -10,7 +10,9 @@ import sys
 import mujoco
 import numpy as np
 
-m = mujoco.MjModel.from_xml_path('scene.xml'); d = mujoco.MjData(m)
+import os
+
+m = mujoco.MjModel.from_xml_path(os.environ.get('SCENE', 'scene.xml')); d = mujoco.MjData(m)
 mujoco.mj_resetDataKeyframe(m, d, 0)
 home = d.qpos[:7].copy(); lo, hi = m.jnt_range[:7, 0], m.jnt_range[:7, 1]
 links = [mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_GEOM, f'fr3_link{i}_collision') for i in range(1, 8)]

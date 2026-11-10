@@ -10,7 +10,7 @@
   grid-template: minmax(0, 1fr) / minmax(0, 1fr);
   place-items: center;
   overflow: hidden;
-  border: 1px solid #d8e3eb;
+  border: 1px solid var(--line);
   background: #fff;
 }
 .logo-mark img {

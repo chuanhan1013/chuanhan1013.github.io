@@ -33,10 +33,9 @@ media:
   badge: Control · Simulation
   card:
     src: /assets/media/catchpoint/card.mp4
-    poster: /assets/media/catchpoint/push-comparison-poster.webp
-    alt: The same push under no assistance, a threshold lock and CatchPoint
-    fit: contain
-    background: '#ffffff'
+    poster: /assets/media/catchpoint/card-poster.webp
+    alt: The same push under a threshold lock and under CatchPoint
+    fit: cover
   items:
     - src: /assets/media/catchpoint/three-states.webp
       alt: Three assistance states shown on a humanoid replay — hands-off, pelvic nudge and harness catch

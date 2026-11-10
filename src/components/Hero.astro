@@ -6,67 +6,81 @@ import { iconUrl } from '@/lib/icons';
 const [before = '', highlight = '', after = ''] = hero.headline.split(/[{}]/);
 ---
 
-<section id="about" class="hero" aria-labelledby="hero-title">
-  <div class="container hero__grid">
-    <div>
-      <div class="hero__identity rise" style="--i:0">
-        <img
-          class="hero__avatar"
-          src={profile.avatar.src}
-          alt={profile.avatar.alt}
-          width="76"
-          height="76"
-          loading="eager"
-          fetchpriority="high"
-        />
-        <div>
-          <p class="hero__name">{person.name}</p>
-          <p class="hero__role">{profile.role}</p>
-        </div>
+<section id="about" class="hero theme-dark" aria-labelledby="hero-title">
+  <div class="hero__film" aria-hidden="true">
+    <video
+      class="card-clip"
+      muted
+      loop
+      playsinline
+      preload="none"
+      poster={hero.film.poster}
+      data-src={hero.film.src}
+    ></video>
+  </div>
+  <div class="container hero__inner">
+    <div class="hero__identity rise" style="--i:0">
+      <img
+        class="hero__avatar"
+        src={profile.avatar.src}
+        alt={profile.avatar.alt}
+        width="44"
+        height="44"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <div>
+        <p class="hero__name">{person.name}</p>
+        <p class="hero__role">{profile.role}</p>
       </div>
-      <p class="eyebrow rise" style="--i:1">
-        {hero.eyebrow}
-      </p>
-      <h1 id="hero-title" class="hero__headline rise" style="--i:2">
-        {before}
-        <em>{highlight}</em>
-        {after}
-      </h1>
-      {hero.ledes.map((lede, i) => (
-        <p class="hero__lede rise" style={`--i:${3 + i}`}>
-          {lede}
-        </p>
-      ))}
-      <div class="hero__actions rise" style="--i:5">
-        <a class="button button--primary" href="#projects">
-          View projects
-        </a>
-        <a class="button" href="/cv.html">
-          Curriculum vitae
-        </a>
-        {profile.links.map((link) => (
-          <a class="button" href={link.href} {...(link.external && { target: '_blank', rel: 'noreferrer' })}>
-            <img src={iconUrl(link.icon)} alt="" width="16" height="16" />
-            {link.label}
-          </a>
-        ))}
-      </div>
-      <p class="hero__open-to rise" style="--i:6">
-        {hero.openTo}
-      </p>
-      <dl class="hero__facts rise" style="--i:7">
-        {hero.facts.map((fact) => (
-          <div>
-            <dt>{fact.term}</dt>
-            <dd>{fact.value}</dd>
-          </div>
-        ))}
-      </dl>
-      <ul class="pill-list hero__interests rise" style="--i:8" aria-label="Research interests">
-        {hero.interests.map((interest) => (
-          <li class="pill">{interest}</li>
-        ))}
-      </ul>
     </div>
+    <p class="eyebrow rise" style="--i:1">
+      {hero.eyebrow}
+    </p>
+    <h1 id="hero-title" class="hero__headline rise" style="--i:2">
+      {before}
+      <em>{highlight}</em>
+      {after}
+    </h1>
+    {hero.ledes.map((lede, i) => (
+      <p class="hero__lede rise" style={`--i:${3 + i}`}>
+        {lede}
+      </p>
+    ))}
+    <div class="hero__actions rise" style="--i:5">
+      <a class="button button--primary" href="#projects">
+        View projects
+      </a>
+      <a class="button" href="/cv.html">
+        Curriculum vitae
+      </a>
+      {profile.links.map((link) => (
+        <a class="button" href={link.href} {...(link.external && { target: '_blank', rel: 'noreferrer' })}>
+          <img src={iconUrl(link.icon)} alt="" width="16" height="16" />
+          {link.label}
+        </a>
+      ))}
+    </div>
+    <p class="hero__open-to rise" style="--i:6">
+      {hero.openTo}
+    </p>
+  </div>
+  <div class="container hero__foot rise" style="--i:7">
+    <dl class="hero__facts">
+      {hero.facts.map((fact) => (
+        <div>
+          <dt>{fact.term}</dt>
+          <dd>{fact.value}</dd>
+        </div>
+      ))}
+    </dl>
+    <ul class="pill-list hero__interests" aria-label="Research interests">
+      {hero.interests.map((interest) => (
+        <li class="pill">{interest}</li>
+      ))}
+    </ul>
+    <a class="hero__film-note" href={hero.film.href}>
+      {hero.film.note} <span aria-hidden="true">→</span>
+    </a>
   </div>
 </section>

@@ -29,6 +29,11 @@ note: >-
   from RL.
 media:
   badge: Gymnasium · Benchmark
+  card:
+    src: /assets/media/fr3avoid/card.mp4
+    poster: /assets/media/fr3avoid/card-poster.webp
+    alt: The arm, modelled as capsules, dodging a moving obstacle
+    fit: cover
   items:
     - src: /assets/media/fr3avoid/apf-episode.mp4
       poster: /assets/media/fr3avoid/apf-avoidance.webp

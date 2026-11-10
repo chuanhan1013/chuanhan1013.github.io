@@ -1,24 +1,33 @@
-/* Design tokens. Colours meet WCAG AA on --surface and --paper unless noted. */
+/*
+ * Design tokens.
+ *
+ * Two palettes share one set of names. The page is the light "gallery" palette; any element
+ * with `.theme-dark` (header, hero, footer) switches its subtree to the dark one, so
+ * components only ever use the tokens. Text colours meet WCAG AA on their own palette's
+ * --paper and --surface. One accent, used sparingly.
+ */
 :root {
-  /* Colour */
-  --ink: #0f1b2d;
-  --text: #3b4858;
-  --muted: #566475;
-  --line: #e3e9f0;
-  --line-strong: #cdd8e3;
-  --paper: #f4f7fa;
+  /* Colour — light */
+  --ink: #0c0c0d;
+  --text: #2f3034;
+  --muted: #66686d;
+  --line: #e2e0da;
+  --line-strong: #c9c6be;
+  --paper: #f5f4f0;
   --surface: #ffffff;
-  --surface-soft: #f8fafc;
-  --blue: #1d5c96;
-  --blue-dark: #123f6b;
-  --blue-bright: #2f7fc1;
-  --teal: #237276;
-  --accent-soft: #e9f2fb;
-  --ok: #1f7a4d;
-  --warn: #9a5b07;
+  --surface-soft: #faf9f6;
+  --primary: #0c0c0d; /* solid buttons, pressed chips */
+  --on-primary: #ffffff;
+  --accent: #b83d0a; /* accent as text (AA on --paper) */
+  --signal: #ff6a2b; /* accent as a fill: dots, rules, focus ring */
+  --accent-soft: #eeece6;
+  --veil: rgba(245, 244, 240, 0.86); /* translucent chrome over content */
+  --ok: #1f6f47;
+  --warn: #8a5207;
 
   /* Type */
   --font: 'Inter Variable', Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
   --fs-xs: 0.75rem; /* 12px — smallest size used anywhere */
   --fs-sm: 0.8125rem; /* 13px */
   --fs-md: 0.9375rem; /* 15px */
@@ -26,18 +35,18 @@
   --fs-lg: 1.125rem; /* 18px */
   --fs-xl: 1.375rem; /* 22px */
   --fs-2xl: 1.75rem; /* 28px */
-  --fs-3xl: clamp(2rem, 3.4vw, 2.5rem);
-  --fs-hero: clamp(2.5rem, 5.6vw, 4.25rem);
+  --fs-3xl: clamp(2.125rem, 5vw, 3.5rem);
+  --fs-hero: clamp(2.5rem, 6.4vw, 4.75rem);
 
   /* Space & shape */
-  --page: 1180px;
-  --gutter: clamp(16px, 4vw, 32px);
-  --radius-sm: 8px;
-  --radius: 14px;
-  --radius-lg: 22px;
-  --shadow-sm: 0 1px 2px rgba(15, 27, 45, 0.05), 0 4px 12px rgba(15, 27, 45, 0.04);
-  --shadow: 0 2px 6px rgba(15, 27, 45, 0.04), 0 14px 36px rgba(15, 27, 45, 0.07);
-  --shadow-lg: 0 6px 16px rgba(15, 27, 45, 0.06), 0 28px 60px rgba(15, 27, 45, 0.12);
+  --page: 1240px;
+  --gutter: clamp(20px, 4vw, 40px);
+  --radius-sm: 4px;
+  --radius: 8px;
+  --radius-lg: 14px;
+  --shadow-sm: 0 1px 2px rgba(12, 12, 13, 0.05);
+  --shadow: 0 2px 6px rgba(12, 12, 13, 0.05), 0 14px 32px rgba(12, 12, 13, 0.07);
+  --shadow-lg: 0 6px 14px rgba(12, 12, 13, 0.07), 0 30px 60px rgba(12, 12, 13, 0.14);
 
   /* Motion */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -47,5 +56,30 @@
   --dur-slow: 0.7s;
 
   /* Header height, used for scroll offsets. */
-  --header-h: 64px;
+  --header-h: 60px;
+}
+
+.theme-dark {
+  --ink: #f5f4f0;
+  --text: #cfcec9;
+  --muted: #98978f;
+  --line: #232426;
+  --line-strong: #3a3b3f;
+  --paper: #0a0a0b;
+  --surface: #151618;
+  --surface-soft: #101112;
+  --primary: #f5f4f0;
+  --on-primary: #0a0a0b;
+  --accent: #ff7a3d;
+  --signal: #ff6a2b;
+  --accent-soft: #1c1d20;
+  --veil: rgba(10, 10, 11, 0.9);
+  --ok: #58c48f;
+  --warn: #e7a23c;
+  --shadow-sm: none;
+  --shadow: none;
+  --shadow-lg: 0 30px 60px rgba(0, 0, 0, 0.5);
+
+  color: var(--text);
+  background: var(--paper);
 }

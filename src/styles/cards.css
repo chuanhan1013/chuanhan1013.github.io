@@ -83,7 +83,7 @@
   padding: 0 3px;
   border-radius: 4px;
   background: var(--accent-soft);
-  color: var(--blue-dark);
+  color: var(--primary);
   font-size: var(--fs-xs);
   font-weight: 800;
   letter-spacing: 0.02em;
@@ -100,7 +100,7 @@
   align-items: center;
   min-height: 32px;
   gap: 6px;
-  color: var(--blue);
+  color: var(--accent);
   font-size: var(--fs-md);
   font-weight: 650;
   text-decoration: none;
@@ -153,7 +153,7 @@
   text-decoration: none;
 }
 .research-card__body h3 a:hover {
-  color: var(--blue);
+  color: var(--accent);
 }
 .research-card__summary {
   margin: 16px 0 0;
@@ -199,14 +199,15 @@
   align-items: center;
   gap: 8px;
   min-height: 36px;
-  padding: 6px 14px;
+  padding: 6px 12px;
   border: 1px solid var(--line-strong);
-  border-radius: 999px;
-  background: var(--surface);
+  border-radius: var(--radius-sm);
+  background: transparent;
   color: var(--text);
-  font: inherit;
-  font-size: var(--fs-sm);
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
   cursor: pointer;
   transition:
     background var(--dur-fast) ease,
@@ -214,27 +215,19 @@
     border-color var(--dur-fast) ease;
 }
 .filter button:hover {
-  border-color: var(--blue);
+  border-color: var(--ink);
 }
 .filter button[aria-pressed='true'] {
-  border-color: var(--blue-dark);
-  background: var(--blue-dark);
-  color: #fff;
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--on-primary);
 }
 .filter .count {
-  display: grid;
-  place-items: center;
-  min-width: 22px;
-  height: 20px;
-  padding: 0 6px;
-  border-radius: 999px;
-  background: var(--paper);
   color: var(--muted);
-  font-size: var(--fs-xs);
 }
 .filter button[aria-pressed='true'] .count {
-  background: rgba(255, 255, 255, 0.18);
-  color: #fff;
+  color: inherit;
+  opacity: 0.7;
 }
 
 /* ---- Project tiles ---- */
@@ -271,7 +264,7 @@
   margin: 0;
   overflow: hidden;
   border-radius: var(--radius);
-  background: var(--cover-bg, #e9eef3);
+  background: var(--cover-bg, var(--accent-soft));
   box-shadow: var(--shadow-sm);
   transition:
     transform var(--dur) var(--ease-out),
@@ -284,7 +277,7 @@
 .project-card:focus-within .project-card__cover {
   box-shadow:
     var(--shadow-lg),
-    0 0 0 2px var(--blue-bright);
+    0 0 0 2px var(--signal);
 }
 .project-card__cover img,
 .project-card__cover video {
@@ -368,7 +361,7 @@
   outline: none;
 }
 .project-card:hover h3 a {
-  color: var(--blue-dark);
+  color: var(--primary);
 }
 /* Summary and headline result: features only. */
 .project-card__summary,

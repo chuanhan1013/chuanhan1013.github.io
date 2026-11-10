@@ -1,6 +1,6 @@
 ---
 title: Safe LLM-to-Simulation Pipeline for the Unitree G1
-shortTitle: Safe LLM-to-Sim Pipeline
+shortTitle: G1 Safe Pipeline
 kind: project
 categories: [humanoids]
 order: 40

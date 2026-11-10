@@ -3,7 +3,7 @@
   --ink: #17202a;
   --muted: #65717d;
   --line: #dfe5ea;
-  --blue: #1f5f94;
+  --accent: #1f5f94;
 }
 * {
   box-sizing: border-box;
@@ -53,7 +53,7 @@ h2 {
   padding-bottom: 4px;
   border-bottom: 1px solid var(--line);
   font-size: 15px;
-  color: var(--blue);
+  color: var(--accent);
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
@@ -102,7 +102,7 @@ li {
   background: #fff;
   padding: 8px 12px;
   border-radius: 6px;
-  color: var(--blue);
+  color: var(--accent);
   text-decoration: none;
   font-weight: 700;
   cursor: pointer;

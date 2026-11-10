@@ -51,6 +51,13 @@ export const hero = {
     { term: 'Education', value: 'M.Sc. Robotics, NUS · B.S. Biomechatronics, NTU' },
     { term: 'Focus', value: 'Robotics · Embodied AI · AI Engineering · Software Engineering' },
   ],
+  /** Background film: an illustration of the research theme, labelled as such on the page. */
+  film: {
+    src: '/assets/media/dynur/arm-studio.mp4',
+    poster: '/assets/media/dynur/arm-studio-poster.webp',
+    note: 'Illustration · whole-arm avoidance',
+    href: '/projects/dynamic-manipulator-planning.html',
+  },
   interests: [
     'Deep Reinforcement Learning',
     'Motion Planning',

@@ -13,7 +13,7 @@
   text-decoration: none;
 }
 .back-link:hover {
-  color: var(--blue);
+  color: var(--accent);
 }
 .project-head {
   max-width: 860px;
@@ -142,7 +142,7 @@
 .prose blockquote {
   margin: 1.2em 0;
   padding: 12px 16px;
-  border-left: 3px solid var(--blue-bright);
+  border-left: 3px solid var(--signal);
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   background: var(--accent-soft);
   color: var(--text);
@@ -178,7 +178,7 @@
     transform var(--dur-fast) var(--ease-out);
 }
 .project-pager a:hover {
-  border-color: var(--blue);
+  border-color: var(--accent);
   transform: translateY(-2px);
 }
 .project-pager small {
