@@ -23,7 +23,11 @@ const { title = seo.title, description = seo.description, home = false } = Astro
 <BaseLayout
   title={title}
   description={description}
-  og={{ title, description: home ? seo.ogDescription : description }}
+  og={{
+    title,
+    description: home ? seo.ogDescription : description,
+    url: new URL(Astro.url.pathname.replace(/index\.html$/, ''), Astro.site).href,
+  }}
   themeColor={seo.themeColor}
 >
   <script is:inline slot="head">

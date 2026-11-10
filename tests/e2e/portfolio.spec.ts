@@ -338,3 +338,14 @@ test.describe('card clips', () => {
     await context.close();
   });
 });
+
+test('every page declares a social preview image that exists', async ({ page, request }) => {
+  for (const path of ['/', '/projects/dynamic-manipulator-planning.html']) {
+    await page.goto(path);
+    const image = await page.locator('meta[property="og:image"]').getAttribute('content');
+    expect(image).toBe('https://chuanhan1013.github.io/assets/og-image.jpg');
+    const local = await request.get(new URL(image ?? '').pathname);
+    expect(local.ok()).toBe(true);
+    await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image');
+  }
+});

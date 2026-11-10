@@ -25,7 +25,7 @@ media:
       alt: >-
         Illustration: a simulated Franka FR3 arm keeps reaching for alternating targets while an orange ball
         passes its elbow; the arm bends away, and a line marks the closest point between the ball and the arm
-      caption: Illustration of whole-arm avoidance (simple controller on the public FR3 model; not research results)
+      caption: Illustration only — not research results
       fit: cover
     - src: /assets/diagrams/dynur-architecture.svg
       alt: >-

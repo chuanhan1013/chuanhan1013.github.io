@@ -10,7 +10,7 @@ from sim import FPS, SUB, P, d, dt, m, step  # noqa: E402
 
 W, H = 960, 600
 r = mujoco.Renderer(m, H, W)
-cam = mujoco.MjvCamera(); cam.lookat[:] = [0.28, 0.0, 0.46]; cam.distance = 1.3; cam.azimuth = 150; cam.elevation = -16
+cam = mujoco.MjvCamera(); cam.lookat[:] = [0.28, 0.0, 0.36]; cam.distance = 1.45; cam.azimuth = 150; cam.elevation = -16
 frames = []
 q_start = None
 n = int(2 * P['T'] * FPS * SUB)
