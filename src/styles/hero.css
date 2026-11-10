@@ -1,138 +1,205 @@
-/* Full-width introduction: identity, positioning, quick facts and interests. */
+/*
+ * Opening: the name is the headline, one plain line sits under it, and the rest is a row of
+ * scannable facts. A studio film of the research theme fills the stage behind (wide screens)
+ * or above (narrow screens) the text.
+ */
 .hero {
   position: relative;
-  padding-block: clamp(40px, 7vw, 88px) clamp(48px, 7vw, 88px);
-  overflow: hidden;
-}
-.hero::before {
-  /* Soft engineering-paper grid, fading out towards the bottom. */
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background:
-    radial-gradient(circle at 12% 0%, rgba(47, 127, 193, 0.12), transparent 34rem),
-    radial-gradient(circle at 92% 30%, rgba(35, 114, 118, 0.1), transparent 30rem),
-    linear-gradient(rgba(18, 63, 107, 0.045) 1px, transparent 1px) 0 0 / 32px 32px,
-    linear-gradient(90deg, rgba(18, 63, 107, 0.045) 1px, transparent 1px) 0 0 / 32px 32px;
-  mask-image: linear-gradient(to bottom, #000 55%, transparent);
-}
-.hero__grid > div {
-  max-width: 920px;
-}
-.hero__identity {
   display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 28px;
+  flex-direction: column;
+  min-height: min(100svh - var(--header-h), 860px);
+  padding-block: 40px clamp(24px, 3vw, 36px);
+  overflow: hidden;
+  isolation: isolate;
 }
-.hero__avatar {
-  width: 76px;
-  height: 76px;
-  border: 3px solid var(--surface);
-  border-radius: 22px;
-  object-fit: cover;
-  box-shadow: var(--shadow);
+/* The name block is centred in the space above the facts row. */
+.hero__inner {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+}
+/*
+ * The film is anchored to the name so the two stay aligned at every width: the arm stands to
+ * the right of the name and never covers it, and the obstacle's flight path (32% down the
+ * frame, see track.py) runs through the upper half of the last letters.
+ */
+.hero__stage {
+  position: relative;
+}
+.hero__film {
+  position: absolute;
+  top: 38%;
+  left: 37%;
+  z-index: -1;
+  width: 72%;
+  aspect-ratio: 4 / 3;
+  transform: translateY(-32%);
+  pointer-events: none;
+  /* The film's backdrop matches --paper; fade its edges so no boundary shows. */
+  mask-image: radial-gradient(ellipse 60% 62% at 52% 46%, #000 62%, transparent 100%);
+}
+.hero__film video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 .hero__name {
-  margin: 0;
-  font-size: var(--fs-xl);
-  letter-spacing: -0.03em;
-}
-.hero__role {
-  margin: 2px 0 0;
-  color: var(--muted);
-  font-size: var(--fs-md);
-  line-height: 1.45;
-}
-.hero__headline {
-  margin: 0;
+  margin: 0 0 0 -0.045em; /* optical alignment of the first letter */
   font-size: var(--fs-hero);
-  font-weight: 760;
-  line-height: 1.02;
-  letter-spacing: -0.05em;
+  font-weight: 560;
+  line-height: 0.92;
+  letter-spacing: -0.06em;
+  text-wrap: nowrap;
 }
-.hero__headline em {
-  font-style: normal;
-  background: linear-gradient(100deg, var(--blue-dark), var(--blue-bright) 55%, var(--teal));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+/* Letters split by hero-avoid.ts lean gently away as the obstacle in the film flies past. */
+.hero__name.is-split {
+  perspective: 900px;
 }
-.hero__lede {
-  max-width: 620px;
-  margin: 24px 0 0;
+.hero__ch {
+  display: inline-block;
+  transform-origin: 50% 60%;
+  will-change: transform;
+}
+.hero__tagline {
+  max-width: 30em;
+  margin: clamp(18px, 2.4vw, 28px) 0 0;
   color: var(--text);
-  font-size: var(--fs-lg);
-  line-height: 1.7;
-}
-.hero__lede + .hero__lede {
-  margin-top: 12px;
-  color: var(--muted);
-  font-size: var(--fs-base);
+  font-size: clamp(var(--fs-lg), 1.7vw, var(--fs-xl));
+  line-height: 1.45;
+  letter-spacing: -0.01em;
 }
 .hero__actions {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 30px;
+  margin-top: clamp(22px, 3vw, 32px);
 }
-.hero__open-to {
+.hero__links {
   display: inline-flex;
-  align-items: center;
   gap: 10px;
-  margin: 26px 0 0;
-  color: var(--ink);
-  font-size: var(--fs-md);
-  font-weight: 600;
 }
-.hero__open-to::before {
-  content: '';
-  flex: 0 0 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--ok);
-  box-shadow: 0 0 0 4px rgba(31, 122, 77, 0.15);
+.button--icon {
+  justify-content: center;
+  width: 44px;
+  padding: 0;
+}
+.button--icon img {
+  width: 18px;
+  height: 18px;
+}
+/* Brand logos are single-colour on the dark stage. */
+.theme-dark .button img {
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
+}
+.hero__foot {
+  position: relative;
+  margin-top: clamp(32px, 5vw, 64px);
 }
 .hero__facts {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1px;
-  margin: 40px 0 0;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--line);
+  grid-template-columns: 1.25fr 1.25fr 0.6fr 1.15fr;
+  gap: 0 clamp(20px, 3vw, 40px);
+  margin: 0;
+  border-top: 1px solid var(--line-strong);
 }
 .hero__facts div {
-  padding: 14px 16px;
-  background: rgba(255, 255, 255, 0.82);
+  padding-top: 14px;
 }
 .hero__facts dt {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   color: var(--muted);
+  font-family: var(--font-mono);
   font-size: var(--fs-xs);
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
+.hero__facts .is-live dt::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ok);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--ok) 20%, transparent);
+}
 .hero__facts dd {
-  margin: 4px 0 0;
+  margin: 6px 0 0;
   color: var(--ink);
   font-size: var(--fs-sm);
-  font-weight: 600;
-  line-height: 1.45;
+  line-height: 1.5;
 }
-.hero__interests {
-  margin-top: 22px;
+.hero__film-note {
+  position: absolute;
+  right: var(--gutter);
+  bottom: calc(100% + 14px);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.hero__film-note:hover {
+  color: var(--ink);
+}
+/* The container is centred, so anchor the note to its right edge instead of the gutter. */
+.hero__foot.container .hero__film-note {
+  right: 0;
 }
 
-@media (max-width: 560px) {
-  .hero__facts {
-    grid-template-columns: 1fr;
+@media (max-width: 860px) {
+  .hero {
+    min-height: 0;
+    padding-top: 0;
   }
-  .hero__avatar {
-    width: 64px;
-    height: 64px;
-    border-radius: 18px;
+  /* Narrow screens: a poster. The arm fills the top of the screen and the name sits on it. */
+  .hero__stage {
+    display: contents;
+  }
+  .hero__inner {
+    justify-content: flex-start;
+  }
+  /* The name must fit the narrowest phones on one line. */
+  .hero__name {
+    font-size: clamp(2.25rem, 13.4vw, 5rem);
+  }
+  .hero__film {
+    position: relative;
+    top: auto;
+    left: auto;
+    order: -1;
+    width: auto;
+    height: clamp(250px, 40svh, 360px);
+    margin: 0 calc(var(--gutter) * -1) -96px;
+    overflow: hidden;
+    aspect-ratio: auto;
+    transform: none;
+    mask-image: linear-gradient(to top, transparent 4%, #000 46%);
+  }
+  .hero__film video {
+    object-fit: cover;
+    /* Zoom in on the arm so no empty studio is left above it. */
+    transform: scale(1.7);
+    transform-origin: 57% 42%;
+  }
+  .hero__facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 20px;
+  }
+  .hero__facts div {
+    padding-block: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .hero__film-note {
+    position: static;
+    margin-top: 10px;
   }
 }

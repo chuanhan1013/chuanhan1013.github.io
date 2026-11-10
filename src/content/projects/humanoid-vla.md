@@ -1,8 +1,9 @@
 ---
 title: Language-Guided Humanoid Manipulation in MuJoCo
+shortTitle: Humanoid Manipulation
 kind: project
 categories: [humanoids, perception]
-order: 15
+order: 10
 status: completed
 period: Fall 2026
 context: EE5112 Human–Robot Interaction · NUS

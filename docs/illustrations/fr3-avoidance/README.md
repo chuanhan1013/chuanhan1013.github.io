@@ -8,6 +8,16 @@ The robot model is the Franka FR3 from
 [MuJoCo Menagerie](https://github.com/google-deepmind/mujoco_menagerie) (Apache-2.0). It is not
 copied into this repository.
 
+Three outputs come from the same controller (`sim.py`):
+
+| Output                            | Command                                 | Used for                                                                                                                                                       |
+| --------------------------------- | --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `arm-avoidance.mp4` (light scene) | `python render.py`                      | Research gallery                                                                                                                                               |
+| `arm-studio.mp4` (dark studio)    | `SCENE=scene-dark.xml python render.py` | Home-page opening film                                                                                                                                         |
+| `src/data/hero-track.json`        | `python track.py`                       | Screen-space path of the arm and the obstacle in the opening film, so the letters of the name can lean out of the obstacle's way (`src/scripts/hero-avoid.ts`) |
+
+`track.py` must use the same parameters and camera as the dark-studio render; re-run both together.
+
 ```bash
 pip install mujoco "imageio[ffmpeg]"
 git clone --depth 1 https://github.com/google-deepmind/mujoco_menagerie.git /tmp/menagerie

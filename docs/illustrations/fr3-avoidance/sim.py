@@ -10,7 +10,9 @@ import sys
 import mujoco
 import numpy as np
 
-m = mujoco.MjModel.from_xml_path('scene.xml'); d = mujoco.MjData(m)
+import os
+
+m = mujoco.MjModel.from_xml_path(os.environ.get('SCENE', 'scene.xml')); d = mujoco.MjData(m)
 mujoco.mj_resetDataKeyframe(m, d, 0)
 home = d.qpos[:7].copy(); lo, hi = m.jnt_range[:7, 0], m.jnt_range[:7, 1]
 links = [mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_GEOM, f'fr3_link{i}_collision') for i in range(1, 8)]
@@ -18,7 +20,7 @@ obs_g = mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_GEOM, 'obstacle')
 obs_m = m.body_mocapid[mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_BODY, 'obstacle')]
 goal_m = m.body_mocapid[mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_BODY, 'goal')]
 SITE = 0; FPS = 30; SUB = 8
-P = dict(ph=0.0, gs=1.0, rs=0.9, D0=0.2, krep=1.4, T=8.0, ox=0.45, oy=0.5, oz=0.5, oz2=0.1, gy=0.3, gz=0.33, gx=0.5)
+P = dict(vmax=0.5, ph=0.0, gs=1.0, rs=0.9, D0=0.2, krep=1.4, T=8.0, ox=0.45, oy=0.5, oz=0.5, oz2=0.1, gy=0.3, gz=0.33, gx=0.5)
 P.update({k: float(v) for k, v in (a.split('=') for a in sys.argv[1:])})
 dt = 1 / (FPS * SUB)
 def dls(J, v, lam):
@@ -42,7 +44,7 @@ def step(t):
         if dist < best[0]: best = (dist, fromto[:3].copy(), fromto[3:].copy(), gid)
     risk = float(np.clip(1 - (best[0] - 0.03) / (P['D0'] - 0.03), 0, 1))
     pe = d.site_xpos[SITE].copy(); jt = np.zeros((3, 7)); mujoco.mj_jacSite(m, d, jt, None, SITE)
-    v = 2.5 * (goal(t) - pe); s = np.linalg.norm(v); v *= min(1, 0.5 / (s + 1e-9))
+    v = 2.5 * (goal(t) - pe); s = np.linalg.norm(v); v *= min(1, P['vmax'] / (s + 1e-9))
     v *= (1 - P['rs'] * risk)
     I = np.eye(7)
     if best[0] < P['D0']:

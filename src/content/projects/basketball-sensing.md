@@ -1,8 +1,9 @@
 ---
 title: Wearable Basketball Shot Sensing System
+shortTitle: Basketball Shot Sensing
 kind: project
 categories: [perception, mechatronics]
-order: 50
+order: 14
 status: completed
 period: Fall 2025
 context: Mechatronics II · NTU

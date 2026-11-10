@@ -11,9 +11,15 @@ const { entry } = Astro.props;
 <div class="entry">
   <div class="entry-head">
     <strong>{entry.title}</strong>
-    <span>{entry.period}</span>
+    <span>{entry.right}</span>
   </div>
-  {entry.sub && <p class="sub">{entry.sub}</p>}
+  {(entry.sub || entry.subRight) && (
+    <div class="entry-sub">
+      <span>{entry.sub}</span>
+      <span>{entry.subRight}</span>
+    </div>
+  )}
+  {entry.note && <p class="entry-note">{entry.note}</p>}
   {entry.bullets && (
     <ul>
       {entry.bullets.map((bullet) => (

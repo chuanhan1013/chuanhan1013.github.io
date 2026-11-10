@@ -10,7 +10,7 @@ const { home = true } = Astro.props;
 const href = (anchor: string) => (home ? anchor : `/${anchor}`);
 ---
 
-<header class="site-header">
+<header class="site-header theme-dark">
   <div class="container site-header__inner">
     <a class="wordmark" href={home ? '#top' : '/'}>
       <img src={profile.avatar.src} alt="" width="32" height="32" />

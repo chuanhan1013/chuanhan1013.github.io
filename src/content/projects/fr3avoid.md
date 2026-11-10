@@ -1,5 +1,6 @@
 ---
 title: FR3Avoid — A Gymnasium Benchmark for Whole-Arm Obstacle Avoidance
+shortTitle: FR3Avoid
 kind: project
 categories: [robot-learning, motion-planning]
 order: 30
@@ -28,6 +29,11 @@ note: >-
   from RL.
 media:
   badge: Gymnasium · Benchmark
+  card:
+    src: /assets/media/fr3avoid/card.mp4
+    poster: /assets/media/fr3avoid/card-poster.webp
+    alt: The arm, modelled as capsules, dodging a moving obstacle
+    fit: cover
   items:
     - src: /assets/media/fr3avoid/apf-episode.mp4
       poster: /assets/media/fr3avoid/apf-avoidance.webp

@@ -76,6 +76,8 @@ export const projectSchema = z.object({
     .optional(),
   stack: z.array(techChipSchema).optional(),
   tags: z.array(z.string()).optional(),
+  /** Plain short name for the project tiles on the home page (defaults to `title`). */
+  shortTitle: z.string().optional(),
   links: z.array(linkSchema).optional(),
   /** Short caveat shown on the card and detail page (e.g. unpublished research). */
   note: z.string().optional(),

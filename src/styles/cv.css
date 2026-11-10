@@ -1,9 +1,12 @@
-/* Printable CV page (/cv.html). Independent from the portfolio styles. */
+/*
+ * Printable CV page (/cv.html). Independent from the portfolio styles: it follows the look
+ * of the owner's PDF CV (navy headings and rules, centred header).
+ */
 :root {
   --ink: #17202a;
-  --muted: #65717d;
-  --line: #dfe5ea;
-  --blue: #1f5f94;
+  --muted: #4f5b66;
+  --line: #234d70;
+  --navy: #234d70;
 }
 * {
   box-sizing: border-box;
@@ -24,12 +27,11 @@ body {
 }
 header {
   text-align: center;
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 16px;
 }
 h1 {
   margin: 0;
-  font-size: 30px;
+  color: var(--navy);
+  font-size: 32px;
 }
 header p {
   margin: 6px 0 0;
@@ -52,10 +54,8 @@ h2 {
   margin: 19px 0 9px;
   padding-bottom: 4px;
   border-bottom: 1px solid var(--line);
-  font-size: 15px;
-  color: var(--blue);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  color: var(--navy);
+  font-size: 17px;
 }
 .entry {
   margin: 10px 0;
@@ -73,10 +73,19 @@ h2 {
   color: var(--muted);
   font-size: 11px;
 }
-.sub {
-  color: var(--muted);
-  font-size: 11px;
+.entry-head span {
+  font-style: italic;
+}
+.entry-sub {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  color: var(--ink);
+  font-size: 11.5px;
+}
+.entry-note {
   margin: 2px 0 0;
+  font-size: 11px;
 }
 ul {
   margin: 5px 0 0 18px;
@@ -102,7 +111,7 @@ li {
   background: #fff;
   padding: 8px 12px;
   border-radius: 6px;
-  color: var(--blue);
+  color: var(--ink);
   text-decoration: none;
   font-weight: 700;
   cursor: pointer;
@@ -127,7 +136,11 @@ li {
   .page {
     padding: 28px 22px;
   }
-  .entry-head {
+  .entry-head,
+  .entry-sub {
+    display: block;
+  }
+  .entry-sub span {
     display: block;
   }
   .entry-head span {

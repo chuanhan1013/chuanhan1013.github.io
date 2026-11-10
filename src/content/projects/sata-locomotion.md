@@ -1,8 +1,9 @@
 ---
 title: Bio-Inspired Torque-Based Locomotion — SATA Reproduction & Isaac Lab Port
+shortTitle: SATA Locomotion
 kind: project
 categories: [robot-learning]
-order: 40
+order: 20
 status: completed
 period: Spring 2026
 context: Adaptive Control Systems · NTU

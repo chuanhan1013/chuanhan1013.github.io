@@ -11,14 +11,14 @@
   aspect-ratio: 16 / 10;
   overflow: hidden;
   border-radius: var(--radius);
-  background: #e9eef3;
-  box-shadow: inset 0 0 0 1px rgba(15, 27, 45, 0.06);
+  background: var(--accent-soft);
+  box-shadow: inset 0 0 0 1px var(--line);
 }
 .gallery__slide {
   position: absolute;
   inset: 0;
   margin: 0;
-  background: var(--slide-bg, #e9eef3);
+  background: var(--slide-bg, var(--accent-soft));
   opacity: 0;
   pointer-events: none;
   transition: opacity var(--dur) ease;
@@ -69,7 +69,7 @@
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.92);
   box-shadow: var(--shadow-sm);
-  color: var(--blue-dark);
+  color: var(--primary);
   font-size: var(--fs-xs);
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -161,5 +161,5 @@
 }
 .gallery__dot.is-active::before {
   width: 20px;
-  background: var(--blue);
+  background: var(--ink);
 }
