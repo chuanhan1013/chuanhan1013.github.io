@@ -18,9 +18,22 @@ stack:
 tags: [Dual IMU, WebSocket, Signal Processing]
 links:
   - { label: Code ↗, href: 'https://github.com/chuanhan1013/mechatronic_2_ntu_bime_2025', external: true }
+  - { label: Side-view video ↗, href: 'https://youtu.be/FzRLSb4ASPM', external: true }
 media:
   badge: Solo Project
+  card:
+    src: /assets/media/basketball/card.mp4
+    poster: /assets/media/basketball/card-poster.webp
+    alt: Shooting motions with the dual-IMU wearable while the dashboard plots the live signals
+    fit: cover
   items:
+    - src: /assets/media/basketball/demo.mp4
+      poster: /assets/media/basketball/demo-poster.webp
+      alt: >-
+        Demo: the wearer makes shooting motions with the dual-IMU wearable on the arm while the laptop
+        dashboard plots the live accelerometer and gyroscope traces and logs each detected shot
+      caption: Live demo — shooting motions streamed to the dashboard
+      background: '#0d1720'
     - src: /assets/media/basketball-setup.webp
       alt: Basketball sensing prototype, receiver electronics, and dashboard setup
       caption: Prototype + receiver + dashboard
