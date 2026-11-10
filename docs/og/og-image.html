@@ -92,8 +92,9 @@
       .g {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
+        grid-template-rows: repeat(2, minmax(0, 1fr));
         gap: 14px;
+        min-height: 0;
       }
       .t {
         position: relative;
@@ -119,6 +120,13 @@
         padding: 5px 9px;
         border-radius: 8px;
       }
+      .g {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        min-height: 0;
+      }
     </style>
   </head>
   <body>
@@ -139,19 +147,18 @@
     </div>
     <div class="g">
       <div class="t">
-        <img src="../../public/assets/media/vla/card-poster.webp" /><b>Language-guided humanoid</b>
+        <img src="tiles/vla14.webp" style="object-position: 50% 50%" /><b>Language-guided humanoid</b>
       </div>
       <div class="t">
-        <img
-          src="../../public/assets/media/catchpoint/three-states.webp"
-          style="object-position: 50% 40%"
-        /><b>CatchPoint balance assist</b>
+        <img src="tiles/cp2.webp" style="object-position: 50% 35%" /><b>Balance assistance control</b>
       </div>
       <div class="t">
-        <img src="../../public/assets/media/sata-rough-still.png" /><b>Legged locomotion RL</b>
+        <img src="tiles/sata2.webp" style="object-position: 50% 50%" /><b>Legged locomotion RL</b>
       </div>
       <div class="t">
-        <img src="../../public/assets/media/basketball-wearable.webp" /><b>Wearable IMU sensing</b>
+        <img src="../../public/assets/media/cleaning-final.webp" style="object-position: 50% 50%" /><b
+          >Autonomous mobile robot</b
+        >
       </div>
     </div>
   </body>
