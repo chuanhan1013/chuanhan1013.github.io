@@ -6,19 +6,14 @@ import mujoco
 import numpy as np
 
 # Scenario parameters used for the published clip (read by sim.py from argv).
-# HERO=1 renders the opening film: the hand sweeps left-right above the arm, along the name.
-HERO = os.environ.get('HERO')
-PARAMS = 'ox=0.2 oz=1.08 oz2=0 oy=0.5 D0=0.15 rs=0.6 krep=2.5 gx=0.25 gy=0.45 gz=0.82 vmax=0.9' if HERO else 'ox=0.22 oz=0.68 oz2=0 oy=0.6 D0=0.15 rs=0.6 krep=2.5'
-sys.argv = ['sim.py'] + PARAMS.split()
+sys.argv = ['sim.py'] + 'ox=0.22 oz=0.68 oz2=0 oy=0.6 D0=0.15 rs=0.6 krep=2.5'.split()
 from sim import FPS, SUB, P, d, dt, m, step  # noqa: E402
 
-W, H = (1400, 1050) if HERO else (1200, 900) if os.environ.get('SCENE') else (960, 600)
+W, H = (1200, 900) if os.environ.get('SCENE') else (960, 600)
 r = mujoco.Renderer(m, H, W)
 cam = mujoco.MjvCamera(); cam.lookat[:] = [0.28, 0.0, 0.36]; cam.distance = 1.45; cam.azimuth = 150; cam.elevation = -16
 if os.environ.get('SCENE'):
     cam.lookat[:] = [0.26, 0.0, 0.42]; cam.distance = 1.75; cam.azimuth = 146; cam.elevation = -12
-if HERO:  # facing the arm, so its sweep reads as left-right
-    cam.lookat[:] = [0.1, 0.0, 0.6]; cam.distance = 1.95; cam.azimuth = 180; cam.elevation = -6
 frames = []
 q_start = None
 track = []  # per frame: arm keypoints as [x, y] in 0..1 film coordinates

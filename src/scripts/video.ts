@@ -24,7 +24,8 @@ export function initCardClips(): void {
         }
       }
     },
-    { threshold: 0.35 },
+    // Low enough for the hero film, which is cropped to a zoomed-in window on narrow screens.
+    { threshold: 0.15 },
   );
   clips.forEach((clip) => observer.observe(clip));
 }

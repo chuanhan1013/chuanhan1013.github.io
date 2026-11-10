@@ -1,12 +1,12 @@
 """Export screen-space keypoints (arm links + obstacle) for the hero's letter avoidance. No rendering."""
 import json, os, sys
 os.environ['SCENE'] = 'scene-dark.xml'
-sys.argv = ['sim.py'] + 'ox=0.2 oz=1.08 oz2=0 oy=0.5 D0=0.15 rs=0.6 krep=2.5 gx=0.25 gy=0.45 gz=0.82 vmax=0.9'.split()  # same parameters as render.py with HERO=1
+sys.argv = ['sim.py'] + 'ox=0.22 oz=0.68 oz2=0 oy=0.6 D0=0.15 rs=0.6 krep=2.5'.split()  # same as render.py
 import mujoco, numpy as np
 from sim import FPS, SUB, P, d, dt, m, step, obstacle
-W, H = 1400, 1050
+W, H = 1200, 900
 r = mujoco.Renderer(m, H, W)
-cam = mujoco.MjvCamera(); cam.lookat[:] = [0.1, 0.0, 0.6]; cam.distance = 1.95; cam.azimuth = 180; cam.elevation = -6
+cam = mujoco.MjvCamera(); cam.lookat[:] = [0.26, 0.0, 0.42]; cam.distance = 1.75; cam.azimuth = 146; cam.elevation = -12  # the dark-studio camera in render.py
 ARM = [mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_BODY, f'fr3_link{i}') for i in range(1, 8)]
 def project(points):
     c0, c1 = r.scene.camera[0], r.scene.camera[1]

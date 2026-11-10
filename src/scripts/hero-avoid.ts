@@ -1,5 +1,7 @@
 /**
- * Hero: the letters of the name make way for the robot arm and the obstacle in the film.
+ * Hero: the letters of the name lean gently out of the way of the obstacle in the film.
+ * It is a grace note: the name stays readable at all times (small offsets, no overlap with
+ * the arm, which stands beside the name).
  *
  * The film is a pre-rendered loop, so the screen-space path of the arm and the ball is known
  * (`src/data/hero-track.json`, exported by docs/illustrations/fr3-avoidance/track.py). Each
@@ -11,6 +13,8 @@ import track from '@/data/hero-track.json';
 
 const WIDE = '(min-width: 861px)';
 const REDUCED = '(prefers-reduced-motion: reduce)';
+/** Largest sideways offset of a letter, as a fraction of its height. */
+const SHIFT = 0.1;
 
 interface Letter {
   el: HTMLElement;
@@ -87,7 +91,8 @@ export function initHeroAvoid(): void {
     const ox = box.left + ((box.width - cw) * px) / 100;
     const oy = box.top + ((box.height - ch) * py) / 100;
     const playing = !video.paused && video.readyState >= 2;
-    const at = (playing ? video.currentTime : 1.6) * fps;
+    if (!playing) return; // nothing moves until the film does
+    const at = video.currentTime * fps;
     const i0 = Math.floor(at) % count;
     const i1 = (i0 + 1) % count;
     const mix = at - Math.floor(at);
@@ -105,7 +110,7 @@ export function initHeroAvoid(): void {
         const x = ox + ((a[2 * p] ?? 0) * (1 - mix) + (b[2 * p] ?? 0) * mix) * cw;
         const y = oy + ((a[2 * p + 1] ?? 0) * (1 - mix) + (b[2 * p + 1] ?? 0) * mix) * ch;
         const radius = (p === points - 1 ? ball : arm) * ch;
-        const reach = radius + l.size * 0.62;
+        const reach = radius + l.size * 0.5;
         const dx = lx - x;
         const dy = ly - y;
         const dist = Math.hypot(dx, dy);
@@ -113,8 +118,8 @@ export function initHeroAvoid(): void {
         const push = (1 - dist / reach) ** 2;
         if (push > tf) {
           tf = push;
-          tx = (dx / (dist || 1)) * push * l.size * 0.42;
-          ty = (dy / (dist || 1)) * push * l.size * 0.42;
+          tx = (dx / (dist || 1)) * push * l.size * SHIFT;
+          ty = (dy / (dist || 1)) * push * l.size * SHIFT;
         }
       }
       // Critically damped follow, so letters ease away and settle back.
@@ -125,11 +130,11 @@ export function initHeroAvoid(): void {
         l.el.style.transform = '';
         continue;
       }
-      const tilt = l.f * 38;
-      const nx = l.x / (l.size * 0.42 || 1);
-      const ny = l.y / (l.size * 0.42 || 1);
+      const tilt = l.f * 16;
+      const nx = l.x / (l.size * SHIFT || 1);
+      const ny = l.y / (l.size * SHIFT || 1);
       l.el.style.transform =
-        `translate3d(${l.x.toFixed(2)}px, ${l.y.toFixed(2)}px, ${(-l.f * 140).toFixed(1)}px) ` +
+        `translate3d(${l.x.toFixed(2)}px, ${l.y.toFixed(2)}px, ${(-l.f * 40).toFixed(1)}px) ` +
         `rotateY(${(nx * tilt).toFixed(2)}deg) rotateX(${(-ny * tilt).toFixed(2)}deg)`;
     }
   }

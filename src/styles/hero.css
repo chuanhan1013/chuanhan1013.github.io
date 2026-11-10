@@ -7,35 +7,37 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  min-height: min(100svh - var(--header-h), 940px);
+  min-height: min(100svh - var(--header-h), 860px);
   padding-block: 40px clamp(24px, 3vw, 36px);
   overflow: hidden;
   isolation: isolate;
 }
+/* The name block is centred in the space above the facts row. */
+.hero__inner {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+}
 /*
- * The film is anchored to the name, not to the section. The hand travels along a line 37%
- * down the frame (track.py), so that line is placed on the text, and the film's width is set
- * so the sweep spans the name. The arm itself stands below and fades out before the facts.
+ * The film is anchored to the name so the two stay aligned at every width: the arm stands to
+ * the right of the name and never covers it, and the obstacle's flight path (32% down the
+ * frame, see track.py) runs through the upper half of the last letters.
  */
 .hero__stage {
   position: relative;
 }
 .hero__film {
   position: absolute;
-  top: 50%;
-  left: -38.2%;
+  top: 38%;
+  left: 37%;
   z-index: -1;
-  width: 150%;
+  width: 72%;
   aspect-ratio: 4 / 3;
-  transform: translateY(-37%);
+  transform: translateY(-32%);
   pointer-events: none;
   /* The film's backdrop matches --paper; fade its edges so no boundary shows. */
-  mask-image:
-    linear-gradient(to right, transparent, #000 9%, #000 88%, transparent),
-    linear-gradient(to bottom, transparent 2%, #000 12%, #000 54%, transparent 63%);
-  mask-composite: intersect;
-  -webkit-mask-composite: source-in;
+  mask-image: radial-gradient(ellipse 60% 62% at 52% 46%, #000 62%, transparent 100%);
 }
 .hero__film video {
   width: 100%;
@@ -49,11 +51,8 @@
   line-height: 0.92;
   letter-spacing: -0.06em;
   text-wrap: nowrap;
-  /* Where the name still touches the arm it inverts, so both stay legible. */
-  color: #fff;
-  mix-blend-mode: difference;
 }
-/* Letters split by hero-avoid.ts lean away from the arm and the obstacle in the film. */
+/* Letters split by hero-avoid.ts lean gently away as the obstacle in the film flies past. */
 .hero__name.is-split {
   perspective: 900px;
 }
@@ -61,10 +60,6 @@
   display: inline-block;
   transform-origin: 50% 60%;
   will-change: transform;
-}
-/* Tagline and actions sit right of the arm, which works in the middle under the name. */
-.hero__copy {
-  margin-left: 72%;
 }
 .hero__tagline {
   max-width: 30em;
@@ -165,13 +160,16 @@
     min-height: 0;
     padding-top: 0;
   }
-  /* The film becomes a band above the text and fades into it. */
+  /* Narrow screens: a poster. The arm fills the top of the screen and the name sits on it. */
   .hero__stage {
     display: contents;
   }
   .hero__inner {
-    display: flex;
-    flex-direction: column;
+    justify-content: flex-start;
+  }
+  /* The name must fit the narrowest phones on one line. */
+  .hero__name {
+    font-size: clamp(2.25rem, 13.4vw, 5rem);
   }
   .hero__film {
     position: relative;
@@ -179,20 +177,18 @@
     left: auto;
     order: -1;
     width: auto;
-    height: clamp(240px, 38svh, 380px);
-    margin: 0 calc(var(--gutter) * -1) -32px;
+    height: clamp(250px, 40svh, 360px);
+    margin: 0 calc(var(--gutter) * -1) -96px;
+    overflow: hidden;
     aspect-ratio: auto;
     transform: none;
-    mask-image: linear-gradient(to top, transparent, #000 30%);
-    mask-composite: add;
-    -webkit-mask-composite: source-over;
+    mask-image: linear-gradient(to top, transparent 4%, #000 46%);
   }
   .hero__film video {
     object-fit: cover;
-    object-position: 50% 44%;
-  }
-  .hero__copy {
-    margin-left: 0;
+    /* Zoom in on the arm so no empty studio is left above it. */
+    transform: scale(1.7);
+    transform-origin: 57% 42%;
   }
   .hero__facts {
     grid-template-columns: repeat(2, minmax(0, 1fr));
