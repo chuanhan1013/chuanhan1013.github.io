@@ -13,15 +13,27 @@
   overflow: hidden;
   isolation: isolate;
 }
+/*
+ * The film is anchored to the name, not to the section. The hand travels along a line 37%
+ * down the frame (track.py), so that line is placed on the text, and the film's width is set
+ * so the sweep spans the name. The arm itself stands below and fades out before the facts.
+ */
+.hero__stage {
+  position: relative;
+}
 .hero__film {
   position: absolute;
-  inset: 0 -4% 0 auto;
+  top: 50%;
+  left: -38.2%;
   z-index: -1;
-  width: min(62%, 1000px);
-  /* The film's backdrop matches --paper, so a soft vignette hides its edges. */
+  width: 150%;
+  aspect-ratio: 4 / 3;
+  transform: translateY(-37%);
+  pointer-events: none;
+  /* The film's backdrop matches --paper; fade its edges so no boundary shows. */
   mask-image:
-    linear-gradient(to right, transparent 4%, #000 40%),
-    radial-gradient(ellipse 70% 66% at 56% 48%, #000 55%, transparent 100%);
+    linear-gradient(to right, transparent, #000 9%, #000 88%, transparent),
+    linear-gradient(to bottom, transparent 2%, #000 12%, #000 54%, transparent 63%);
   mask-composite: intersect;
   -webkit-mask-composite: source-in;
 }
@@ -29,7 +41,6 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  object-position: 78% 36%;
 }
 .hero__name {
   margin: 0 0 0 -0.045em; /* optical alignment of the first letter */
@@ -38,9 +49,22 @@
   line-height: 0.92;
   letter-spacing: -0.06em;
   text-wrap: nowrap;
-  /* Where the name crosses the arm it inverts, so both stay legible. */
+  /* Where the name still touches the arm it inverts, so both stay legible. */
   color: #fff;
   mix-blend-mode: difference;
+}
+/* Letters split by hero-avoid.ts lean away from the arm and the obstacle in the film. */
+.hero__name.is-split {
+  perspective: 900px;
+}
+.hero__ch {
+  display: inline-block;
+  transform-origin: 50% 60%;
+  will-change: transform;
+}
+/* Tagline and actions sit right of the arm, which works in the middle under the name. */
+.hero__copy {
+  margin-left: 72%;
 }
 .hero__tagline {
   max-width: 30em;
@@ -142,19 +166,33 @@
     padding-top: 0;
   }
   /* The film becomes a band above the text and fades into it. */
+  .hero__stage {
+    display: contents;
+  }
+  .hero__inner {
+    display: flex;
+    flex-direction: column;
+  }
   .hero__film {
     position: relative;
-    inset: auto;
-    width: 100%;
+    top: auto;
+    left: auto;
+    order: -1;
+    width: auto;
     height: clamp(240px, 38svh, 380px);
-    margin-bottom: -32px;
+    margin: 0 calc(var(--gutter) * -1) -32px;
+    aspect-ratio: auto;
+    transform: none;
     mask-image: linear-gradient(to top, transparent, #000 30%);
     mask-composite: add;
     -webkit-mask-composite: source-over;
   }
   .hero__film video {
     object-fit: cover;
-    object-position: 50% 56%;
+    object-position: 50% 44%;
+  }
+  .hero__copy {
+    margin-left: 0;
   }
   .hero__facts {
     grid-template-columns: repeat(2, minmax(0, 1fr));

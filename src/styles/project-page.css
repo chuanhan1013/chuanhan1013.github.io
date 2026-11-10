@@ -1,6 +1,12 @@
-/* Project detail page (/projects/<slug>.html). */
+/*
+ * Project page (/projects/<slug>.html): a dark title band with the key facts, the gallery
+ * overlapping it like a product shot, results as large figures, then one reading column.
+ */
 .project-page {
-  padding-block: clamp(28px, 5vw, 56px) clamp(56px, 8vw, 96px);
+  padding-bottom: clamp(56px, 8vw, 96px);
+}
+.project-hero {
+  padding-block: clamp(20px, 3vw, 32px) clamp(120px, 16vw, 220px);
 }
 .back-link {
   display: inline-flex;
@@ -8,81 +14,125 @@
   min-height: 32px;
   gap: 6px;
   color: var(--muted);
-  font-size: var(--fs-sm);
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
   text-decoration: none;
+  text-transform: uppercase;
 }
 .back-link:hover {
   color: var(--ink);
 }
-.project-head {
-  max-width: 860px;
-  margin: 24px 0 32px;
+.project-hero .eyebrow {
+  margin: clamp(28px, 5vw, 56px) 0 16px;
 }
-.project-head h1 {
-  margin: 14px 0 0;
-  font-size: var(--fs-3xl);
-  letter-spacing: -0.04em;
+.project-hero h1 {
+  max-width: 17em;
+  margin: 0;
+  font-size: clamp(2.125rem, 5.6vw, 4.25rem);
+  font-weight: 560;
+  line-height: 1;
+  letter-spacing: -0.05em;
 }
-.project-head .card-context {
-  margin-top: 12px;
-  font-size: var(--fs-md);
+.project-lead {
+  max-width: 44em;
+  margin: clamp(18px, 2.4vw, 28px) 0 0;
+  color: var(--text);
+  font-size: var(--fs-lg);
+  line-height: 1.6;
 }
-.project-head__links {
+.project-hero__links {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 22px;
+  margin-top: 26px;
 }
-.project-layout {
+.project-facts {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 280px;
-  align-items: start;
-  gap: clamp(28px, 5vw, 64px);
-  margin-top: clamp(28px, 4vw, 44px);
+  grid-template-columns: 0.6fr 1.4fr 1.4fr 0.8fr;
+  gap: 0 clamp(20px, 3vw, 40px);
+  margin: clamp(32px, 5vw, 56px) 0 0;
+  border-top: 1px solid var(--line-strong);
 }
-.project-lead {
-  margin: 0;
-  color: var(--ink);
-  font-size: var(--fs-lg);
-  line-height: 1.7;
+.project-facts div {
+  padding-top: 14px;
 }
-.project-aside {
-  position: sticky;
-  top: calc(var(--header-h) + 20px);
-  display: grid;
-  gap: 18px;
-  padding: 20px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--surface);
-}
-.project-aside dl {
-  display: grid;
-  gap: 14px;
-  margin: 0;
-}
-.project-aside dt {
+.project-facts dt,
+.project-colophon dt {
   color: var(--muted);
+  font-family: var(--font-mono);
   font-size: var(--fs-xs);
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
-.project-aside dd {
-  margin: 4px 0 0;
+.project-facts dd {
+  margin: 6px 0 0;
   color: var(--ink);
   font-size: var(--fs-sm);
-  font-weight: 550;
+  line-height: 1.5;
 }
-.project-aside .pill-list .pill {
-  font-size: var(--fs-xs);
-  padding: 3px 9px;
+.project-facts__context {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.project-facts .status {
+  padding: 0;
+  background: none;
+}
+/* The gallery sits half on the dark band. */
+.project-stage {
+  margin-top: calc(clamp(120px, 16vw, 220px) * -1 + clamp(32px, 5vw, 56px));
+}
+.project-stage .gallery {
+  box-shadow: var(--shadow-lg);
+}
+/* Results as large figures on hairlines, not boxes. */
+.project-page .results {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0 clamp(20px, 3vw, 40px);
+  margin-top: clamp(36px, 5vw, 64px);
+  border-top: 1px solid var(--line-strong);
+}
+.project-page .results div {
+  padding: 16px 0 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+.project-page .results dt {
+  font-size: clamp(var(--fs-2xl), 3.4vw, 2.5rem);
+  font-weight: 560;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+.project-page .results dd {
+  max-width: 26em;
+  margin-top: 8px;
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+}
+.project-body {
+  max-width: 760px;
+  margin: clamp(36px, 5vw, 64px) auto 0;
+}
+.project-body > .card-note {
+  margin: 0 0 clamp(24px, 3vw, 36px);
+}
+.project-colophon {
+  display: grid;
+  gap: 20px;
+  margin: clamp(36px, 5vw, 56px) 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+.project-colophon dd {
+  margin: 10px 0 0;
 }
 
 /* Long-form Markdown body. */
 .prose {
-  margin-top: 28px;
+  margin-top: 0;
   font-size: var(--fs-base);
   line-height: 1.75;
 }
@@ -193,13 +243,13 @@
   text-align: right;
 }
 
-@media (max-width: 900px) {
-  .project-layout {
-    grid-template-columns: 1fr;
+@media (max-width: 760px) {
+  .project-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .project-aside {
-    position: static;
-    order: -1;
+  .project-facts div {
+    padding-block: 12px;
+    border-bottom: 1px solid var(--line);
   }
 }
 @media (max-width: 560px) {

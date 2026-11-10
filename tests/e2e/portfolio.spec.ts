@@ -82,9 +82,12 @@ test.describe('project pages', () => {
   test('pager navigates to the next project', async ({ page }) => {
     await page.goto('/projects/catchpoint.html');
     const next = page.locator('.project-pager a.next');
-    const title = (await next.textContent())?.replace('Next →', '').trim() ?? '';
+    // The pager shows the short name; the destination's <h1> is the full title.
+    const href = await next.getAttribute('href');
     await next.click();
-    await expect(page.locator('h1')).toHaveText(title);
+    await expect(page).toHaveURL(new RegExp(`${href}$`));
+    await expect(page.locator('h1')).toBeVisible();
+    await expect(page.locator('.project-pager a.prev')).toContainText('CatchPoint');
   });
 
   test('clips play while visible and carry a poster', async ({ page }) => {
@@ -348,4 +351,44 @@ test('every page declares a social preview image that exists', async ({ page, re
     expect(local.ok()).toBe(true);
     await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image');
   }
+});
+
+test.describe('hero name', () => {
+  test('letters make way for the arm on wide screens and keep the accessible name', async ({
+    page,
+    isMobile,
+  }) => {
+    await page.goto('/');
+    const name = page.locator('.hero__name');
+    if (isMobile) {
+      // The film sits above the text on narrow screens, so the name stays plain text.
+      await expect(name.locator('.hero__ch')).toHaveCount(0);
+      await expect(name).toHaveText('Chuan-Han Li');
+      return;
+    }
+    await expect(name).toHaveAttribute('aria-label', 'Chuan-Han Li');
+    await expect(name.locator('.hero__ch')).toHaveCount('Chuan-Han Li'.length);
+    // Within one loop of the film, the hand passes the text and at least one letter moves.
+    await expect
+      .poll(
+        () =>
+          name
+            .locator('.hero__ch')
+            .evaluateAll((els) => els.some((el) => (el as HTMLElement).style.transform)),
+        { timeout: 12_000 },
+      )
+      .toBe(true);
+  });
+
+  test('stays plain text with reduced motion', async ({ browser }) => {
+    const context = await browser.newContext({
+      reducedMotion: 'reduce',
+      viewport: { width: 1280, height: 800 },
+    });
+    const page = await context.newPage();
+    await page.goto('/');
+    await expect(page.locator('.hero__name .hero__ch')).toHaveCount(0);
+    await expect(page.locator('.hero__name')).toHaveText('Chuan-Han Li');
+    await context.close();
+  });
 });

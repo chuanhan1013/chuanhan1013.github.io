@@ -4,47 +4,52 @@ import { iconUrl } from '@/lib/icons';
 ---
 
 <section id="about" class="hero theme-dark" aria-labelledby="hero-title">
-  <div class="hero__film" aria-hidden="true">
-    <video
-      class="card-clip"
-      muted
-      loop
-      playsinline
-      preload="none"
-      poster={hero.film.poster}
-      data-src={hero.film.src}
-    ></video>
-  </div>
   <div class="container hero__inner">
     <p class="eyebrow rise" style="--i:0">
       {hero.eyebrow}
     </p>
-    <h1 id="hero-title" class="hero__name rise" style="--i:1">
-      {person.name}
-    </h1>
-    <p class="hero__tagline rise" style="--i:2">
-      {hero.tagline}
-    </p>
-    <div class="hero__actions rise" style="--i:3">
-      <a class="button button--primary" href="#projects">
-        View projects
-      </a>
-      <a class="button" href="/cv.html">
-        Curriculum vitae
-      </a>
-      <span class="hero__links">
-        {profile.links.map((link) => (
-          <a
-            class="button button--icon"
-            href={link.href}
-            aria-label={link.label}
-            title={link.label}
-            {...(link.external && { target: '_blank', rel: 'noreferrer' })}
-          >
-            <img src={iconUrl(link.icon)} alt="" width="18" height="18" />
-          </a>
-        ))}
-      </span>
+    <!-- The film is anchored to the name: the arm's hand sweeps along this line of text. -->
+    <div class="hero__stage">
+      <div class="hero__film" aria-hidden="true">
+        <video
+          class="card-clip"
+          muted
+          loop
+          playsinline
+          preload="none"
+          poster={hero.film.poster}
+          data-src={hero.film.src}
+        ></video>
+      </div>
+      <h1 id="hero-title" class="hero__name rise" style="--i:1">
+        {person.name}
+      </h1>
+    </div>
+    <div class="hero__copy">
+      <p class="hero__tagline rise" style="--i:2">
+        {hero.tagline}
+      </p>
+      <div class="hero__actions rise" style="--i:3">
+        <a class="button button--primary" href="#projects">
+          View projects
+        </a>
+        <a class="button" href="/cv.html">
+          Curriculum vitae
+        </a>
+        <span class="hero__links">
+          {profile.links.map((link) => (
+            <a
+              class="button button--icon"
+              href={link.href}
+              aria-label={link.label}
+              title={link.label}
+              {...(link.external && { target: '_blank', rel: 'noreferrer' })}
+            >
+              <img src={iconUrl(link.icon)} alt="" width="18" height="18" />
+            </a>
+          ))}
+        </span>
+      </div>
     </div>
   </div>
   <div class="container hero__foot rise" style="--i:4">

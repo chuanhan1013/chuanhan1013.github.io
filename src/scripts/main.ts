@@ -1,6 +1,7 @@
 /** Client entry point shared by all portfolio pages. */
 import { initCarousels } from './carousel';
 import { initFilter } from './filter';
+import { initHeroAvoid } from './hero-avoid';
 import { initLightbox } from './lightbox';
 import { initNav } from './nav';
 import { initReveal } from './reveal';
@@ -15,6 +16,7 @@ for (const init of [
   initReveal,
   initVideos,
   initCardClips,
+  initHeroAvoid,
 ]) {
   try {
     init();

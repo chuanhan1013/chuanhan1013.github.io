@@ -33,28 +33,19 @@ const section = p.kind === 'research' ? 'research' : 'projects';
 
 <SiteLayout title={`${p.title} — ${person.name}`} description={p.summary}>
   <article class="project-page">
-    <div class="container">
-      <a class="back-link" href={`/#${section}`}>
-        ← Back to {p.kind === 'research' ? 'research' : 'projects'}
-      </a>
-
-      <header class="project-head">
-        <div class="card-meta">
-          <StatusBadge status={p.status} />
-          {p.categories.map((c) => (
-            <span>{categories[c].short}</span>
-          ))}
-        </div>
+    <header class="project-hero theme-dark">
+      <div class="container">
+        <a class="back-link" href={`/#${section}`}>
+          ← {p.kind === 'research' ? 'Research' : 'Projects'}
+        </a>
+        <p class="eyebrow">{p.categories.map((c) => categories[c].short).join(' · ')}</p>
         <h1 style={`view-transition-name:${transitionName(entry, 'title')}`}>{p.title}</h1>
-        <p class="card-context">
-          {p.contextLogo && <LogoMark {...p.contextLogo} />}
-          <span>{p.context}</span>
-        </p>
+        <p class="project-lead">{p.summary}</p>
         {p.links && (
-          <div class="project-head__links">
+          <div class="project-hero__links">
             {p.links.map((link) => (
               <a
-                class="button button--sm"
+                class="button"
                 href={link.href}
                 {...(link.external && { target: '_blank', rel: 'noreferrer' })}
               >
@@ -63,47 +54,58 @@ const section = p.kind === 'research' ? 'research' : 'projects';
             ))}
           </div>
         )}
-      </header>
-
-      <Gallery
-        items={p.media.items}
-        label={`${p.title} media`}
-        badge={p.media.badge}
-        transitionName={transitionName(entry, 'cover')}
-        eager
-      />
-
-      <div class="project-layout">
-        <div>
-          <p class="project-lead">{p.summary}</p>
-          {p.results && <Results results={p.results} />}
-          {p.note && <p class="card-note">{p.note}</p>}
-          <div class="prose">
-            <Content />
+        <dl class="project-facts">
+          <div>
+            <dt>Period</dt>
+            <dd>{p.period}</dd>
           </div>
+          <div>
+            <dt>Context</dt>
+            <dd class="project-facts__context">
+              {p.contextLogo && <LogoMark {...p.contextLogo} />}
+              <span>{p.context}</span>
+            </dd>
+          </div>
+          {p.team && (
+            <div>
+              <dt>Team &amp; role</dt>
+              <dd>{p.team}</dd>
+            </div>
+          )}
+          <div>
+            <dt>Status</dt>
+            <dd>
+              <StatusBadge status={p.status} />
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="project-stage">
+        <Gallery
+          items={p.media.items}
+          label={`${p.title} media`}
+          badge={p.media.badge}
+          transitionName={transitionName(entry, 'cover')}
+          eager
+        />
+      </div>
+
+      {p.results && <Results results={p.results} />}
+
+      <div class="project-body">
+        {p.note && <p class="card-note">{p.note}</p>}
+        <div class="prose">
+          <Content />
         </div>
 
-        <aside class="project-aside" aria-label="Project facts">
-          <dl>
-            <div>
-              <dt>Period</dt>
-              <dd>{p.period}</dd>
-            </div>
-            {p.team && (
-              <div>
-                <dt>Team</dt>
-                <dd>{p.team}</dd>
-              </div>
-            )}
-            <div>
-              <dt>Status</dt>
-              <dd>
-                <StatusBadge status={p.status} />
-              </dd>
-            </div>
+        {(p.stack || p.tags) && (
+          <dl class="project-colophon">
             {p.stack && (
               <div>
-                <dt>Stack</dt>
+                <dt>Built with</dt>
                 <dd>
                   <Stack items={p.stack} label="Tech stack" />
                 </dd>
@@ -122,20 +124,20 @@ const section = p.kind === 'research' ? 'research' : 'projects';
               </div>
             )}
           </dl>
-        </aside>
+        )}
       </div>
 
       <nav class="project-pager" aria-label="More projects">
         {prev && (
           <a class="prev" href={projectUrl(prev)}>
             <small>← Previous</small>
-            {prev.data.title}
+            {prev.data.shortTitle ?? prev.data.title}
           </a>
         )}
         {next && (
           <a class="next" href={projectUrl(next)}>
             <small>Next →</small>
-            {next.data.title}
+            {next.data.shortTitle ?? next.data.title}
           </a>
         )}
       </nav>

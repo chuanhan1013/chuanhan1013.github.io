@@ -1,12 +1,12 @@
 /*
  * Design tokens.
  *
- * A monochrome system with one signal colour. Two palettes share one set of names: the page
+ * A monochrome system with one signal colour (ultramarine). Two palettes share one set of names: the page
  * is the light palette; any element with `.theme-dark` (header, hero, footer) switches its
  * subtree to the dark one, so components only ever use the tokens. Text colours meet WCAG AA
  * on their own palette's --paper and --surface.
  *
- * The signal red is reserved for three things: section numbers, "live" status dots and the
+ * The signal colour is reserved for three things: section numbers, "live" status dots and the
  * obstacle in the hero film. Links and buttons stay black or white.
  */
 :root {
@@ -21,8 +21,8 @@
   --surface-soft: #fafafa;
   --primary: #050506; /* solid buttons, pressed chips */
   --on-primary: #ffffff;
-  --accent: #c8140d; /* signal as text (AA on --paper) */
-  --signal: #e5231b; /* signal as a fill: dots, rules, focus ring */
+  --accent: #1f3fd6; /* signal as text (AA on --paper) */
+  --signal: #2a4bff; /* signal as a fill: dots, rules, focus ring */
   --accent-soft: #ebebed;
   --veil: rgba(244, 244, 245, 0.86); /* translucent chrome over content */
   --ok: #1f6f47;
@@ -73,8 +73,8 @@
   --surface-soft: #0f0f11;
   --primary: #f5f5f6;
   --on-primary: #0a0a0b;
-  --accent: #ff453a;
-  --signal: #ff3b30;
+  --accent: #8ea2ff;
+  --signal: #3d5cff;
   --accent-soft: #1b1c1f;
   --veil: rgba(10, 10, 11, 0.9);
   --ok: #4cc38a;
