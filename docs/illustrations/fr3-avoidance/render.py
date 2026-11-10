@@ -28,7 +28,7 @@ for k in range(n):
         if best[0] < 0.3 and sc.ngeom < sc.maxgeom:
             g = sc.geoms[sc.ngeom]
             a = 0.25 + 0.75 * risk
-            mujoco.mjv_initGeom(g, mujoco.mjtGeom.mjGEOM_LINE, np.zeros(3), np.zeros(3), np.zeros(9), np.array([1.0, 0.42, 0.17, a], np.float32))
+            mujoco.mjv_initGeom(g, mujoco.mjtGeom.mjGEOM_LINE, np.zeros(3), np.zeros(3), np.zeros(9), np.array([0.93, 0.13, 0.1, a], np.float32))
             mujoco.mjv_connector(g, mujoco.mjtGeom.mjGEOM_LINE, 2.5 + 2.5 * risk, best[1], best[2])
             sc.ngeom += 1
         frames.append(r.render().copy())

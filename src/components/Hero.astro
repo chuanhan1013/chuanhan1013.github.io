@@ -1,9 +1,6 @@
 ---
 import { hero, person, profile } from '@/data/site';
 import { iconUrl } from '@/lib/icons';
-
-// "{…}" in the headline marks the highlighted phrase.
-const [before = '', highlight = '', after = ''] = hero.headline.split(/[{}]/);
 ---
 
 <section id="about" class="hero theme-dark" aria-labelledby="hero-title">
@@ -19,66 +16,46 @@ const [before = '', highlight = '', after = ''] = hero.headline.split(/[{}]/);
     ></video>
   </div>
   <div class="container hero__inner">
-    <div class="hero__identity rise" style="--i:0">
-      <img
-        class="hero__avatar"
-        src={profile.avatar.src}
-        alt={profile.avatar.alt}
-        width="44"
-        height="44"
-        loading="eager"
-        fetchpriority="high"
-      />
-      <div>
-        <p class="hero__name">{person.name}</p>
-        <p class="hero__role">{profile.role}</p>
-      </div>
-    </div>
-    <p class="eyebrow rise" style="--i:1">
+    <p class="eyebrow rise" style="--i:0">
       {hero.eyebrow}
     </p>
-    <h1 id="hero-title" class="hero__headline rise" style="--i:2">
-      {before}
-      <em>{highlight}</em>
-      {after}
+    <h1 id="hero-title" class="hero__name rise" style="--i:1">
+      {person.name}
     </h1>
-    {hero.ledes.map((lede, i) => (
-      <p class="hero__lede rise" style={`--i:${3 + i}`}>
-        {lede}
-      </p>
-    ))}
-    <div class="hero__actions rise" style="--i:5">
+    <p class="hero__tagline rise" style="--i:2">
+      {hero.tagline}
+    </p>
+    <div class="hero__actions rise" style="--i:3">
       <a class="button button--primary" href="#projects">
         View projects
       </a>
       <a class="button" href="/cv.html">
         Curriculum vitae
       </a>
-      {profile.links.map((link) => (
-        <a class="button" href={link.href} {...(link.external && { target: '_blank', rel: 'noreferrer' })}>
-          <img src={iconUrl(link.icon)} alt="" width="16" height="16" />
-          {link.label}
-        </a>
-      ))}
+      <span class="hero__links">
+        {profile.links.map((link) => (
+          <a
+            class="button button--icon"
+            href={link.href}
+            aria-label={link.label}
+            title={link.label}
+            {...(link.external && { target: '_blank', rel: 'noreferrer' })}
+          >
+            <img src={iconUrl(link.icon)} alt="" width="18" height="18" />
+          </a>
+        ))}
+      </span>
     </div>
-    <p class="hero__open-to rise" style="--i:6">
-      {hero.openTo}
-    </p>
   </div>
-  <div class="container hero__foot rise" style="--i:7">
+  <div class="container hero__foot rise" style="--i:4">
     <dl class="hero__facts">
       {hero.facts.map((fact) => (
-        <div>
+        <div class:list={{ 'is-live': fact.live }}>
           <dt>{fact.term}</dt>
           <dd>{fact.value}</dd>
         </div>
       ))}
     </dl>
-    <ul class="pill-list hero__interests" aria-label="Research interests">
-      {hero.interests.map((interest) => (
-        <li class="pill">{interest}</li>
-      ))}
-    </ul>
     <a class="hero__film-note" href={hero.film.href}>
       {hero.film.note} <span aria-hidden="true">→</span>
     </a>

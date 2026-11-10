@@ -39,18 +39,15 @@ export const profile = {
 
 export const hero = {
   eyebrow: 'Robotics · Embodied AI',
-  /** The words inside {…} are highlighted. */
-  headline: 'I build robotic systems across perception, planning, and {reliable autonomy}.',
-  ledes: [
-    'My current research focuses on deep reinforcement learning for robot manipulator motion planning in dynamic environments.',
-    'With a background spanning biomechatronics, multimodal perception, robot learning, and AI/software engineering, I am interested in embodied AI systems that can perceive, reason, and act reliably in the physical world.',
-  ],
-  openTo: 'Open to robotics, embodied AI, AI systems, and research engineering opportunities in Singapore.',
+  /** One plain line under the name. */
+  tagline: 'I build robotic systems across perception, planning, and reliable autonomy.',
+  /** Scannable facts instead of paragraphs. `live` marks the availability line. */
   facts: [
+    { term: 'Now', value: 'M.Sc. Robotics at NUS · research at the Advanced Robotics Centre' },
+    { term: 'Research', value: 'Deep RL for manipulator motion planning in dynamic environments' },
     { term: 'Based in', value: person.location },
-    { term: 'Education', value: 'M.Sc. Robotics, NUS · B.S. Biomechatronics, NTU' },
-    { term: 'Focus', value: 'Robotics · Embodied AI · AI Engineering · Software Engineering' },
-  ],
+    { term: 'Open to', value: 'Robotics, embodied AI and research engineering roles', live: true },
+  ] as { term: string; value: string; live?: boolean }[],
   /** Background film: an illustration of the research theme, labelled as such on the page. */
   film: {
     src: '/assets/media/dynur/arm-studio.mp4',
@@ -58,13 +55,6 @@ export const hero = {
     note: 'Illustration · whole-arm avoidance',
     href: '/projects/dynamic-manipulator-planning.html',
   },
-  interests: [
-    'Deep Reinforcement Learning',
-    'Motion Planning',
-    'Embodied AI',
-    'Multimodal Perception',
-    'Reliable Autonomy',
-  ],
 };
 
 export const footer = {

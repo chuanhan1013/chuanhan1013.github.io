@@ -117,7 +117,6 @@ I proposed the concept, which the five-person team then adopted. I also:
 
 The presentation was split into five parts. Each teammate took over one part, checked its numbers
 and presented it. One teammate also led the clinical framing and audited the competitor comparison.
-The implementation went through 23 independent review rounds.
 
 The Unitree G1 model is used under its BSD-3-Clause licence. The mannequin in the concept render is
 © Mixamo/Adobe.

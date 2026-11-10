@@ -48,8 +48,8 @@ svg {
   max-width: 100%;
 }
 ::selection {
-  background: var(--signal);
-  color: #0a0a0b;
+  background: var(--ink);
+  color: var(--paper);
 }
 :focus-visible {
   outline: 2px solid var(--signal);
@@ -163,7 +163,7 @@ svg {
 .button--primary:hover {
   border-color: var(--signal);
   background: var(--signal);
-  color: #0a0a0b;
+  color: #fff;
 }
 .button--sm {
   min-height: 34px;

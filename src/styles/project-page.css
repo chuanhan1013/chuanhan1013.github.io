@@ -13,7 +13,7 @@
   text-decoration: none;
 }
 .back-link:hover {
-  color: var(--accent);
+  color: var(--ink);
 }
 .project-head {
   max-width: 860px;
@@ -178,7 +178,7 @@
     transform var(--dur-fast) var(--ease-out);
 }
 .project-pager a:hover {
-  border-color: var(--accent);
+  border-color: var(--ink);
   transform: translateY(-2px);
 }
 .project-pager small {

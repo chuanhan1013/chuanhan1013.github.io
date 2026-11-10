@@ -1,27 +1,30 @@
 /*
  * Design tokens.
  *
- * Two palettes share one set of names. The page is the light "gallery" palette; any element
- * with `.theme-dark` (header, hero, footer) switches its subtree to the dark one, so
- * components only ever use the tokens. Text colours meet WCAG AA on their own palette's
- * --paper and --surface. One accent, used sparingly.
+ * A monochrome system with one signal colour. Two palettes share one set of names: the page
+ * is the light palette; any element with `.theme-dark` (header, hero, footer) switches its
+ * subtree to the dark one, so components only ever use the tokens. Text colours meet WCAG AA
+ * on their own palette's --paper and --surface.
+ *
+ * The signal red is reserved for three things: section numbers, "live" status dots and the
+ * obstacle in the hero film. Links and buttons stay black or white.
  */
 :root {
   /* Colour — light */
-  --ink: #0c0c0d;
-  --text: #2f3034;
-  --muted: #66686d;
-  --line: #e2e0da;
-  --line-strong: #c9c6be;
-  --paper: #f5f4f0;
+  --ink: #050506;
+  --text: #26272b;
+  --muted: #5f6167;
+  --line: #e2e2e5;
+  --line-strong: #c3c4c9;
+  --paper: #f4f4f5;
   --surface: #ffffff;
-  --surface-soft: #faf9f6;
-  --primary: #0c0c0d; /* solid buttons, pressed chips */
+  --surface-soft: #fafafa;
+  --primary: #050506; /* solid buttons, pressed chips */
   --on-primary: #ffffff;
-  --accent: #b83d0a; /* accent as text (AA on --paper) */
-  --signal: #ff6a2b; /* accent as a fill: dots, rules, focus ring */
-  --accent-soft: #eeece6;
-  --veil: rgba(245, 244, 240, 0.86); /* translucent chrome over content */
+  --accent: #c8140d; /* signal as text (AA on --paper) */
+  --signal: #e5231b; /* signal as a fill: dots, rules, focus ring */
+  --accent-soft: #ebebed;
+  --veil: rgba(244, 244, 245, 0.86); /* translucent chrome over content */
   --ok: #1f6f47;
   --warn: #8a5207;
 
@@ -36,7 +39,7 @@
   --fs-xl: 1.375rem; /* 22px */
   --fs-2xl: 1.75rem; /* 28px */
   --fs-3xl: clamp(2.125rem, 5vw, 3.5rem);
-  --fs-hero: clamp(2.5rem, 6.4vw, 4.75rem);
+  --fs-hero: clamp(3.25rem, 9.4vw, 8.25rem); /* the name */
 
   /* Space & shape */
   --page: 1240px;
@@ -44,7 +47,7 @@
   --radius-sm: 4px;
   --radius: 8px;
   --radius-lg: 14px;
-  --shadow-sm: 0 1px 2px rgba(12, 12, 13, 0.05);
+  --shadow-sm: 0 1px 2px rgba(5, 5, 6, 0.05);
   --shadow: 0 2px 6px rgba(12, 12, 13, 0.05), 0 14px 32px rgba(12, 12, 13, 0.07);
   --shadow-lg: 0 6px 14px rgba(12, 12, 13, 0.07), 0 30px 60px rgba(12, 12, 13, 0.14);
 
@@ -60,21 +63,21 @@
 }
 
 .theme-dark {
-  --ink: #f5f4f0;
-  --text: #cfcec9;
-  --muted: #98978f;
-  --line: #232426;
-  --line-strong: #3a3b3f;
-  --paper: #0a0a0b;
-  --surface: #151618;
-  --surface-soft: #101112;
-  --primary: #f5f4f0;
+  --ink: #f5f5f6;
+  --text: #c8c9cd;
+  --muted: #8f9197;
+  --line: #222327;
+  --line-strong: #3b3c41;
+  --paper: #0a0a0b; /* matches the hero film's backdrop */
+  --surface: #141416;
+  --surface-soft: #0f0f11;
+  --primary: #f5f5f6;
   --on-primary: #0a0a0b;
-  --accent: #ff7a3d;
-  --signal: #ff6a2b;
-  --accent-soft: #1c1d20;
+  --accent: #ff453a;
+  --signal: #ff3b30;
+  --accent-soft: #1b1c1f;
   --veil: rgba(10, 10, 11, 0.9);
-  --ok: #58c48f;
+  --ok: #4cc38a;
   --warn: #e7a23c;
   --shadow-sm: none;
   --shadow: none;

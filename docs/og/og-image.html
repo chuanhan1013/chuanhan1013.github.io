@@ -9,155 +9,124 @@
           format('woff2');
         font-weight: 100 900;
       }
+      @font-face {
+        font-family: 'Geist Mono';
+        src: url(../../node_modules/@fontsource-variable/geist-mono/files/geist-mono-latin-wght-normal.woff2)
+          format('woff2');
+        font-weight: 100 900;
+      }
       * {
         box-sizing: border-box;
         margin: 0;
       }
       body {
-        width: 1200px;
-        height: 630px;
-        font-family: Inter, sans-serif;
-        color: #0f1d2b;
-        background:
-          radial-gradient(circle at 8% 0%, rgba(47, 127, 193, 0.16), transparent 420px),
-          radial-gradient(circle at 60% 110%, rgba(35, 114, 118, 0.12), transparent 420px), #f4f7fa;
         display: grid;
         grid-template-columns: 500px 1fr;
-        gap: 36px;
-        padding: 52px 52px 52px 60px;
+        gap: 40px;
+        width: 1200px;
+        height: 630px;
+        padding: 56px 52px 52px 64px;
         overflow: hidden;
+        background: #0a0a0b;
+        color: #f5f5f6;
+        font-family: Inter, sans-serif;
       }
       .l {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-end;
       }
-      .id {
-        display: flex;
-        align-items: center;
-        gap: 18px;
-        margin-bottom: 30px;
-      }
-      .id img {
-        width: 84px;
-        height: 84px;
-        border-radius: 22px;
-        object-fit: cover;
-        border: 3px solid #fff;
-        box-shadow: 0 8px 24px rgba(15, 29, 43, 0.14);
-      }
-      .name {
-        font-size: 30px;
-        font-weight: 700;
-        letter-spacing: -0.02em;
-      }
-      .role {
-        font-size: 17px;
-        color: #4b5f70;
-        margin-top: 4px;
+      .mono {
+        color: #8f9197;
+        font-family: 'Geist Mono', monospace;
+        font-size: 15px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
       }
       h1 {
-        font-size: 54px;
-        line-height: 1.04;
-        font-weight: 780;
-        letter-spacing: -0.045em;
+        margin: 18px 0 0 -4px;
+        font-size: 84px;
+        font-weight: 560;
+        line-height: 0.92;
+        letter-spacing: -0.06em;
+        white-space: nowrap;
       }
-      h1 em {
-        font-style: normal;
-        background: linear-gradient(100deg, #123f6b, #2f7fc1 55%, #237276);
-        -webkit-background-clip: text;
-        color: transparent;
-      }
-      .tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-top: 26px;
-      }
-      .tags span {
-        font-size: 15px;
-        font-weight: 600;
-        padding: 7px 12px;
-        border-radius: 999px;
-        background: #fff;
-        border: 1px solid #d5e0e8;
-        color: #24425c;
+      .tag {
+        margin-top: 22px;
+        color: #c8c9cd;
+        font-size: 22px;
+        line-height: 1.4;
       }
       .url {
-        margin-top: 28px;
-        font-size: 18px;
-        font-weight: 600;
-        color: #2f7fc1;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 34px;
+        padding-top: 16px;
+        border-top: 1px solid #3b3c41;
+      }
+      .url::before {
+        content: '';
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #ff3b30;
       }
       .g {
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: repeat(2, minmax(0, 1fr));
-        gap: 14px;
+        gap: 12px;
         min-height: 0;
       }
       .t {
         position: relative;
-        border-radius: 18px;
         overflow: hidden;
-        background: #dfe7ee;
-        box-shadow: 0 10px 28px rgba(15, 29, 43, 0.14);
+        border-radius: 10px;
+        background: #141416;
       }
       .t img {
+        display: block;
         width: 100%;
         height: 100%;
         object-fit: cover;
-        display: block;
       }
       .t b {
         position: absolute;
-        left: 10px;
         bottom: 10px;
-        font-size: 13px;
-        font-weight: 650;
-        color: #fff;
-        background: rgba(10, 24, 38, 0.7);
-        padding: 5px 9px;
-        border-radius: 8px;
-      }
-      .g {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: repeat(2, minmax(0, 1fr));
-        gap: 14px;
-        min-height: 0;
+        left: 10px;
+        padding: 5px 8px;
+        border-radius: 4px;
+        background: rgba(10, 10, 11, 0.78);
+        color: #f5f5f6;
+        font-family: 'Geist Mono', monospace;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
       }
     </style>
   </head>
   <body>
     <div class="l">
-      <div class="id">
-        <img src="../../public/assets/media/profile-chuanhan.jpg" />
-        <div>
-          <div class="name">Chuan-Han Li</div>
-          <div class="role">M.Sc. Robotics · National University of Singapore</div>
-        </div>
-      </div>
-      <h1>Robotics &amp; <em>Embodied AI</em></h1>
-      <div class="tags">
-        <span>Motion planning</span><span>Robot learning</span><span>Humanoids</span><span>Perception</span
-        ><span>Mechatronics</span>
-      </div>
-      <div class="url">chuanhan1013.github.io</div>
+      <div class="mono">Robotics · Embodied AI</div>
+      <h1>Chuan-Han Li</h1>
+      <div class="tag">I build robotic systems across perception, planning, and reliable autonomy.</div>
+      <div class="url mono">chuanhan1013.github.io</div>
     </div>
     <div class="g">
       <div class="t">
         <img src="tiles/fr3.webp" style="object-position: 50% 40%" /><b>Whole-arm avoidance · illustration</b>
       </div>
       <div class="t">
-        <img src="tiles/vla14.webp" style="object-position: 50% 50%" /><b>Language-guided humanoid</b>
+        <img src="tiles/vla14.webp" style="object-position: 50% 50%" /><b>Humanoid manipulation</b>
       </div>
       <div class="t">
-        <img src="tiles/cp2.webp" style="object-position: 50% 35%" /><b>Balance assistance control</b>
+        <img src="tiles/cp2.webp" style="object-position: 50% 35%" /><b>Balance assistance</b>
       </div>
       <div class="t">
         <img src="../../public/assets/media/cleaning-final.webp" style="object-position: 50% 50%" /><b
-          >Autonomous mobile robot</b
+          >Mobile robot</b
         >
       </div>
     </div>

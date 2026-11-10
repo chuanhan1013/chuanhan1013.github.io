@@ -16,7 +16,7 @@
   left: 9px;
   width: 2px;
   border-radius: 2px;
-  background: linear-gradient(var(--signal), var(--accent));
+  background: var(--line-strong);
   transform-origin: top;
 }
 .timeline__item {
@@ -37,7 +37,7 @@
   left: -29px;
   width: 12px;
   height: 12px;
-  border: 2px solid var(--signal);
+  border: 2px solid var(--ink);
   border-radius: 50%;
   background: var(--surface);
   box-shadow: 0 0 0 4px var(--paper);
@@ -56,9 +56,10 @@
 }
 .timeline__label {
   margin: 0;
-  color: var(--accent);
+  color: var(--muted);
+  font-family: var(--font-mono);
   font-size: var(--fs-xs);
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
