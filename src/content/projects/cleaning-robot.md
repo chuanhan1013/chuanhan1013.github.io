@@ -3,7 +3,7 @@ title: Autonomous Cleaning Robot
 shortTitle: Cleaning Robot
 kind: project
 categories: [mechatronics, perception]
-order: 60
+order: 22
 status: completed
 period: Fall 2025
 context: Mechatronics IV · NTU

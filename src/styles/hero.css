@@ -192,9 +192,17 @@
   }
 }
 @media (max-width: 560px) {
-  /* The second paragraph repeats the focus areas listed just below. */
-  .hero__lede + .hero__lede {
+  /* Keep the opening to about one screen: the second paragraph and the interest labels repeat
+     the focus areas listed in the facts. */
+  .hero__lede + .hero__lede,
+  .hero__interests {
     display: none;
+  }
+  .hero__film {
+    height: 240px;
+  }
+  .hero__foot {
+    margin-top: 28px;
   }
   .hero__facts {
     grid-template-columns: 1fr;
