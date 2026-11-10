@@ -10,13 +10,17 @@ import cplusplus from 'devicon/icons/cplusplus/cplusplus-original.svg?url';
 import docker from 'devicon/icons/docker/docker-original.svg?url';
 import fastapi from 'devicon/icons/fastapi/fastapi-original.svg?url';
 import git from 'devicon/icons/git/git-original.svg?url';
+import java from 'devicon/icons/java/java-original.svg?url';
 import github from 'devicon/icons/github/github-original.svg?url';
 import linkedin from 'devicon/icons/linkedin/linkedin-original.svg?url';
 import linux from 'devicon/icons/linux/linux-original.svg?url';
+import numpy from 'devicon/icons/numpy/numpy-original.svg?url';
 import opencv from 'devicon/icons/opencv/opencv-original.svg?url';
 import python from 'devicon/icons/python/python-original.svg?url';
 import pytorch from 'devicon/icons/pytorch/pytorch-original.svg?url';
 import raspberrypi from 'devicon/icons/raspberrypi/raspberrypi-original.svg?url';
+import react from 'devicon/icons/react/react-original.svg?url';
+import ros from 'devicon/icons/ros/ros-original.svg?url';
 import tensorflow from 'devicon/icons/tensorflow/tensorflow-original.svg?url';
 import typescript from 'devicon/icons/typescript/typescript-original.svg?url';
 
@@ -36,13 +40,17 @@ export const deviconUrls: Record<DeviconName, string> = {
   docker,
   fastapi,
   git,
+  java,
   github,
   linkedin,
   linux,
+  numpy,
   opencv,
   python,
   pytorch,
   raspberrypi,
+  react,
+  ros,
   tensorflow,
   typescript,
 };
