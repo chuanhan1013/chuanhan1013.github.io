@@ -23,30 +23,53 @@ export const education: EducationEntry[] = [
   },
 ];
 
+/** Mirrors the CV's skill groups (`cv-private`), with a few extra items for the web page. */
 export const skills: SkillGroup[] = [
   {
-    title: 'Robotics / Systems',
+    title: 'Robotics',
     icon: 'robotics',
     items: [
-      { label: 'Robot kinematics' },
-      { label: 'geometric modelling' },
-      { label: 'Isaac Gym', glyph: 'IG' },
-      { label: 'Isaac Lab', glyph: 'IL' },
+      { label: 'ROS / ROS 2', icon: 'ros' },
+      { label: 'motion planning' },
+      { label: 'collision checking' },
+      { label: 'forward/inverse kinematics' },
       { label: 'PID/PD control' },
       { label: 'state machines' },
-      { label: 'Raspberry Pi', icon: 'raspberrypi' },
-      { label: 'Arduino', icon: 'arduino' },
+    ],
+  },
+  {
+    title: 'Robot Learning',
+    icon: 'pytorch',
+    items: [
+      { label: 'reinforcement learning (RL)' },
+      { label: 'deep RL (DRL)' },
+      { label: 'PPO' },
+      { label: 'RL environment design' },
+      { label: 'PyTorch', icon: 'pytorch' },
+      { label: 'TensorFlow', icon: 'tensorflow' },
+    ],
+  },
+  {
+    title: 'Simulation',
+    icon: 'cube',
+    items: [
+      { label: 'MuJoCo', glyph: 'MJ' },
+      { label: 'Gazebo', glyph: 'GZ' },
+      { label: 'CoppeliaSim', glyph: 'CS' },
+      { label: 'Isaac Gym', glyph: 'IG' },
+      { label: 'Isaac Lab', glyph: 'IL' },
+      { label: 'Gymnasium', glyph: 'GYM' },
     ],
   },
   {
     title: 'AI / Perception',
     icon: 'perception',
     items: [
-      { label: 'PyTorch', icon: 'pytorch' },
-      { label: 'TensorFlow', icon: 'tensorflow' },
       { label: 'OpenCV', icon: 'opencv' },
+      { label: 'NumPy', icon: 'numpy' },
       { label: 'YOLO' },
       { label: 'CNNs' },
+      { label: 'VLMs' },
       { label: 'sensor fusion' },
       { label: 'multimodal perception' },
     ],
@@ -57,7 +80,9 @@ export const skills: SkillGroup[] = [
     items: [
       { label: 'Python', icon: 'python' },
       { label: 'C/C++', icon: 'cplusplus' },
+      { label: 'Java', icon: 'java' },
       { label: 'TypeScript/JavaScript', icon: 'typescript' },
+      { label: 'React', icon: 'react' },
       { label: 'Linux', icon: 'linux' },
       { label: 'Docker', icon: 'docker' },
       { label: 'Git', icon: 'git' },
@@ -67,9 +92,15 @@ export const skills: SkillGroup[] = [
     ],
   },
   {
-    title: 'CAD / Prototyping',
-    icon: 'cube',
-    items: [{ label: 'SolidWorks' }, { label: '3D printing' }, { label: 'mechatronic system integration' }],
+    title: 'Hardware / CAD',
+    icon: 'arduino',
+    items: [
+      { label: 'Raspberry Pi', icon: 'raspberrypi' },
+      { label: 'Arduino', icon: 'arduino' },
+      { label: 'SolidWorks' },
+      { label: '3D printing' },
+      { label: 'mechatronic system integration' },
+    ],
   },
 ];
 
