@@ -16,6 +16,20 @@ const all = await getAllProjects();
 const research = all.filter((p) => p.data.kind === 'research');
 const projects = all.filter((p) => p.data.kind === 'project');
 const filters = usedCategories(projects);
+
+/**
+ * Tile sizes for the full, ordered lineup on wide screens: two large features, then rows of
+ * three (medium) or four (small) chosen so that no row is left with a gap.
+ */
+function sizeTiles(count: number): ('lg' | 'md' | 'sm')[] {
+  const rest = Math.max(0, count - 2);
+  // rows of three first; switch to rows of four for whatever divides evenly
+  let threes = Math.floor(rest / 3);
+  while (threes > 0 && (rest - threes * 3) % 4 !== 0) threes--;
+  const medium = (rest - threes * 3) % 4 === 0 ? threes * 3 : rest; // no clean split: all medium
+  return Array.from({ length: count }, (_, i) => (i < 2 ? 'lg' : i < 2 + medium ? 'md' : 'sm'));
+}
+const tileSizes = sizeTiles(projects.length);
 ---
 
 <SiteLayout home>
@@ -57,8 +71,15 @@ const filters = usedCategories(projects);
         ))}
       </div>
       <ul class="project-grid" data-project-grid>
-        {projects.map((entry) => (
-          <li class="reveal" data-categories={entry.data.categories.join(' ')}>
+        {projects.map((entry, i) => (
+          <li
+            class:list={[
+              'reveal',
+              `tile--${tileSizes[i]}`,
+              { 'tile--wide': i === 0 || (i === 1 && projects.length % 2 === 0) },
+            ]}
+            data-categories={entry.data.categories.join(' ')}
+          >
             <ProjectCard entry={entry} />
           </li>
         ))}

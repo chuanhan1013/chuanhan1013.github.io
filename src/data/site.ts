@@ -58,7 +58,7 @@ export const hero = {
 };
 
 export const footer = {
-  text: 'Designed as a research-engineering portfolio. Built with semantic HTML, CSS, and hand-authored SVG diagrams.',
+  text: 'Robotics and embodied AI portfolio. Built with Astro.',
   links: [
     { label: 'Email', href: `mailto:${person.email}` },
     { label: 'GitHub', href: person.github },
