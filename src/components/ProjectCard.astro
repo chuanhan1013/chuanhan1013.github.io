@@ -1,11 +1,15 @@
 ---
 import { categories } from '@/data/categories';
+import { iconUrl } from '@/lib/icons';
 import { isVideo, mediaStyle, stillOf } from '@/lib/media';
 import { coverOf, projectUrl, transitionName, type ProjectEntry } from '@/lib/projects';
-import Results from './Results.astro';
-import Stack from './Stack.astro';
 import StatusBadge from './StatusBadge.astro';
 
+/**
+ * Project tile for the home page: media first, plain short name, no frame. The first tiles
+ * of the unfiltered grid are shown larger with the summary and headline result (cards.css).
+ * Everything else lives on the project page.
+ */
 interface Props {
   entry: ProjectEntry;
 }
@@ -15,6 +19,8 @@ const p = entry.data;
 const cover = coverOf(entry);
 const [firstCategory] = p.categories;
 const primary = firstCategory ? categories[firstCategory].short : undefined;
+const headline = p.results?.[0];
+const hasCode = p.links?.some((link) => link.href.includes('github.com'));
 ---
 
 <article class="project-card">
@@ -44,7 +50,7 @@ const primary = firstCategory ? categories[firstCategory].short : undefined;
         style={`view-transition-name:${transitionName(entry, 'cover')}`}
       />
     )}
-    <StatusBadge status={p.status} />
+    {p.status !== 'completed' && <StatusBadge status={p.status} />}
   </figure>
   <div class="project-card__body">
     <div class="card-meta">
@@ -55,23 +61,22 @@ const primary = firstCategory ? categories[firstCategory].short : undefined;
         </span>
       )}
       <span>{p.period}</span>
+      {hasCode && (
+        <span class="project-card__code">
+          <img src={iconUrl('github')} alt="" width="13" height="13" />
+          Code
+        </span>
+      )}
     </div>
     <h3 style={`view-transition-name:${transitionName(entry, 'title')}`}>
-      <a href={projectUrl(entry)}>{p.title}</a>
+      <a href={projectUrl(entry)}>{p.shortTitle ?? p.title}</a>
     </h3>
-    <p class="card-context">
-      <span>
-        {p.context}
-        {p.team && ` · ${p.team}`}
-      </span>
-    </p>
     <p class="project-card__summary">{p.summary}</p>
-    {p.results && <Results results={p.results.slice(0, 2)} />}
-    <div class="project-card__footer">
-      {p.stack && <Stack items={p.stack.slice(0, 4)} label="Tech stack" />}
-      <span class="text-link" aria-hidden="true">
-        Details <span class="arrow">→</span>
-      </span>
-    </div>
+    {headline && (
+      <p class="project-card__headline">
+        <strong>{headline.value}</strong>
+        <span>{headline.label}</span>
+      </p>
+    )}
   </div>
 </article>

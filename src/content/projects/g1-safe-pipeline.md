@@ -1,8 +1,9 @@
 ---
 title: Safe LLM-to-Simulation Pipeline for the Unitree G1
+shortTitle: Safe LLM-to-Sim Pipeline
 kind: project
 categories: [humanoids]
-order: 20
+order: 40
 status: completed
 period: Fall 2026
 context: EE5112 Human–Robot Interaction · NUS

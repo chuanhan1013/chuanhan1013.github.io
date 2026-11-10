@@ -24,6 +24,8 @@ export function initFilter(): void {
         item.classList.add('is-visible'); // never leave a filtered-in card mid-reveal
       }
     }
+    // Feature sizing (cards.css) only applies to the full, ordered lineup.
+    grid.toggleAttribute('data-filtered', category !== 'all');
     buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset['category'] === category)));
     if (status) status.textContent = `${shown} project${shown === 1 ? '' : 's'} shown`;
   };

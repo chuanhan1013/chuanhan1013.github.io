@@ -1,5 +1,6 @@
 ---
 title: HAN-Agents — Persistent Multi-Agent Coding Harness
+shortTitle: HAN-Agents
 kind: project
 categories: [ai-engineering]
 order: 70

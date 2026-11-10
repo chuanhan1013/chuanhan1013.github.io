@@ -175,6 +175,25 @@
   gap: 8px;
   margin: 0 0 28px;
 }
+@media (max-width: 719px) {
+  /* One swipeable row instead of five wrapped rows. */
+  .filter {
+    flex-wrap: nowrap;
+    margin-inline: calc(var(--gutter, 20px) * -1);
+    padding: 2px var(--gutter, 20px);
+    overflow-x: auto;
+    scrollbar-width: none;
+    scroll-snap-type: x proximity;
+  }
+  .filter::-webkit-scrollbar {
+    display: none;
+  }
+  .filter button {
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    scroll-margin-inline: var(--gutter, 20px);
+  }
+}
 .filter button {
   display: inline-flex;
   align-items: center;
@@ -218,11 +237,16 @@
   color: #fff;
 }
 
-/* ---- Project grid ---- */
+/* ---- Project tiles ---- */
+/*
+ * A product-lineup grid: frameless, media-first tiles. In the unfiltered grid the first two
+ * tiles are features (larger, with summary and headline result); the rest are compact.
+ * Narrow screens use two columns so the whole lineup fits in about two screens.
+ */
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px 14px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -230,37 +254,37 @@
 .project-grid > li[hidden] {
   display: none;
 }
+/* Narrow: one full-width feature, or two when that keeps the remaining tiles in pairs. */
+.project-grid:not([data-filtered]) > li:first-child,
+.project-grid:not([data-filtered]) > li:first-child:nth-last-child(even) + li {
+  grid-column: 1 / -1;
+}
 .project-card {
   position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  background: var(--surface);
-  box-shadow: var(--shadow-sm);
-  transition:
-    transform var(--dur) var(--ease-out),
-    box-shadow var(--dur) ease,
-    border-color var(--dur) ease;
-}
-.project-card:hover {
-  border-color: var(--line-strong);
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-4px);
-}
-.project-card:focus-within {
-  box-shadow:
-    var(--shadow-lg),
-    0 0 0 2px var(--blue-bright);
 }
 .project-card__cover {
   position: relative;
   aspect-ratio: 16 / 10;
   margin: 0;
   overflow: hidden;
+  border-radius: var(--radius);
   background: var(--cover-bg, #e9eef3);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform var(--dur) var(--ease-out),
+    box-shadow var(--dur) ease;
+}
+.project-card:hover .project-card__cover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+.project-card:focus-within .project-card__cover {
+  box-shadow:
+    var(--shadow-lg),
+    0 0 0 2px var(--blue-bright);
 }
 .project-card__cover img,
 .project-card__cover video {
@@ -273,9 +297,8 @@
 }
 .project-card__cover--diagram {
   --cover-bg: #fff;
-  /* Extra top space keeps the status badge clear of the diagram. */
-  padding: 44px 16px 14px;
-  border-bottom: 1px solid var(--line);
+  padding: 10px;
+  border: 1px solid var(--line);
 }
 .project-card:hover .project-card__cover img,
 .project-card:hover .project-card__cover video {
@@ -283,8 +306,8 @@
 }
 .project-card__cover .status {
   position: absolute;
-  top: 12px;
-  left: 12px;
+  top: 8px;
+  left: 8px;
   background: rgba(255, 255, 255, 0.92);
   box-shadow: var(--shadow-sm);
   backdrop-filter: blur(6px);
@@ -293,14 +316,44 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  padding: 20px 22px 22px;
+  padding: 12px 2px 0;
+}
+.project-card .card-meta {
+  flex-wrap: nowrap;
+  gap: 6px;
+  font-size: var(--fs-xs);
+  white-space: nowrap;
+}
+/* Compact tiles on narrow screens: period and code marker only. */
+.project-grid > li .card-meta > :nth-child(-n + 2) {
+  display: none;
+}
+.project-grid:not([data-filtered]) > li:first-child .card-meta > :nth-child(-n + 2),
+.project-grid:not([data-filtered])
+  > li:first-child:nth-last-child(even)
+  + li
+  .card-meta
+  > :nth-child(-n + 2) {
+  display: inline;
+}
+.project-card__code {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  color: var(--muted);
+  font-weight: 600;
+}
+.project-card__code img {
+  opacity: 0.7;
 }
 .project-card__body h3 {
-  margin: 8px 0 0;
-  font-size: var(--fs-xl);
-  letter-spacing: -0.025em;
+  margin: 4px 0 0;
+  font-size: var(--fs-md);
+  line-height: 1.3;
+  letter-spacing: -0.015em;
 }
-/* Stretched link: the whole card is clickable, but only the title is announced. */
+/* Stretched link: the whole tile is clickable, but only the title is announced. */
 .project-card__body h3 a {
   color: inherit;
   text-decoration: none;
@@ -314,30 +367,100 @@
 .project-card__body h3 a:focus-visible {
   outline: none;
 }
-.project-card__summary {
+.project-card:hover h3 a {
+  color: var(--blue-dark);
+}
+/* Summary and headline result: features only. */
+.project-card__summary,
+.project-card__headline {
+  display: none;
+}
+.project-grid:not([data-filtered]) > li:first-child .project-card__body h3,
+.project-grid:not([data-filtered]) > li:first-child:nth-last-child(even) + li .project-card__body h3 {
+  font-size: var(--fs-xl);
+  letter-spacing: -0.025em;
+}
+.project-grid:not([data-filtered]) > li:first-child .project-card__summary,
+.project-grid:not([data-filtered]) > li:first-child:nth-last-child(even) + li .project-card__summary {
   display: -webkit-box;
-  margin: 10px 0 0;
+  margin: 8px 0 0;
   overflow: hidden;
+  color: var(--muted);
   font-size: var(--fs-md);
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
-.project-card__footer {
+.project-card__headline {
+  align-items: baseline;
+  gap: 8px;
+  margin: 10px 0 0;
+  font-size: var(--fs-sm);
+  line-height: 1.45;
+}
+.project-card__headline strong {
+  flex-shrink: 0;
+  color: var(--ink);
+  font-size: var(--fs-lg);
+  letter-spacing: -0.02em;
+}
+.project-card__headline span {
+  color: var(--muted);
+}
+.project-grid:not([data-filtered]) > li:first-child .project-card__headline,
+.project-grid:not([data-filtered]) > li:first-child:nth-last-child(even) + li .project-card__headline {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: auto;
-  padding-top: 18px;
 }
-.project-card .results {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin-top: 16px;
+
+@media (min-width: 720px) {
+  .project-grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 44px 24px;
+  }
+  .project-grid > li {
+    grid-column: span 4;
+  }
+  /* Two features side by side, whatever the total. */
+  .project-grid:not([data-filtered]) > li:nth-child(-n + 2) {
+    grid-column: span 6;
+  }
+  .project-card__cover {
+    border-radius: var(--radius-lg);
+  }
+  .project-card__body {
+    padding-top: 14px;
+  }
+  .project-card .card-meta {
+    font-size: var(--fs-sm);
+  }
+  .project-grid > li .card-meta > :nth-child(-n + 2) {
+    display: inline;
+  }
+  .project-card__body h3 {
+    font-size: var(--fs-lg);
+  }
+  .project-grid:not([data-filtered]) > li:nth-child(-n + 2) .project-card__body h3 {
+    font-size: var(--fs-2xl);
+    letter-spacing: -0.03em;
+  }
+  .project-grid:not([data-filtered]) > li:nth-child(-n + 2) .project-card__summary {
+    display: -webkit-box;
+    margin: 8px 0 0;
+    overflow: hidden;
+    color: var(--muted);
+    font-size: var(--fs-base);
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+  .project-grid:not([data-filtered]) > li:nth-child(-n + 2) .project-card__headline {
+    display: flex;
+  }
 }
-.project-card .results dt {
-  font-size: var(--fs-base);
+@media (min-width: 1040px) {
+  .project-grid > li {
+    grid-column: span 3;
+  }
 }
 @media (max-width: 900px) {
   .research-card,

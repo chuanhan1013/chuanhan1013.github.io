@@ -1,5 +1,6 @@
 ---
 title: Autonomous Cleaning Robot
+shortTitle: Cleaning Robot
 kind: project
 categories: [mechatronics, perception]
 order: 60
@@ -27,6 +28,11 @@ links:
     }
 media:
   badge: Autonomous Systems
+  card:
+    src: /assets/media/cleaning-final.webp
+    alt: Final autonomous cleaning robot prototype
+    fit: cover
+    position: 50% 45%
   items:
     - src: /assets/media/cleaning-final.webp
       alt: Final autonomous cleaning robot prototype

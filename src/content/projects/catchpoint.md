@@ -1,8 +1,9 @@
 ---
 title: CatchPoint — Recoverability-Aware Balance Assistance
+shortTitle: CatchPoint
 kind: project
 categories: [control]
-order: 10
+order: 12
 status: completed
 period: Fall 2026
 context: ME5412 Robotics for Healthcare · NUS

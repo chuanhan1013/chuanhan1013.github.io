@@ -1,5 +1,6 @@
 ---
 title: Terrain-Adaptive Triathlon Robot
+shortTitle: Triathlon Robot
 kind: project
 categories: [mechatronics]
 order: 65

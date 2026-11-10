@@ -1,5 +1,6 @@
 ---
 title: FR3Avoid — A Gymnasium Benchmark for Whole-Arm Obstacle Avoidance
+shortTitle: FR3Avoid
 kind: project
 categories: [robot-learning, motion-planning]
 order: 30

@@ -1,5 +1,6 @@
 ---
 title: Wearable Basketball Shot Sensing System
+shortTitle: Basketball Shot Sensing
 kind: project
 categories: [perception, mechatronics]
 order: 50
