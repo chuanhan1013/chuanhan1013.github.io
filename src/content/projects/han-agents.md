@@ -20,7 +20,7 @@ stack:
   - { label: Python, icon: python }
   - { label: TypeScript, icon: typescript }
 links:
-  - { label: Code ↗, href: 'https://github.com/HanLi-Chainsea/han-agents', external: true }
+  - { label: Code ↗, href: 'https://github.com/chuanhan1013/han-agents', external: true }
 media:
   badge: AI Engineering
   items:
