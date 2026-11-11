@@ -13,8 +13,8 @@ summary: >-
   wall-following, obstacle sensing, red-zone recognition, and a custom vacuum module developed
   through CAD, airflow simulation, prototyping, and testing.
 results:
-  - { value: 113 pts, label: final score }
-  - { value: 70 pts, label: time-based performance }
+  - { value: 113 / 120, label: 'final competition score, among the top teams' }
+  - { value: 70 pts, label: of the score from time-based performance }
 stack:
   - { label: Raspberry Pi, icon: raspberrypi }
   - { label: Arduino, icon: arduino }
@@ -56,4 +56,5 @@ media:
 - **Vacuum module.** Custom-designed and iterated through CAD, CFD airflow simulation, prototyping
   and testing.
 
-The robot scored 113 points in the final competition, 70 of them from time-based performance.
+The robot scored 113 of 120 points in the final competition, among the top teams, with 70 of
+those points from time-based performance.

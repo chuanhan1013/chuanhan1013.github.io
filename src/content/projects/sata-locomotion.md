@@ -14,11 +14,11 @@ summary: >-
   the full stack to Isaac Lab, documenting the fidelity fixes and comparing it term by term against
   the Gym reference.
 results:
+  - { value: 48 policies, label: 'evaluated across actuator ablations, 8 seeds each' }
   - {
       value: 42.5 vs 22.5 N·m,
       label: 'peak torque without the activation model vs the reference (simulation, 8 seeds)',
     }
-  - { value: 48 policies, label: evaluated across out-of-distribution scenarios }
 stack:
   - { label: Isaac Gym, glyph: IG }
   - { label: Isaac Lab, glyph: IL }

@@ -2,6 +2,11 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <!--
+      Social preview card (1200×630). Designed for small sizes: LinkedIn shows it as a thumbnail
+      a few hundred pixels wide and may trim the sides, so it carries one line of large type and
+      one image, kept inside a wide margin.
+    -->
     <style>
       @font-face {
         font-family: Inter;
@@ -20,115 +25,70 @@
         margin: 0;
       }
       body {
-        display: grid;
-        grid-template-columns: 500px 1fr;
-        gap: 40px;
+        position: relative;
         width: 1200px;
         height: 630px;
-        padding: 56px 52px 52px 64px;
         overflow: hidden;
         background: #0a0a0b;
         color: #f5f5f6;
         font-family: Inter, sans-serif;
       }
-      .l {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
+      .arm {
+        position: absolute;
+        top: -38px;
+        right: -128px;
+        width: 860px;
+        mask-image: radial-gradient(ellipse 50% 58% at 47% 48%, #000 52%, transparent 100%);
+      }
+      .text {
+        position: absolute;
+        bottom: 84px;
+        left: 88px;
       }
       .mono {
-        color: #8f9197;
+        color: #9a9ca3;
         font-family: 'Geist Mono', monospace;
-        font-size: 15px;
+        font-size: 24px;
         letter-spacing: 0.12em;
         text-transform: uppercase;
       }
       h1 {
-        margin: 18px 0 0 -4px;
-        font-size: 84px;
+        margin: 20px 0 0 -6px;
+        font-size: 112px;
         font-weight: 560;
         line-height: 0.92;
         letter-spacing: -0.06em;
         white-space: nowrap;
       }
-      .tag {
-        margin-top: 22px;
-        color: #c8c9cd;
-        font-size: 22px;
-        line-height: 1.4;
-      }
       .url {
         display: flex;
         align-items: center;
-        gap: 10px;
-        margin-top: 34px;
-        padding-top: 16px;
-        border-top: 1px solid #3b3c41;
+        gap: 14px;
+        margin-top: 36px;
+        color: #c8c9cd;
       }
       .url::before {
         content: '';
-        width: 8px;
-        height: 8px;
+        width: 12px;
+        height: 12px;
         border-radius: 50%;
         background: #3d5cff;
       }
-      .g {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: repeat(2, minmax(0, 1fr));
-        gap: 12px;
-        min-height: 0;
-      }
-      .t {
-        position: relative;
-        overflow: hidden;
-        border-radius: 10px;
-        background: #141416;
-      }
-      .t img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-      .t b {
+      .note {
         position: absolute;
-        bottom: 10px;
-        left: 10px;
-        padding: 5px 8px;
-        border-radius: 4px;
-        background: rgba(10, 10, 11, 0.78);
-        color: #f5f5f6;
-        font-family: 'Geist Mono', monospace;
-        font-size: 12px;
-        font-weight: 500;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
+        right: 88px;
+        bottom: 60px;
+        font-size: 15px;
       }
     </style>
   </head>
   <body>
-    <div class="l">
+    <img class="arm" src="tiles/arm.webp" alt="" />
+    <div class="text">
       <div class="mono">Robotics · Embodied AI</div>
       <h1>Chuan-Han Li</h1>
-      <div class="tag">I build robotic systems across perception, planning, and reliable autonomy.</div>
       <div class="url mono">chuanhan1013.github.io</div>
     </div>
-    <div class="g">
-      <div class="t">
-        <img src="tiles/fr3.webp" style="object-position: 50% 40%" /><b>Whole-arm avoidance · illustration</b>
-      </div>
-      <div class="t">
-        <img src="tiles/vla14.webp" style="object-position: 50% 50%" /><b>Humanoid manipulation</b>
-      </div>
-      <div class="t">
-        <img src="tiles/cp2.webp" style="object-position: 50% 35%" /><b>Balance assistance</b>
-      </div>
-      <div class="t">
-        <img src="../../public/assets/media/cleaning-final.webp" style="object-position: 50% 50%" /><b
-          >Mobile robot</b
-        >
-      </div>
-    </div>
+    <div class="note mono">Illustration</div>
   </body>
 </html>
