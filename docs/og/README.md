@@ -1,10 +1,13 @@
 # Social preview image
 
 `public/assets/og-image.jpg` (1200×630) is the `og:image` for every page, the picture LinkedIn,
-Slack and X show for a shared link. It is designed for small sizes: one line of large type and
-one image inside a wide margin, because LinkedIn shows it a few hundred pixels wide and may trim
-the sides. `tiles/arm.webp` is a still from the dark studio scene in
-`docs/illustrations/fr3-avoidance/`. To regenerate it after changing `og-image.html`:
+Slack and X show for a shared link. It is tuned for LinkedIn's Featured section: a light card, the
+face, four pieces of work and few words. LinkedIn prints the page title and URL under the image
+and trims about 5% off each side, so the card repeats neither and keeps a wide side margin. The
+crops in `tiles/` come from the project media and from the light scene in
+`docs/illustrations/fr3-avoidance/`.
+
+To regenerate it after changing `og-image.html`:
 
 ```bash
 # from this directory, with the site's dependencies installed (npm ci)
