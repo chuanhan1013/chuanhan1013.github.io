@@ -23,7 +23,7 @@ export interface CvEntry {
 export const cv = {
   title: 'Chuan-Han Li — CV',
   summary:
-    'NUS MSc Robotics student with experience in motion planning, robot learning, and hardware–software integration.',
+    'NUS MSc Robotics student focused on manipulation, motion planning, robot learning, and hardware–software integration.',
   sections: [
     {
       heading: 'Education',
@@ -52,8 +52,8 @@ export const cv = {
           sub: 'Advanced Robotics Centre, NUS',
           subRight: 'Advisor: Prof. Marcelo H. Ang Jr.',
           bullets: [
-            'Implemented exact whole-arm distance and collision checks on the lab’s arm model for dynamic obstacle avoidance.',
-            'Built training and closed-loop simulation pipelines to compare reaching/avoidance baselines and diagnose failure modes in dynamic environments.',
+            'Implemented exact whole-arm distance and collision checks for a 7-DoF manipulator using the lab’s arm model.',
+            'Built closed-loop training and evaluation pipelines to compare reaching/avoidance strategies and diagnose failures around moving obstacles.',
           ],
         },
         {
@@ -77,8 +77,8 @@ export const cv = {
           sub: 'AI Engineering Intern (R&D)',
           subRight: 'Jul 2025–Jul 2026',
           bullets: [
-            'Built HAN-Agents with persistent memory, AST-backed code graphs, hierarchical task orchestration, and tool-verified quality gates for AI coding workflows.',
             'Delivered full-stack AI tools for test generation and validation; reduced time to the first executable unit-test suite from weeks to ~1 day.',
+            'Built HAN-Agents to retain project context, coordinate coding tasks, and test generated code.',
           ],
         },
       ],
@@ -90,8 +90,22 @@ export const cv = {
           title: 'Language-Guided Humanoid Manipulation',
           right: 'NUS | Fall 2026',
           bullets: [
-            'Owned robot execution and led integration on a simulated Unitree G1; added perception-driven Dex3 finger grasping and visual grasp/place verification.',
-            'Completed 24/24 end-to-end simulation tasks (finger grasp for the cube; contact attachment for other objects).',
+            'Owned robot execution and led integration of a language-to-action pipeline on a simulated Unitree G1, with visual grasp/place verification.',
+            'Validated 24/24 end-to-end tasks across English/Chinese requests in MuJoCo, using object attachment during handling.',
+          ],
+        },
+        {
+          title: 'Autonomous Cleaning Robot',
+          right: 'NTU | Fall 2025',
+          bullets: [
+            'Integrated camera, ultrasonic and IMU sensing with motor control via Raspberry Pi–Arduino serial communication; implemented wall-following, visual hazard avoidance, and task execution on a physical mobile robot.',
+          ],
+        },
+        {
+          title: 'SATA Locomotion — Reproduction & Isaac Lab Port',
+          right: 'NTU | Spring 2026',
+          bullets: [
+            'Reproduced SATA across 48 PPO policies; ported effort control and bio-actuator models from Isaac Gym to Isaac Lab, retrained across 8 seeds, and traced most reward differences to joint-acceleration penalty definitions.',
           ],
         },
         {
@@ -102,24 +116,10 @@ export const cv = {
           ],
         },
         {
-          title: 'SATA Locomotion — Reproduction & Isaac Lab Port',
-          right: 'NTU | Spring 2026',
-          bullets: [
-            'Reproduced SATA and evaluated 48 PPO policies across actuator ablations; ported effort control and bio-actuator models from Isaac Gym to Isaac Lab, retrained across 8 seeds, and analysed cross-engine reward differences.',
-          ],
-        },
-        {
           title: 'Wearable Basketball Shot Sensing System',
           right: 'NTU | Fall 2025',
           bullets: [
             'Independently built a dual-IMU wearable with Arduino firmware and 100 Hz wireless acquisition; implemented shot segmentation, feature extraction, and a FastAPI/WebSocket dashboard for live analysis and replay.',
-          ],
-        },
-        {
-          title: 'Autonomous Cleaning Robot',
-          right: 'NTU | Fall 2025',
-          bullets: [
-            'Integrated camera, ultrasonic and IMU sensing with motor control via Raspberry Pi–Arduino serial communication; implemented wall-following, visual hazard avoidance, and task execution on a physical mobile robot.',
           ],
         },
       ],
