@@ -1,6 +1,8 @@
 ---
 title: CatchPoint — Recoverability-Aware Balance Assistance
 shortTitle: CatchPoint
+blurb: A walker safety layer that lets patients recover with their own step and catches only when needed.
+headlineLabel: recovered without a harness catch, vs a threshold-lock baseline (simulation)
 kind: project
 categories: [control]
 order: 12

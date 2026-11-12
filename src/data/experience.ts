@@ -8,14 +8,14 @@ export const experience: TimelineEntry[] = [
     label: 'CURRENT RESEARCH',
     title: 'Advanced Robotics Centre, NUS',
     logo: arcLogo,
-    text: 'Researching motion planning for robot manipulators in dynamic environments under Prof. Marcelo H. Ang Jr., with a focus on obstacle representation and reliable autonomy.',
+    text: 'Motion planning for robot manipulators among moving obstacles, advised by Prof. Marcelo H. Ang Jr.',
   },
   {
     when: 'Jul 2025–Jul 2026',
     label: 'INDUSTRY · AI ENGINEERING INTERN (R&D)',
     title: 'ChainSea Information Integration Co. Ltd.',
     logo: chainseaLogo,
-    text: 'Built HAN-Agents and full-stack AI workflow tools; introduced docs-first engineering practices, automated testing workflows, and repository quality gates across production projects.',
+    text: 'Built HAN-Agents and full-stack AI workflow tools; introduced automated testing and quality gates across production projects.',
     featured: true,
   },
   {
@@ -23,6 +23,6 @@ export const experience: TimelineEntry[] = [
     label: 'RESEARCH ASSISTANT',
     title: 'Lab of Machine Learning and Machine Vision · National Taiwan University',
     logo: mlmvLogo,
-    text: 'Supported computer-vision research through image annotation and dataset preparation under Prof. Yan-Fu Kuo, alongside independent multimodal visual–thermal research.',
+    text: 'Image annotation and dataset preparation for computer-vision research under Prof. Yan-Fu Kuo, plus independent visual–thermal research.',
   },
 ];

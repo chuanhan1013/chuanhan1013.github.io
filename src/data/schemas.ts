@@ -68,8 +68,15 @@ export const projectSchema = z.object({
   /** e.g. "Solo", "Team of 4 · control & simulation lead". */
   team: z.string().optional(),
   contextLogo: logoMarkSchema.optional(),
-  /** One-paragraph summary used on cards and as the detail-page lead. */
+  /** One-paragraph summary: the detail-page lead, and the card text when there is no `blurb`. */
   summary: z.string(),
+  /**
+   * One plain sentence for the home page, readable at a glance by someone outside the field.
+   * Kept short so it is never cut off on a tile.
+   */
+  blurb: z.string().max(125).optional(),
+  /** Shorter label for the first result on home-page tiles (defaults to that result's label). */
+  headlineLabel: z.string().max(80).optional(),
   results: z
     .array(z.object({ value: z.string(), label: z.string() }))
     .max(3)

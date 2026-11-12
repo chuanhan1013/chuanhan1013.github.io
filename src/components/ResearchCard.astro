@@ -32,7 +32,7 @@ const p = entry.data;
       {p.contextLogo && <LogoMark {...p.contextLogo} />}
       <span>{p.context}</span>
     </p>
-    <p class="research-card__summary">{p.summary}</p>
+    <p class="research-card__summary">{p.blurb ?? p.summary}</p>
     {p.results && <Results results={p.results} />}
     {p.tags && (
       <ul class="pill-list" style="margin-top:18px" aria-label="Topics">
@@ -41,7 +41,6 @@ const p = entry.data;
         ))}
       </ul>
     )}
-    {p.note && <p class="card-note">{p.note}</p>}
     <div class="research-card__footer">
       <a class="text-link" href={projectUrl(entry)}>
         Read more <span class="arrow">→</span>

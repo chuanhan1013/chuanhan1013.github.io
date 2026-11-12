@@ -1,6 +1,7 @@
 ---
 title: Wearable Basketball Shot Sensing System
 shortTitle: Basketball Shot Sensing
+blurb: A wearable two-sensor system that records, segments and replays basketball shots on a web dashboard.
 kind: project
 categories: [perception, mechatronics]
 order: 14

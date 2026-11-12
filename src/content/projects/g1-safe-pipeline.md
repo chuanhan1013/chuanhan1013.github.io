@@ -1,6 +1,7 @@
 ---
 title: Safe LLM-to-Simulation Pipeline for the Unitree G1
 shortTitle: G1 Safe Pipeline
+blurb: 'An LLM drafts the robot model; deterministic checks gate every motion before it reaches the simulated G1.'
 kind: project
 categories: [humanoids]
 order: 40

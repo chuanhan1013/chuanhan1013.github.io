@@ -1,5 +1,6 @@
 ---
 title: Multimodal Visual–Thermal Fertility Detection
+blurb: Classifies duck-egg fertility by fusing visible and thermal images.
 kind: research
 categories: [perception]
 order: 20

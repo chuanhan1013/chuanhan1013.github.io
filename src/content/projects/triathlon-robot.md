@@ -1,6 +1,7 @@
 ---
 title: Terrain-Adaptive Triathlon Robot
 shortTitle: Triathlon Robot
+blurb: 'A transformable tracked robot built for a four-stage competition: ramp, narrow beam, water channel and wind tunnel.'
 kind: project
 categories: [mechatronics]
 order: 65

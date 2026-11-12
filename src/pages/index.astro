@@ -38,12 +38,7 @@ const tileSizes = sizeTiles(projects.length);
 
   <section id="research" class="section" aria-labelledby="research-title">
     <div class="container">
-      <SectionHead
-        id="research"
-        eyebrow="Featured"
-        title="Research"
-        description="Current and past research, from learning-based manipulation to multimodal perception."
-      />
+      <SectionHead id="research" eyebrow="Featured" title="Research" />
       <div class="research-list">
         {research.map((entry) => (
           <ResearchCard entry={entry} />
@@ -58,7 +53,7 @@ const tileSizes = sizeTiles(projects.length);
         id="projects"
         eyebrow="Selected work"
         title="Projects"
-        description="Robotics, robot learning and engineering projects. Open one for the full write-up, results and code."
+        description="Open a project for the write-up, results and code."
       />
       <div class="filter" role="group" aria-label="Filter projects by area" data-filter>
         <button type="button" aria-pressed="true" data-category="all">

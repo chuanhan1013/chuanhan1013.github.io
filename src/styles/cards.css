@@ -391,8 +391,8 @@
     color: var(--muted);
     font-size: var(--fs-md);
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
   }
   .project-grid:not([data-filtered]) > .tile--wide .project-card__headline {
     display: flex;
@@ -443,8 +443,8 @@
     color: var(--muted);
     font-size: var(--fs-md);
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
   }
   .project-grid:not([data-filtered]) > .tile--lg .project-card__summary {
     font-size: var(--fs-base);
@@ -468,8 +468,8 @@
     overflow: hidden;
     font-size: var(--fs-xs);
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
   }
 }
 @media (max-width: 560px) {

@@ -1,6 +1,7 @@
 ---
 title: HAN-Agents — Persistent Multi-Agent Coding Harness
 shortTitle: HAN-Agents
+blurb: An orchestration layer that gives AI coding assistants memory, task planning and verified quality checks.
 kind: project
 categories: [ai-engineering]
 order: 70

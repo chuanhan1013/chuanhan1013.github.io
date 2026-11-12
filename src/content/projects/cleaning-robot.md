@@ -1,6 +1,7 @@
 ---
 title: Autonomous Cleaning Robot
 shortTitle: Cleaning Robot
+blurb: An autonomous cleaning robot for a course competition, with camera vision and a custom-built vacuum.
 kind: project
 categories: [mechatronics, perception]
 order: 22

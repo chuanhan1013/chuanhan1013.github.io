@@ -1,6 +1,7 @@
 ---
 title: Bio-Inspired Torque-Based Locomotion — SATA Reproduction & Isaac Lab Port
 shortTitle: SATA Locomotion
+blurb: Reproduced a torque-based quadruped locomotion paper (RSS 2025), then ported it from Isaac Gym to Isaac Lab.
 kind: project
 categories: [robot-learning]
 order: 20
