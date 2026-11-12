@@ -31,9 +31,9 @@
   feedback/.style={->, draw=orange, line width=1.0pt},
   panelbox/.style={draw=line, fill=panel, rounded corners=2.0mm, line width=0.65pt},
   layer/.style={draw=line, fill=white, rounded corners=1.5mm, line width=0.7pt,
-                minimum width=3.25cm, minimum height=1.42cm, align=center},
+                minimum width=3.8cm, minimum height=1.42cm, align=center},
   process/.style={draw=line, fill=white, rounded corners=1.7mm, line width=0.8pt,
-                  minimum width=3.15cm, minimum height=1.30cm, align=center},
+                  minimum width=4.3cm, minimum height=1.30cm, align=center},
   title/.style={font=\sffamily\bfseries\large, text=ink},
   section/.style={font=\sffamily\bfseries\small, text=muted},
   label/.style={font=\sffamily\bfseries\small, text=ink},
@@ -54,19 +54,19 @@
 % Persistent context -----------------------------------------------------------
 \node[section, anchor=west] at (0.55,7.55) {PERSISTENT PROJECT CONTEXT};
 
-\node[layer, fill=tealfill, draw=teal!62] (skill) at (2.22,6.55) {};
+\node[layer, fill=tealfill, draw=teal!62] (skill) at (2.35,6.55) {};
 \node[label, text=teal] at ($(skill.center)+(0,0.24)$) {Skill Layer};
 \node[sub] at ($(skill.center)+(0,-0.25)$) {intent · workflows · quality rules};
 
-\node[layer, fill=blue1, draw=blue4!62] (graph) at (6.47,6.55) {};
+\node[layer, fill=blue1, draw=blue4!62] (graph) at (6.45,6.55) {};
 \node[label, text=blue4] at ($(graph.center)+(0,0.24)$) {Code Graph};
 \node[sub] at ($(graph.center)+(0,-0.25)$) {live AST · calls · dependencies};
 
-\node[layer, fill=goldfill, draw=gold!65] (memory) at (10.72,6.55) {};
+\node[layer, fill=goldfill, draw=gold!65] (memory) at (10.55,6.55) {};
 \node[label, text=gold] at ($(memory.center)+(0,0.24)$) {Persistent Memory};
 \node[sub] at ($(memory.center)+(0,-0.25)$) {lessons · search · checkpoints};
 
-\node[layer, fill=orangefill, draw=orange!62] (tasks) at (14.97,6.55) {};
+\node[layer, fill=orangefill, draw=orange!62] (tasks) at (14.65,6.55) {};
 \node[label, text=orange] at ($(tasks.center)+(0,0.24)$) {Task System};
 \node[sub] at ($(tasks.center)+(0,-0.25)$) {Epic → Story → Task → Bug};
 
@@ -84,7 +84,7 @@
 % Verified execution loop ------------------------------------------------------
 \node[section, anchor=west] at (0.55,3.52) {VERIFIED LOOP};
 
-\node[process, fill=greenfill, draw=green!65] (exec) at (3.10,2.55) {};
+\node[process, fill=greenfill, draw=green!65] (exec) at (3.00,2.55) {};
 \node[label, text=green] at ($(exec.center)+(0,0.18)$) {Executor};
 \node[sub] at ($(exec.center)+(0,-0.25)$) {execute task · edit code · run tools};
 
@@ -92,19 +92,21 @@
 \node[label, text=orange] at ($(critic.center)+(0,0.18)$) {Critic};
 \node[sub] at ($(critic.center)+(0,-0.25)$) {validate result · tests · risk checks};
 
-\node[process, fill=goldfill, draw=gold!68] (memagent) at (14.10,2.55) {};
+\node[process, fill=goldfill, draw=gold!68] (memagent) at (14.20,2.55) {};
 \node[label, text=gold] at ($(memagent.center)+(0,0.18)$) {Memory agent};
 \node[sub] at ($(memagent.center)+(0,-0.25)$) {store reusable lessons · checkpoints};
 
-\draw[strongflow] (orch.south) to[out=-90,in=75] (exec.north);
+% Enters the Executor to the right of the section label.
+\draw[strongflow] ($(orch.south west)+(0.35,0)$) -- ($(exec.north east)+(-0.35,0)$);
 \draw[strongflow] (exec.east) -- (critic.west);
 \draw[strongflow] (critic.east) -- (memagent.west);
 
 % Reject / retry feedback
-\draw[feedback] (critic.south) -- ++(0,-0.46) -| node[pos=0.54,below,sub,text=orange] {reject + feedback → retry} (exec.south);
+\draw[feedback] (critic.south) -- ++(0,-0.46) -| node[pos=0.27,above,sub,text=orange,inner sep=1.5pt] {reject + feedback → retry} (exec.south);
 
 % Accepted lessons re-enter persistent memory
-\draw[flow] (memagent.north) -- ++(0,0.34) -| (memory.south);
+% Routed around the outside so it never crosses the orchestration block.
+\draw[flow] (memagent.east) -- (16.95,2.55) -- (16.95,7.52) -| (memory.north);
 
 % Quality / observability strip ------------------------------------------------
 \node[draw=line, fill=white, rounded corners=1.4mm, line width=0.65pt,
@@ -112,7 +114,7 @@
 \node[tiny, anchor=west] at ([xshift=3mm]gate.west)
   {Docs-first  ·  tool-verified quality gates  ·  fail-closed checks  ·  tracing / evals  ·  resumable Micro-Nap checkpoints};
 
-\draw[flow] (critic.south) -- ++(0,-1.02);
+\draw[flow] (critic.south) -- (critic.south |- gate.north);
 
 \end{tikzpicture}
 \end{document}

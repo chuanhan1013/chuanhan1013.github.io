@@ -50,12 +50,12 @@ The pipeline runs in six stages, each reading only the file written by the stage
 
 | Stage            | What happens                                      | Owner    |
 | ---------------- | ------------------------------------------------- | -------- |
-| 1. Parse         | Deterministic URDF parsing and hashing (no AI)    | team     |
-| 2. AI generation | An LLM writes a structured robot model            | teammate |
-| 3. Validation    | Schema and deterministic consistency checks       | team     |
-| 4. Kinematics    | Forward kinematics and Jacobians with Pinocchio   | teammate |
-| 5. Deployment    | Gazebo, controllers and the safety bridge come up | **me**   |
-| 6. Commands      | Joint trajectories pass through the safety bridge | **me**   |
+| 1. Parse         | Deterministic URDF parsing and hashing (no AI)    | team     |
+| 2. AI generation | An LLM writes a structured robot model            | teammate |
+| 3. Validation    | Schema and deterministic consistency checks       | team     |
+| 4. Kinematics    | Forward kinematics and Jacobians with Pinocchio   | teammate |
+| 5. Deployment    | Gazebo, controllers and the safety bridge come up | **me**   |
+| 6. Commands      | Joint trajectories pass through the safety bridge | **me**   |
 
 ## Safety bridge
 

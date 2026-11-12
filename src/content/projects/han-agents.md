@@ -20,6 +20,7 @@ stack:
   - { label: GitHub, icon: github }
   - { label: Python, icon: python }
   - { label: TypeScript, icon: typescript }
+tags: [Agent Orchestration, Code Graph, Automated Testing]
 links:
   - { label: Code ↗, href: 'https://github.com/chuanhan1013/han-agents', external: true }
 media:

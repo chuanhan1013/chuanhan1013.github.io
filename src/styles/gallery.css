@@ -60,6 +60,10 @@
   font-weight: 600;
   line-height: 1.4;
 }
+/* Native controls (shown with reduced motion) sit along the bottom edge: keep the caption clear. */
+.gallery__slide video[controls] ~ figcaption {
+  bottom: 60px;
+}
 .gallery__badge {
   position: absolute;
   top: 12px;
@@ -68,7 +72,9 @@
   padding: 5px 10px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.92);
-  box-shadow: var(--shadow-sm);
+  box-shadow:
+    0 0 0 1px var(--line),
+    var(--shadow-sm);
   color: var(--primary);
   font-size: var(--fs-xs);
   font-weight: 700;

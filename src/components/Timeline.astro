@@ -12,7 +12,15 @@ const { entries } = Astro.props;
 <ol class="timeline">
   {entries.map((entry) => (
     <li class:list={['timeline__item', 'reveal', { 'timeline__item--featured': entry.featured }]}>
-      <div class="timeline__when">{entry.when}</div>
+      <div class="timeline__when">
+        {/* each date range stays on one line */}
+        {entry.when.split(' · ').map((range, i) => (
+          <>
+            {i > 0 && ' · '}
+            <span style="white-space:nowrap">{range}</span>
+          </>
+        ))}
+      </div>
       <div>
         <p class="timeline__label">{entry.label}</p>
         <div class="timeline__title">

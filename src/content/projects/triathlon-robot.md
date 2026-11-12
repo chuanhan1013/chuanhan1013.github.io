@@ -18,10 +18,10 @@ results:
   - { value: 4 / 4, label: competition stages completed }
   - { value: 2nd, label: overall official ranking }
 stack:
-  - { label: CAD, glyph: CAD }
-  - { label: 3D Printing, glyph: 3D }
+  - { label: SolidWorks, glyph: SW }
+  - { label: 3D Printing, glyph: 3DP }
   - { label: Mechanical Design, glyph: ME }
-tags: [SolidWorks, Tracked Drive]
+tags: [Tracked Drive, Amphibious Mechanism]
 media:
   badge: Mechanical Design · Team Lead
   items:

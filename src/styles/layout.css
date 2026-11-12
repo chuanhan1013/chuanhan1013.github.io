@@ -155,6 +155,7 @@ main {
 .site-footer__inner {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
   gap: 12px 24px;
 }
