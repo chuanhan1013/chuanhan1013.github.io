@@ -78,7 +78,8 @@ export const projectSchema = z.object({
   /** Shorter label for the first result on home-page tiles (defaults to that result's label). */
   headlineLabel: z.string().max(80).optional(),
   results: z
-    .array(z.object({ value: z.string(), label: z.string() }))
+    // strict: an unquoted comma in a YAML label would otherwise be dropped silently as a stray key
+    .array(z.object({ value: z.string(), label: z.string() }).strict())
     .max(3)
     .optional(),
   stack: z.array(techChipSchema).optional(),

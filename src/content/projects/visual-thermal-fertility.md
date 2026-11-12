@@ -33,19 +33,19 @@ media:
       caption: Visible + thermal preprocessing
       background: '#f6f3ef'
     - src: /assets/media/egg-crops.webp
-      alt: Detected duck eggs cropped into fertilized, unfertilized, and invalid samples
+      alt: Detected duck eggs cropped into fertilised, unfertilised, and invalid samples
       caption: Detection → per-egg crops
       background: '#f6f3ef'
     - src: /assets/media/egg-rgb-result.webp
-      alt: RGB classification result with normalized confusion matrix
+      alt: RGB classification result with normalised confusion matrix
       caption: RGB baseline · 92% accuracy
       background: '#f6f3ef'
     - src: /assets/media/egg-thermal-result.webp
-      alt: Thermal classification result with normalized confusion matrix
+      alt: Thermal classification result with normalised confusion matrix
       caption: Thermal baseline · 90% accuracy
       background: '#f6f3ef'
     - src: /assets/media/egg-fusion-result.webp
-      alt: Cross-modal fusion metrics and normalized confusion matrix
+      alt: Cross-modal fusion metrics and normalised confusion matrix
       caption: Cross-modal fusion · 93% accuracy
       background: '#f6f3ef'
 ---
@@ -54,7 +54,7 @@ media:
 
 - **Imaging setup.** A controlled rig captures visible and thermal images of illuminated duck-egg trays.
 - **Stage 1: detection.** An object detector (YOLO) localises every egg and produces per-egg crops in both modalities.
-- **Stage 2: classification.** A lightweight classifier labels each crop as fertilized, unfertilized or invalid.
+- **Stage 2: classification.** A lightweight classifier labels each crop as fertilised, unfertilised or invalid.
 
 ## Results
 

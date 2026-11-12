@@ -2,6 +2,7 @@
 title: Safe LLM-to-Simulation Pipeline for the Unitree G1
 shortTitle: G1 Safe Pipeline
 blurb: 'An LLM drafts the robot model; deterministic checks gate every motion before it reaches the simulated G1.'
+headlineLabel: live end-to-end trials with the LLM in the loop
 kind: project
 categories: [humanoids]
 order: 40
@@ -16,8 +17,7 @@ summary: >-
 results:
   - {
       value: 20 / 20,
-      label: live end-to-end trials with the LLM in the loop,
-      plus 4 / 4 tampered models refused,
+      label: 'live end-to-end trials with the LLM in the loop, plus 4 / 4 tampered models refused',
     }
   - { value: 85 / 85, label: 'safety-bridge test outcomes (17 cases × 5 runs)' }
   - { value: 0.47 ms, label: mean safety-gate decision time }

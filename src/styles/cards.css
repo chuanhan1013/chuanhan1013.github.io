@@ -472,6 +472,19 @@
     line-clamp: 3;
   }
 }
+@media (min-width: 720px) and (max-width: 1023px) {
+  /* Mid-width screens: the smaller tiles are too narrow for the area label, and need one
+     more line for the sentence. */
+  .project-grid:not([data-filtered]) > li:not(.tile--lg) .card-meta > :nth-child(-n + 2),
+  .project-grid[data-filtered] > li .card-meta > :nth-child(-n + 2) {
+    display: none;
+  }
+  .project-grid:not([data-filtered]) > li:not(.tile--lg) .project-card__summary,
+  .project-grid[data-filtered] > li .project-card__summary {
+    -webkit-line-clamp: 5;
+    line-clamp: 5;
+  }
+}
 @media (max-width: 560px) {
   /* Narrow screens: topic labels live on the research page. */
   .research-card .pill-list {

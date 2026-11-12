@@ -112,7 +112,7 @@ export const awards: Award[] = [
   },
   {
     title: 'NTU Varsity Basketball',
-    text: 'Representative player; led department-team training toward Division 1 promotion · 2024–2025',
+    text: 'Representative player; led department-team training towards Division 1 promotion · 2024–2025',
     icon: {
       src: 'https://uba.tw/Uploads/TeamBadges/B96C7871-F121-41E1-BD8C-B3B008E0B6AF.png',
       alt: 'National Taiwan University Owls basketball emblem',
