@@ -1,6 +1,7 @@
 ---
 title: Bio-Inspired Torque-Based Locomotion — SATA Reproduction & Isaac Lab Port
 shortTitle: SATA Locomotion
+blurb: Reproduced a torque-based quadruped locomotion paper (RSS 2025), then ported it from Isaac Gym to Isaac Lab.
 kind: project
 categories: [robot-learning]
 order: 20
@@ -44,10 +45,11 @@ media:
     fit: cover
     alt: Quadruped walking on rough terrain
   items:
-    - src: /assets/media/sata-rough-walk.gif
+    - src: /assets/media/sata/rough-walk.mp4
+      poster: /assets/media/sata/rough-walk-poster.webp
       alt: Quadruped locomotion policy trained in Isaac Lab, replayed on rough terrain in the Isaac Gym viewer
       caption: Isaac Lab-trained policy, replayed in Isaac Gym
-      background: '#101820'
+      background: '#000000'
     - src: /assets/media/sata/actuator-feasibility.webp
       alt: Bar charts of peak torque, energy per step and jerk for the reference policy and each ablation
       caption: Actuator feasibility per ablation — peak torque, energy, jerk

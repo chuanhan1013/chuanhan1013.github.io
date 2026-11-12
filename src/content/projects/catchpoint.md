@@ -1,6 +1,8 @@
 ---
 title: CatchPoint — Recoverability-Aware Balance Assistance
 shortTitle: CatchPoint
+blurb: A walker safety layer that lets patients recover with their own step and catches only when needed.
+headlineLabel: recovered without a harness catch, vs a threshold-lock baseline (simulation)
 kind: project
 categories: [control]
 order: 12
@@ -18,7 +20,7 @@ results:
       value: 54.6% vs 9.6%,
       label: 'recovered without a harness catch vs threshold lock, at ~5% falls (simulation)',
     }
-  - { value: −23 pp, label: harness catches vs a capture-point trigger, same fall rate (simulation) }
+  - { value: −23 pp, label: 'harness catches vs a capture-point trigger, same fall rate (simulation)' }
   - { value: 175 N, label: 'median catch force vs 382–481 N for threshold baselines (simulation)' }
 stack:
   - { label: Python, icon: python }

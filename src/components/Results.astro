@@ -4,13 +4,16 @@ interface Props {
 }
 
 const { results } = Astro.props;
+
+/** Keep fractions such as "4 / 4" on one line. */
+const nb = (text: string) => text.replace(/(\d) \/ (\d)/g, '$1\u00a0/\u00a0$2');
 ---
 
 <dl class="results">
   {results.map((r) => (
     <div>
-      <dt>{r.value}</dt>
-      <dd>{r.label}</dd>
+      <dt>{nb(r.value)}</dt>
+      <dd>{nb(r.label)}</dd>
     </div>
   ))}
 </dl>

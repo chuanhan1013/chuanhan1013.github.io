@@ -1,6 +1,8 @@
 ---
 title: FR3Avoid — A Gymnasium Benchmark for Whole-Arm Obstacle Avoidance
 shortTitle: FR3Avoid
+blurb: A training environment where a Franka arm must dodge a moving obstacle with its whole body.
+headlineLabel: test scenarios confirmed to hit the arm if it stays still
 kind: project
 categories: [robot-learning, motion-planning]
 order: 30

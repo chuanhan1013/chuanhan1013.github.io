@@ -1,6 +1,7 @@
 ---
 title: Wearable Basketball Shot Sensing System
 shortTitle: Basketball Shot Sensing
+blurb: A wearable two-sensor system that records, segments and replays basketball shots on a web dashboard.
 kind: project
 categories: [perception, mechatronics]
 order: 14
@@ -10,7 +11,7 @@ context: Mechatronics II · NTU
 team: Solo
 summary: >-
   Built an end-to-end dual-IMU wearable sensing system spanning 100 Hz wireless acquisition,
-  preprocessing, automated shot segmentation, feature extraction, replay, labeling, and a Python
+  preprocessing, automated shot segmentation, feature extraction, replay, labelling, and a Python
   web dashboard.
 stack:
   - { label: Arduino, icon: arduino }
@@ -60,6 +61,6 @@ media:
 2. **Processing.** Signals are preprocessed, shots are segmented automatically, and features are
    extracted per shot.
 3. **Tooling.** A Python web dashboard (FastAPI + WebSocket) shows live traces and supports replay
-   and labeling.
+   and labelling.
 
 The project received top-tier recognition and a cash award in the course.

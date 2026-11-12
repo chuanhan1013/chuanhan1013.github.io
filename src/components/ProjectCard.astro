@@ -6,9 +6,8 @@ import { coverOf, projectUrl, transitionName, type ProjectEntry } from '@/lib/pr
 import StatusBadge from './StatusBadge.astro';
 
 /**
- * Project tile for the home page: media first, plain short name, no frame. The first tiles
- * of the unfiltered grid are shown larger with the summary and headline result (cards.css).
- * Everything else lives on the project page.
+ * Project tile for the home page: media first, plain short name, no frame, one plain sentence
+ * (`blurb`) and one headline result. Everything else lives on the project page.
  */
 interface Props {
   entry: ProjectEntry;
@@ -71,11 +70,11 @@ const hasCode = p.links?.some((link) => link.href.includes('github.com'));
     <h3 style={`view-transition-name:${transitionName(entry, 'title')}`}>
       <a href={projectUrl(entry)}>{p.shortTitle ?? p.title}</a>
     </h3>
-    <p class="project-card__summary">{p.summary}</p>
+    <p class="project-card__summary">{p.blurb ?? p.summary}</p>
     {headline && (
       <p class="project-card__headline">
         <strong>{headline.value}</strong>
-        <span>{headline.label}</span>
+        <span>{p.headlineLabel ?? headline.label}</span>
       </p>
     )}
   </div>

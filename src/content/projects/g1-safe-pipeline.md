@@ -1,6 +1,8 @@
 ---
 title: Safe LLM-to-Simulation Pipeline for the Unitree G1
 shortTitle: G1 Safe Pipeline
+blurb: 'An LLM drafts the robot model; deterministic checks gate every motion before it reaches the simulated G1.'
+headlineLabel: live end-to-end trials with the LLM in the loop
 kind: project
 categories: [humanoids]
 order: 40
@@ -15,8 +17,7 @@ summary: >-
 results:
   - {
       value: 20 / 20,
-      label: live end-to-end trials with the LLM in the loop,
-      plus 4 / 4 tampered models refused,
+      label: 'live end-to-end trials with the LLM in the loop, plus 4 / 4 tampered models refused',
     }
   - { value: 85 / 85, label: 'safety-bridge test outcomes (17 cases × 5 runs)' }
   - { value: 0.47 ms, label: mean safety-gate decision time }
@@ -49,12 +50,12 @@ The pipeline runs in six stages, each reading only the file written by the stage
 
 | Stage            | What happens                                      | Owner    |
 | ---------------- | ------------------------------------------------- | -------- |
-| 1. Parse         | Deterministic URDF parsing and hashing (no AI)    | team     |
-| 2. AI generation | An LLM writes a structured robot model            | teammate |
-| 3. Validation    | Schema and deterministic consistency checks       | team     |
-| 4. Kinematics    | Forward kinematics and Jacobians with Pinocchio   | teammate |
-| 5. Deployment    | Gazebo, controllers and the safety bridge come up | **me**   |
-| 6. Commands      | Joint trajectories pass through the safety bridge | **me**   |
+| 1. Parse         | Deterministic URDF parsing and hashing (no AI)    | team     |
+| 2. AI generation | An LLM writes a structured robot model            | teammate |
+| 3. Validation    | Schema and deterministic consistency checks       | team     |
+| 4. Kinematics    | Forward kinematics and Jacobians with Pinocchio   | teammate |
+| 5. Deployment    | Gazebo, controllers and the safety bridge come up | **me**   |
+| 6. Commands      | Joint trajectories pass through the safety bridge | **me**   |
 
 ## Safety bridge
 

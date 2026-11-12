@@ -1,6 +1,7 @@
 ---
 title: HAN-Agents — Persistent Multi-Agent Coding Harness
 shortTitle: HAN-Agents
+blurb: An orchestration layer that gives AI coding assistants memory, task planning and verified quality checks.
 kind: project
 categories: [ai-engineering]
 order: 70
@@ -19,6 +20,7 @@ stack:
   - { label: GitHub, icon: github }
   - { label: Python, icon: python }
   - { label: TypeScript, icon: typescript }
+tags: [Agent Orchestration, Code Graph, Automated Testing]
 links:
   - { label: Code ↗, href: 'https://github.com/chuanhan1013/han-agents', external: true }
 media:

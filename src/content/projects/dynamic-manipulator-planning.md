@@ -1,5 +1,6 @@
 ---
 title: DRL-Based Collision-Free Motion Planning in Dynamic Environments
+blurb: Teaching a 7-DoF robot arm to reach its goal while avoiding moving obstacles, with reinforcement learning in simulation.
 kind: research
 categories: [motion-planning, robot-learning]
 order: 10

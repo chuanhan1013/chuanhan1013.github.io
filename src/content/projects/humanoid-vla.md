@@ -1,6 +1,8 @@
 ---
 title: Language-Guided Humanoid Manipulation in MuJoCo
 shortTitle: Humanoid Manipulation
+blurb: A simulated G1 humanoid follows English or Chinese instructions to find, pick up and place objects.
+headlineLabel: end-to-end tasks completed in the final test batch (simulation)
 kind: project
 categories: [humanoids, perception]
 order: 10
