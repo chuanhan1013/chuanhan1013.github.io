@@ -98,7 +98,7 @@ export const cv = {
           title: 'Autonomous Cleaning Robot',
           right: 'NTU | Fall 2025',
           bullets: [
-            'Implemented C++ wall-following and motor control on Arduino, with Raspberry Pi vision integration during development; the team’s physical robot scored 113/120 in the final competition.',
+            'Integrated Raspberry Pi vision, ultrasonic/IMU sensing and Arduino C++ control via serial for wall-following and hazard avoidance; the team’s physical robot scored 113/120 in the final competition.',
           ],
         },
         {
