@@ -90,15 +90,15 @@ export const cv = {
           title: 'Language-Guided Humanoid Manipulation',
           right: 'NUS | Fall 2026',
           bullets: [
-            'Owned robot execution and led integration of a language-to-action pipeline on a simulated Unitree G1, with visual grasp/place verification.',
-            'Validated 24/24 end-to-end tasks across English/Chinese requests in MuJoCo, using object attachment during handling.',
+            'Owned robot execution and led integration of a language-to-action pipeline on a simulated Unitree G1, linking perception, planning and visual verification.',
+            'Validated 24/24 English/Chinese instruction-to-placement tasks in MuJoCo with object attachment during handling.',
           ],
         },
         {
           title: 'Autonomous Cleaning Robot',
           right: 'NTU | Fall 2025',
           bullets: [
-            'Integrated camera, ultrasonic and IMU sensing with motor control via Raspberry Pi–Arduino serial communication; implemented wall-following, visual hazard avoidance, and task execution on a physical mobile robot.',
+            'Implemented C++ wall-following and motor control on Arduino, with Raspberry Pi vision integration during development; the team’s physical robot scored 113/120 in the final competition.',
           ],
         },
         {
@@ -119,7 +119,7 @@ export const cv = {
           title: 'Wearable Basketball Shot Sensing System',
           right: 'NTU | Fall 2025',
           bullets: [
-            'Independently built a dual-IMU wearable with Arduino firmware and 100 Hz wireless acquisition; implemented shot segmentation, feature extraction, and a FastAPI/WebSocket dashboard for live analysis and replay.',
+            'Independently built a dual-IMU wearable with Arduino firmware and 100 Hz wireless data collection; implemented shot segmentation, feature extraction, and a FastAPI/WebSocket dashboard for live analysis and replay.',
           ],
         },
       ],
