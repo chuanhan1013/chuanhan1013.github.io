@@ -95,10 +95,10 @@ export const cv = {
           ],
         },
         {
-          title: 'Autonomous Cleaning Robot',
-          right: 'NTU | Fall 2025',
+          title: 'CatchPoint — Recoverability-Aware Balance Assistance',
+          right: 'NUS | Fall 2026',
           bullets: [
-            'Integrated Raspberry Pi vision, ultrasonic/IMU sensing and Arduino C++ control via serial for wall-following and hazard avoidance; the team’s physical robot scored 113/120 in the final competition.',
+            'Designed capture-point control for hands-off recovery, pelvic assistance or harness catch. In 2,000 pendulum-model perturbations, recovery without a catch was 54.6% vs 9.6% for a threshold lock at a matched ~5% fall rate.',
           ],
         },
         {
@@ -106,6 +106,13 @@ export const cv = {
           right: 'NTU | Spring 2026',
           bullets: [
             'Reproduced torque-based locomotion (SATA, RSS 2025) with 48 PPO policies across actuator ablations; ported Isaac Gym training to Isaac Lab, retrained 8 seeds, and traced most reward gaps to joint-acceleration definitions.',
+          ],
+        },
+        {
+          title: 'Autonomous Cleaning Robot',
+          right: 'NTU | Fall 2025',
+          bullets: [
+            'Integrated Raspberry Pi vision, ultrasonic/IMU sensing and Arduino C++ control via serial for wall-following and hazard avoidance; the team’s physical robot scored 113/120 in the final competition.',
           ],
         },
         {
@@ -120,13 +127,6 @@ export const cv = {
           right: 'NTU | Spring 2025',
           bullets: [
             'Led mechanical design and 3D-printed prototyping of a tracked robot with paddle-wheel conversion; the team placed 2nd overall, one of only two to finish all four terrain stages.',
-          ],
-        },
-        {
-          title: 'CatchPoint — Recoverability-Aware Balance Assistance',
-          right: 'NUS | Fall 2026',
-          bullets: [
-            'Designed capture-point control for hands-off recovery, pelvic assistance or harness catch. In 2,000 pendulum-model perturbations, recovery without a catch was 54.6% vs 9.6% for a threshold lock at a matched ~5% fall rate.',
           ],
         },
       ],
