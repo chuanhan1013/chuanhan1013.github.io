@@ -39,7 +39,7 @@ export const cv = {
           right: 'Jun 2026',
           sub: 'B.S. in Biomechatronics Engineering, GPA: 3.75/4.3',
           subRight: 'Taipei, Taiwan',
-          note: 'Specialization certificates: Artificial Intelligence; Mechatronics and Control. Fu Bell Award (2022): department’s top-ranked incoming student.',
+          note: 'Specialization Program Certificates: Artificial Intelligence; Mechatronics and Control. Fu Bell Award (2022): department’s top-ranked incoming student.',
         },
       ],
     },
@@ -112,14 +112,14 @@ export const cv = {
           title: 'Wearable Basketball Shot Sensing System',
           right: 'NTU | Fall 2025',
           bullets: [
-            'Independently built a 100 Hz wireless dual-IMU wearable with Arduino firmware, shot segmentation, feature extraction and a FastAPI/WebSocket live/replay dashboard; received a course project award.',
+            'Independently built a 100 Hz wireless dual-IMU wearable with Arduino firmware, shot segmentation, feature extraction and a FastAPI/WebSocket live/replay dashboard; earned a course project award with a cash prize.',
           ],
         },
         {
           title: 'Amphibious Tracked Robot',
           right: 'NTU | Spring 2025',
           bullets: [
-            'Led mechanical design and 3D-printed prototyping of a tracked robot with paddle-wheel conversion; the team completed all four terrain stages and placed 2nd overall.',
+            'Led mechanical design and 3D-printed prototyping of a tracked robot with paddle-wheel conversion; the team placed 2nd overall, one of only two to finish all four terrain stages.',
           ],
         },
         {
