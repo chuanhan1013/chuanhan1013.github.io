@@ -12,6 +12,8 @@ export interface TimelineEntry {
   label: string;
   title: string;
   logo?: LogoMark;
+  /** Official site; the title links to it. */
+  url?: string;
   text: string;
   /** Highlighted with a tinted background. */
   featured?: boolean;

@@ -2,7 +2,7 @@
  * Printable CV (`/cv.html`).
  *
  * This mirrors the owner's private CV source, `chuanhan1013/cv-private` (`src/general.tex`):
- * same sections, same order, same entries and wording. When that file changes, update this
+ * same core entries and wording, with additional online projects. When that file changes, update this
  * one to match. Two deliberate differences: the phone number is never published here, and
  * the A*STAR entry stays out until the owner says it can go public.
  */
@@ -23,7 +23,7 @@ export interface CvEntry {
 export const cv = {
   title: 'Chuan-Han Li — CV',
   summary:
-    'NUS MSc Robotics student with experience in motion planning, robot learning, and hardware–software integration.',
+    'NUS MSc Robotics student focused on manipulation, motion planning, robot learning, and hardware–software integration.',
   sections: [
     {
       heading: 'Education',
@@ -39,7 +39,7 @@ export const cv = {
           right: 'Jun 2026',
           sub: 'B.S. in Biomechatronics Engineering, GPA: 3.75/4.3',
           subRight: 'Taipei, Taiwan',
-          note: 'Fu Bell Award (2022): department’s top-ranked incoming student.',
+          note: 'Specialization Program Certificates: Artificial Intelligence; Mechatronics and Control. Fu Bell Award (2022): department’s top-ranked incoming student.',
         },
       ],
     },
@@ -52,8 +52,8 @@ export const cv = {
           sub: 'Advanced Robotics Centre, NUS',
           subRight: 'Advisor: Prof. Marcelo H. Ang Jr.',
           bullets: [
-            'Implemented exact whole-arm distance and collision checks on the lab’s arm model for dynamic obstacle avoidance.',
-            'Built training and closed-loop simulation pipelines to compare reaching/avoidance baselines and diagnose failure modes in dynamic environments.',
+            'Developing risk-aware switching between reaching and learned avoidance policies for a 7-DoF arm around moving obstacles.',
+            'Implemented link-centric obstacle representations and exact whole-arm collision checks on the lab’s arm model; trained and compared policies in closed-loop simulation.',
           ],
         },
         {
@@ -62,7 +62,7 @@ export const cv = {
           sub: 'Lab of Machine Learning and Machine Vision, NTU',
           subRight: 'Advisor: Prof. Yan-Fu Kuo',
           bullets: [
-            'Built a two-stage detection/classification pipeline and visible–thermal imaging setup for duck eggs; achieved ~93% accuracy through multimodal fusion.',
+            'Built a visible–thermal imaging setup and two-stage pipeline: YOLOv8n egg detection/cropping followed by ResNet18 classification. Used 4,290 researcher-annotated egg images; achieved ~93% accuracy through multimodal fusion.',
             'Presented the work at ACPA 2025 as an extended abstract and oral presentation.',
           ],
         },
@@ -77,8 +77,8 @@ export const cv = {
           sub: 'AI Engineering Intern (R&D)',
           subRight: 'Jul 2025–Jul 2026',
           bullets: [
-            'Built HAN-Agents with persistent memory, AST-backed code graphs, hierarchical task orchestration, and tool-verified quality gates for AI coding workflows.',
             'Delivered full-stack AI tools for test generation and validation; reduced time to the first executable unit-test suite from weeks to ~1 day.',
+            'Built HAN-Agents with persistent memory, AST code graphs, multi-agent task orchestration and automated quality checks.',
           ],
         },
       ],
@@ -90,8 +90,8 @@ export const cv = {
           title: 'Language-Guided Humanoid Manipulation',
           right: 'NUS | Fall 2026',
           bullets: [
-            'Owned robot execution and led integration on a simulated Unitree G1; added perception-driven Dex3 finger grasping and visual grasp/place verification.',
-            'Completed 24/24 end-to-end simulation tasks (finger grasp for the cube; contact attachment for other objects).',
+            'Owned execution and integrated language grounding, task planning and visual verification on a simulated Unitree G1.',
+            'Validated 24/24 English/Chinese tasks in MuJoCo, evaluating the complete instruction-to-placement pipeline.',
           ],
         },
         {
@@ -102,24 +102,31 @@ export const cv = {
           ],
         },
         {
-          title: 'SATA Locomotion — Reproduction & Isaac Lab Port',
+          title: 'Quadruped Locomotion — RL Reproduction & Isaac Lab Port',
           right: 'NTU | Spring 2026',
           bullets: [
-            'Reproduced SATA and evaluated 48 PPO policies across actuator ablations; ported effort control and bio-actuator models from Isaac Gym to Isaac Lab, retrained across 8 seeds, and analysed cross-engine reward differences.',
-          ],
-        },
-        {
-          title: 'Wearable Basketball Shot Sensing System',
-          right: 'NTU | Fall 2025',
-          bullets: [
-            'Independently built a dual-IMU wearable with Arduino firmware and 100 Hz wireless acquisition; implemented shot segmentation, feature extraction, and a FastAPI/WebSocket dashboard for live analysis and replay.',
+            'Reproduced torque-based locomotion (SATA, RSS 2025) with 48 PPO policies across actuator ablations; ported Isaac Gym training to Isaac Lab, retrained 8 seeds, and traced most reward gaps to joint-acceleration definitions.',
           ],
         },
         {
           title: 'Autonomous Cleaning Robot',
           right: 'NTU | Fall 2025',
           bullets: [
-            'Integrated camera, ultrasonic and IMU sensing with motor control via Raspberry Pi–Arduino serial communication; implemented wall-following, visual hazard avoidance, and task execution on a physical mobile robot.',
+            'Integrated Raspberry Pi vision, ultrasonic/IMU sensing and Arduino C++ control via serial for wall-following and hazard avoidance; the team’s physical robot scored 113/120 in the final competition.',
+          ],
+        },
+        {
+          title: 'Wearable Basketball Shot Sensing System',
+          right: 'NTU | Fall 2025',
+          bullets: [
+            'Independently built a 100 Hz wireless dual-IMU wearable with Arduino firmware, shot segmentation, feature extraction and a FastAPI/WebSocket live/replay dashboard; earned a course project award with a cash prize.',
+          ],
+        },
+        {
+          title: 'Amphibious Tracked Robot',
+          right: 'NTU | Spring 2025',
+          bullets: [
+            'Led mechanical design and 3D-printed prototyping of a tracked robot with paddle-wheel conversion; the team placed 2nd overall, one of only two to finish all four terrain stages.',
           ],
         },
       ],

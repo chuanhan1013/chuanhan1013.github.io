@@ -8,6 +8,7 @@ status: ongoing
 period: 2026–Present
 context: Advanced Robotics Centre, NUS · Advisor Prof. Marcelo H. Ang Jr.
 contextLogo: { src: /assets/icons/nus-vertical.jpg, shape: portrait }
+contextUrl: https://arc.nus.edu.sg/
 summary: >-
   Researching learning-based reaching and collision avoidance for a 7-DoF manipulator among moving
   obstacles, in simulation. A learned risk-aware selector decides when a reinforcement-learning

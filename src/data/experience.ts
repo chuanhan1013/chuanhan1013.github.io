@@ -8,6 +8,7 @@ export const experience: TimelineEntry[] = [
     label: 'CURRENT RESEARCH',
     title: 'Advanced Robotics Centre, NUS',
     logo: arcLogo,
+    url: 'https://arc.nus.edu.sg/',
     text: 'Motion planning for robot manipulators among moving obstacles, advised by Prof. Marcelo H. Ang Jr.',
   },
   {
@@ -15,6 +16,7 @@ export const experience: TimelineEntry[] = [
     label: 'INDUSTRY · AI ENGINEERING INTERN (R&D)',
     title: 'ChainSea Information Integration Co. Ltd.',
     logo: chainseaLogo,
+    url: 'https://www.chainsea.com.tw/',
     text: 'Built HAN-Agents and full-stack AI workflow tools; introduced automated testing and quality gates across production projects.',
     featured: true,
   },
@@ -23,6 +25,7 @@ export const experience: TimelineEntry[] = [
     label: 'RESEARCH ASSISTANT',
     title: 'Lab of Machine Learning and Machine Vision · National Taiwan University',
     logo: mlmvLogo,
+    url: 'https://www.mlmvlab.bime.ntu.edu.tw/?lang=en',
     text: 'Image annotation and dataset preparation for computer-vision research under Prof. Yan-Fu Kuo, plus independent visual–thermal research.',
   },
 ];

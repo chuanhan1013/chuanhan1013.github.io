@@ -1,0 +1,26 @@
+---
+/**
+ * A context line such as "Advanced Robotics Centre, NUS · Advisor Prof. …". With `url`, the
+ * organisation (the part before the first " · ") links to its official site.
+ */
+interface Props {
+  context: string;
+  url?: string | undefined;
+}
+
+const { context, url } = Astro.props;
+const split = context.indexOf(' · ');
+const org = split === -1 ? context : context.slice(0, split);
+const rest = split === -1 ? '' : context.slice(split);
+---
+
+{url ? (
+  <span>
+    <a class="org-link" href={url} target="_blank" rel="noopener noreferrer">
+      {org}
+    </a>
+    {rest}
+  </span>
+) : (
+  <span>{context}</span>
+)}
