@@ -13,8 +13,8 @@ summary: >-
   Built a controlled visible + thermal imaging setup for duck eggs and a two-stage pipeline: YOLOv8n
   finds each egg, and ResNet18 classifies every crop. The 4,290 eggs were labelled by hand by
   researchers at the Taiwan Livestock Research Institute's Eastern Region Branch in Yilan.
-  Cross-modal fusion reached ~93% classification accuracy, compared with 92% visible-only and 90%
-  thermal-only baselines.
+  Fusing the two modalities with cross-modal attention reached ~93% accuracy, against 92% and 90%
+  for the same pipeline on visible or thermal images alone.
 results:
   - { value: '~93%', label: cross-modal fusion }
   - { value: 92% / 90%, label: visible / thermal baselines }
@@ -60,6 +60,10 @@ media:
   of the image in both modalities.
 - **Stage 2: classification.** A ResNet18 classifier labels each crop as fertilised, unfertilised or
   invalid.
+- **Single-modality baselines.** The same pipeline, trained on visible or on thermal crops alone.
+- **Fusion.** Visible and thermal features are combined partway through the network (mid-level
+  fusion) with cross-modal attention, so each modality can draw on the other before the final
+  classification.
 
 ## Data
 
@@ -72,10 +76,10 @@ media:
 
 ## Results
 
-| Input              | Accuracy |
-| ------------------ | -------- |
-| Visible (RGB) only | 92%      |
-| Thermal only       | 90%      |
-| Cross-modal fusion | ~93%     |
+| Input                                   | Accuracy |
+| --------------------------------------- | -------- |
+| Visible (RGB) only                      | 92%      |
+| Thermal only                            | 90%      |
+| Mid-level fusion, cross-modal attention | ~93%     |
 
 The work was presented as an extended abstract with an oral presentation at ACPA 2025.
