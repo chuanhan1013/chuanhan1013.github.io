@@ -9,8 +9,9 @@ period: 2024–2025
 context: Lab of Machine Learning and Machine Vision, NTU · Advisor Prof. Yan-Fu Kuo
 contextLogo: { src: /assets/icons/mlmv-lab.png, shape: square, small: true }
 summary: >-
-  Built a two-stage object-detection and lightweight-classification pipeline together with a
-  controlled visible + thermal imaging setup for duck eggs. Cross-modal fusion reached ~93%
+  Built a controlled visible + thermal imaging setup for duck eggs and a two-stage pipeline: YOLOv8n
+  finds each egg, and ResNet18 classifies every crop. The 4,290 eggs were labelled by hand by
+  researchers at Taiwan's Livestock Research Institute. Cross-modal fusion reached ~93%
   classification accuracy, compared with 92% visible-only and 90% thermal-only baselines.
 results:
   - { value: '~93%', label: cross-modal fusion }
@@ -20,7 +21,7 @@ stack:
   - { label: Python, icon: python }
   - { label: PyTorch, icon: pytorch }
   - { label: OpenCV, icon: opencv }
-tags: [Computer Vision, Thermal Imaging, Sensor Fusion, YOLO]
+tags: [Computer Vision, Thermal Imaging, Sensor Fusion, YOLOv8, ResNet18]
 media:
   badge: ACPA 2025
   items:
@@ -53,8 +54,17 @@ media:
 ## Approach
 
 - **Imaging setup.** A controlled rig captures visible and thermal images of illuminated duck-egg trays.
-- **Stage 1: detection.** An object detector (YOLO) localises every egg and produces per-egg crops in both modalities.
-- **Stage 2: classification.** A lightweight classifier labels each crop as fertilised, unfertilised or invalid.
+- **Stage 1: detection.** YOLOv8n draws a bounding box around every egg, and each egg is cropped out
+  of the image in both modalities.
+- **Stage 2: classification.** A ResNet18 classifier labels each crop as fertilised, unfertilised or
+  invalid.
+
+## Data
+
+- **Scale.** Each tray holds 165 eggs. The dataset covers 13 trays in each of two batches:
+  165 × 13 × 2 = 4,290 eggs.
+- **Ground truth.** Every egg was labelled by hand by researchers at the Livestock Research
+  Institute of Taiwan's Ministry of Agriculture.
 
 ## Results
 
