@@ -1,5 +1,6 @@
 ---
 /** One page per entry in src/content/projects (research and projects alike). */
+import ContextText from '@/components/ContextText.astro';
 import { render } from 'astro:content';
 import Gallery from '@/components/Gallery.astro';
 import LogoMark from '@/components/LogoMark.astro';
@@ -63,7 +64,7 @@ const section = p.kind === 'research' ? 'research' : 'projects';
             <dt>Context</dt>
             <dd class="project-facts__context">
               {p.contextLogo && <LogoMark {...p.contextLogo} />}
-              <span>{p.context}</span>
+              <ContextText context={p.context} url={p.contextUrl} />
             </dd>
           </div>
           {p.team && (

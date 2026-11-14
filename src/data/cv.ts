@@ -62,7 +62,7 @@ export const cv = {
           sub: 'Lab of Machine Learning and Machine Vision, NTU',
           subRight: 'Advisor: Prof. Yan-Fu Kuo',
           bullets: [
-            'Built a two-stage detection/classification pipeline and visible–thermal imaging setup for duck eggs; achieved ~93% accuracy through multimodal fusion.',
+            'Built a visible–thermal imaging setup and two-stage pipeline: YOLOv8n egg detection/cropping followed by ResNet18 classification. Used 4,290 researcher-annotated egg images; achieved ~93% accuracy through multimodal fusion.',
             'Presented the work at ACPA 2025 as an extended abstract and oral presentation.',
           ],
         },

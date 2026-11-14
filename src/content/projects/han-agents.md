@@ -9,6 +9,7 @@ status: completed
 period: 2025–2026
 context: ChainSea Information Integration · AI Engineering Intern (R&D)
 contextLogo: { src: /assets/icons/chainsea-official.png, shape: wide, small: true }
+contextUrl: https://www.chainsea.com.tw/
 summary: >-
   Built a task orchestration layer for AI coding assistants combining a skill layer, live code
   graph, semantic memory, resumable checkpoints, hierarchical tasks, automated Executor → Critic →

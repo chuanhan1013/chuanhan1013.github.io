@@ -68,6 +68,8 @@ export const projectSchema = z.object({
   /** e.g. "Solo", "Team of 4 · control & simulation lead". */
   team: z.string().optional(),
   contextLogo: logoMarkSchema.optional(),
+  /** Official site of the organisation named first in `context`; that name becomes a link. */
+  contextUrl: z.url().optional(),
   /** One-paragraph summary: the detail-page lead, and the card text when there is no `blurb`. */
   summary: z.string(),
   /**

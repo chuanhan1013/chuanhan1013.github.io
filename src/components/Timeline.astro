@@ -25,7 +25,15 @@ const { entries } = Astro.props;
         <p class="timeline__label">{entry.label}</p>
         <div class="timeline__title">
           {entry.logo && <LogoMark {...entry.logo} />}
-          <h3>{entry.title}</h3>
+          <h3>
+            {entry.url ? (
+              <a class="org-link" href={entry.url} target="_blank" rel="noopener noreferrer">
+                {entry.title}
+              </a>
+            ) : (
+              entry.title
+            )}
+          </h3>
         </div>
         <p>{entry.text}</p>
       </div>

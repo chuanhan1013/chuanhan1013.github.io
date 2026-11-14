@@ -205,3 +205,13 @@ svg {
 .status--in-progress::before {
   background: var(--warn);
 }
+
+/* Organisation names that link to the organisation's own site: quiet until hovered. */
+.org-link {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+}
+.org-link:hover {
+  text-decoration-color: var(--signal);
+}
