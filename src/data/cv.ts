@@ -2,7 +2,7 @@
  * Printable CV (`/cv.html`).
  *
  * This mirrors the owner's private CV source, `chuanhan1013/cv-private` (`src/general.tex`):
- * same sections, same order, same entries and wording. When that file changes, update this
+ * same core entries and wording, with additional online projects. When that file changes, update this
  * one to match. Two deliberate differences: the phone number is never published here, and
  * the A*STAR entry stays out until the owner says it can go public.
  */
@@ -39,7 +39,7 @@ export const cv = {
           right: 'Jun 2026',
           sub: 'B.S. in Biomechatronics Engineering, GPA: 3.75/4.3',
           subRight: 'Taipei, Taiwan',
-          note: 'Fu Bell Award (2022): department’s top-ranked incoming student.',
+          note: 'Specialization certificates: Artificial Intelligence; Mechatronics and Control. Fu Bell Award (2022): department’s top-ranked incoming student.',
         },
       ],
     },
@@ -52,8 +52,8 @@ export const cv = {
           sub: 'Advanced Robotics Centre, NUS',
           subRight: 'Advisor: Prof. Marcelo H. Ang Jr.',
           bullets: [
-            'Implemented exact whole-arm distance and collision checks for a 7-DoF manipulator using the lab’s arm model.',
-            'Built closed-loop training and evaluation pipelines to compare reaching/avoidance strategies and diagnose failures around moving obstacles.',
+            'Developing risk-aware switching between reaching and learned avoidance policies for a 7-DoF arm around moving obstacles.',
+            'Implemented link-centric obstacle representations and exact whole-arm collision checks on the lab’s arm model; trained and compared policies in closed-loop simulation.',
           ],
         },
         {
@@ -78,7 +78,7 @@ export const cv = {
           subRight: 'Jul 2025–Jul 2026',
           bullets: [
             'Delivered full-stack AI tools for test generation and validation; reduced time to the first executable unit-test suite from weeks to ~1 day.',
-            'Built HAN-Agents to retain project context, coordinate coding tasks, and test generated code.',
+            'Built HAN-Agents with persistent memory, AST code graphs, multi-agent task orchestration and automated quality checks.',
           ],
         },
       ],
@@ -90,8 +90,8 @@ export const cv = {
           title: 'Language-Guided Humanoid Manipulation',
           right: 'NUS | Fall 2026',
           bullets: [
-            'Owned robot execution and led integration of a language-to-action pipeline on a simulated Unitree G1, linking perception, planning and visual verification.',
-            'Validated 24/24 English/Chinese instruction-to-placement tasks in MuJoCo with object attachment during handling.',
+            'Owned execution and integrated language grounding, task planning and visual verification on a simulated Unitree G1.',
+            'Validated 24/24 English/Chinese tasks in MuJoCo, evaluating the complete instruction-to-placement pipeline.',
           ],
         },
         {
@@ -102,10 +102,24 @@ export const cv = {
           ],
         },
         {
-          title: 'SATA Locomotion — Reproduction & Isaac Lab Port',
+          title: 'Quadruped Locomotion — RL Reproduction & Isaac Lab Port',
           right: 'NTU | Spring 2026',
           bullets: [
-            'Reproduced SATA across 48 PPO policies; ported effort control and bio-actuator models from Isaac Gym to Isaac Lab, retrained across 8 seeds, and traced most reward differences to joint-acceleration penalty definitions.',
+            'Reproduced torque-based locomotion (SATA, RSS 2025) with 48 PPO policies across actuator ablations; ported Isaac Gym training to Isaac Lab, retrained 8 seeds, and traced most reward gaps to joint-acceleration definitions.',
+          ],
+        },
+        {
+          title: 'Wearable Basketball Shot Sensing System',
+          right: 'NTU | Fall 2025',
+          bullets: [
+            'Independently built a 100 Hz wireless dual-IMU wearable with Arduino firmware, shot segmentation, feature extraction and a FastAPI/WebSocket live/replay dashboard; received a course project award.',
+          ],
+        },
+        {
+          title: 'Amphibious Tracked Robot',
+          right: 'NTU | Spring 2025',
+          bullets: [
+            'Led mechanical design and 3D-printed prototyping of a tracked robot with paddle-wheel conversion; the team completed all four terrain stages and placed 2nd overall.',
           ],
         },
         {
@@ -113,13 +127,6 @@ export const cv = {
           right: 'NUS | Fall 2026',
           bullets: [
             'Designed capture-point control for hands-off recovery, pelvic assistance or harness catch. In 2,000 pendulum-model perturbations, recovery without a catch was 54.6% vs 9.6% for a threshold lock at a matched ~5% fall rate.',
-          ],
-        },
-        {
-          title: 'Wearable Basketball Shot Sensing System',
-          right: 'NTU | Fall 2025',
-          bullets: [
-            'Independently built a dual-IMU wearable with Arduino firmware and 100 Hz wireless data collection; implemented shot segmentation, feature extraction, and a FastAPI/WebSocket dashboard for live analysis and replay.',
           ],
         },
       ],

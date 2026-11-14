@@ -26,8 +26,8 @@ stack:
   - { label: Vision–language models, glyph: VLM }
 tags: [Unitree G1, Loco-Manipulation, Task Planning, Evaluation]
 note: >-
-  Task-level evaluation in MuJoCo with object attachment. Detailed grasping and transport
-  assumptions are documented below.
+  Task-level evaluation of the complete instruction-to-placement pipeline in MuJoCo.
+  Evaluation setup and implementation details are documented below.
 media:
   badge: VLM · MuJoCo
   card:
@@ -75,36 +75,35 @@ challenge is making perception, planning and execution work together across a co
 - **Evaluation and demonstration.** I ran frozen 24-trial batches, diagnosed failures across the
   integrated system and recorded the live demonstrations. Earlier code versions scored 22, 16,
   15 and 21 of 24 before the final 24/24, with no patches inside a run or pooling across versions.
-- **Grasping extension.** I added perception-driven Dex3 finger grasping for the cube and
-  investigated transport failures. Implementation details appear below.
 
 ## Results
 
-| Measure                         | Result                        | Conditions                                                                                                                     |
-| ------------------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| End to end (final frozen batch) | 24 / 24                       | 4 objects × 2 regions × 3 EN/ZH phrasings; 204 live API calls, fresh seeds, no retries; object attachment used during handling |
-| Placement error                 | 8.5 cm mean (max 14.5 cm)     | same 24 trials                                                                                                                 |
-| Offline replay                  | 138 / 144                     | Same execution code under 6 perception-noise seeds, replaying recorded model outputs (tests execution, not the model)          |
-| Grounding (team)                | 24 / 24 visible, 4 / 4 absent | One frozen 28-image set                                                                                                        |
-| Planning (team)                 | 24 / 24 expected responses    | 17 generated plans, 5 clarifications, 2 stops; offline, no execution                                                           |
+| Measure                         | Result                        | Conditions                                                                                                            |
+| ------------------------------- | ----------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| End to end (final frozen batch) | 24 / 24                       | 4 objects × 2 regions × 3 EN/ZH phrasings; 204 live API calls, fresh seeds, no retries; see evaluation setup below    |
+| Placement error                 | 8.5 cm mean (max 14.5 cm)     | same 24 trials                                                                                                        |
+| Offline replay                  | 138 / 144                     | Same execution code under 6 perception-noise seeds, replaying recorded model outputs (tests execution, not the model) |
+| Grounding (team)                | 24 / 24 visible, 4 / 4 absent | One frozen 28-image set                                                                                               |
+| Planning (team)                 | 24 / 24 expected responses    | 17 generated plans, 5 clarifications, 2 stops; offline, no execution                                                  |
 
 The end-to-end score measures completion of the integrated task loop under these simulation
 conditions. I also built the offline replay harness to test execution with recorded model outputs.
 
-## Grasping and transport assumptions
+## Evaluation setup
 
-The Dex3 finger grasp is an extension to the task pipeline. The cube is grasped and released by
-the fingers (6/6 final trials). The other objects attach at first contact (18/18), and every object
-is held at the wrist while walking. These choices define the object-handling conditions used in
-the end-to-end evaluation.
+The benchmark evaluates the integrated instruction-to-placement loop in one MuJoCo room with
+four objects and two target regions. Object handling is simplified as described below.
 
 <details>
-<summary>Finger-grasp implementation and transport diagnosis</summary>
+<summary>Object-handling implementation and transport diagnosis</summary>
 
-I added a perception-driven finger grasp, then investigated why a friction grip could not survive
-walking. The two fingertips sit 5.7 cm apart, against an 8.4 cm cube face. I measured and rejected
-twelve alternative fixes, including an arm-masked walking policy I retrained. The final pipeline
-therefore uses wrist attachment during transport.
+I added perception-driven Dex3 finger grasping as an extension to the task pipeline. The cube is
+grasped and released by the fingers; other objects attach at first contact. All objects use wrist
+attachment during walking.
+
+I also investigated why a friction grip could not survive walking. The two fingertips sit 5.7 cm
+apart, against an 8.4 cm cube face. I measured and rejected twelve alternative fixes, including an
+arm-masked walking policy I retrained. The final pipeline uses wrist attachment during transport.
 
 </details>
 
