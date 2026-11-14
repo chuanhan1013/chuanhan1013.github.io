@@ -65,7 +65,8 @@ media:
 
 - **Scale.** Each tray holds 165 eggs. The dataset covers 13 trays in each of two batches:
   165 × 13 × 2 = 4,290 eggs.
-- **Ground truth.** Every egg was labelled by hand by researchers at the
+- **Ground truth.** <span class="logo-mark logo-square is-small" aria-hidden="true"><img src="/assets/icons/tlri-emblem.png" alt="" loading="lazy" decoding="async" /></span>
+  Every egg was labelled by hand by researchers at the
   [Eastern Region Branch](https://english.tlri.gov.tw/view.php?theme=web_structure&id=222) (Yilan)
   of the Taiwan Livestock Research Institute (TLRI), Ministry of Agriculture.
 
