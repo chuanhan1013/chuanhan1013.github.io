@@ -31,9 +31,9 @@ media:
       fit: cover
     - src: /assets/media/dynur/franka-lab.webp
       alt: >-
-        Photo of the 7-DoF Franka arm with its parallel gripper on a bench in the Advanced Robotics
+        Photo of the 7-DoF Franka Research 3 arm with its parallel gripper on a bench in the Advanced Robotics
         Centre lab at NUS
-      caption: The lab's Franka arm, Advanced Robotics Centre, NUS
+      caption: The lab's Franka Research 3 arm, Advanced Robotics Centre, NUS
       fit: cover
     - src: /assets/diagrams/dynur-architecture.svg
       alt: >-

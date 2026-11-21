@@ -31,7 +31,16 @@ export function initCardClips(): void {
 }
 
 export function initVideos(): void {
-  const videos = [...document.querySelectorAll<HTMLVideoElement>('.gallery video')];
+  // Full-length videos are played by the viewer; leaving their slide pauses them.
+  const fullVideos = [...document.querySelectorAll<HTMLVideoElement>('.gallery video.gallery__full')];
+  fullVideos.forEach(hydrate);
+  document.addEventListener('gallery:change', (event) => {
+    (event.target as Element).querySelectorAll<HTMLVideoElement>('video.gallery__full').forEach((video) => {
+      if (!video.closest('.gallery__slide')?.classList.contains('is-active')) video.pause();
+    });
+  });
+
+  const videos = [...document.querySelectorAll<HTMLVideoElement>('.gallery video:not(.gallery__full)')];
   if (!videos.length) return;
 
   if (reducedMotion()) {

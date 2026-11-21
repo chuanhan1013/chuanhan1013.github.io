@@ -45,6 +45,11 @@ export const mediaItemSchema = z
     poster: z.string().optional(),
     /** Hosted elsewhere: loaded with `referrerpolicy="no-referrer"`. */
     remote: z.boolean().optional(),
+    /**
+     * A full-length video rather than a short loop: native controls and sound, no autoplay or
+     * looping. Cards and thumbnails use a separate short clip.
+     */
+    full: z.boolean().optional(),
   })
   .refine((item) => !isVideo(item) || !!item.poster, {
     message: 'Video media needs a `poster` image.',
