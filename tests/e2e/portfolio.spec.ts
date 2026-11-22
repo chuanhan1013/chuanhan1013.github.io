@@ -218,19 +218,6 @@ test.describe('lightbox', () => {
     await expect.poll(() => lbImg.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBeGreaterThan(1);
   });
 
-  test('keeps the no-referrer policy of remote images', async ({ page }) => {
-    await page.goto('/projects/dynamic-manipulator-planning.html');
-    // Open the first image (the gallery starts with a clip), then step to the remote photo.
-    await page.locator('.gallery__slide img').first().dispatchEvent('click');
-    const lbImg = page.getByRole('dialog', { name: 'Media viewer' }).locator('.lb-stage img');
-    await expect(lbImg).toHaveJSProperty('referrerPolicy', '');
-    for (let i = 0; i < 3 && !(await lbImg.getAttribute('src'))?.startsWith('https:'); i++) {
-      await page.keyboard.press('ArrowRight');
-    }
-    await expect(lbImg).toHaveAttribute('src', /^https:/);
-    await expect(lbImg).toHaveJSProperty('referrerPolicy', 'no-referrer');
-  });
-
   test('keeps keyboard focus inside the open dialog', async ({ page }) => {
     await page.goto('/');
     const carousel = page.getByRole('region', { name: EGG });

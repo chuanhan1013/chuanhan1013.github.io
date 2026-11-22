@@ -29,6 +29,12 @@ media:
         passes its elbow; the arm bends away, and a line marks the closest point between the ball and the arm
       caption: Illustration only — not research results
       fit: cover
+    - src: /assets/media/dynur/franka-lab.webp
+      alt: >-
+        Photo of the 7-DoF Franka Research 3 arm with its parallel gripper on a bench in the Advanced Robotics
+        Centre lab at NUS
+      caption: The lab's Franka Research 3 arm, Advanced Robotics Centre, NUS
+      fit: cover
     - src: /assets/diagrams/dynur-architecture.svg
       alt: >-
         System architecture: the simulated scene feeds an observation of arm state, goal and proximity
@@ -42,11 +48,6 @@ media:
       alt: Method diagram for dynamic manipulator motion planning and link-centric obstacle representation
       caption: Research-method overview
       fit: diagram
-    - src: https://franka.de/hubfs/20220920_Franka_Research1771.jpg
-      alt: Franka Research 3 robot platform
-      caption: Franka Research 3 · Franka Robotics
-      fit: cover
-      remote: true
 ---
 
 ## Research questions

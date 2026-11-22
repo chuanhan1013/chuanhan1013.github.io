@@ -41,7 +41,18 @@ const isCarousel = items.length > 1;
         style={mediaStyle(item, 'slide')}
         inert={i > 0}
       >
-        {isVideo(item) ? (
+        {isVideo(item) && item.full ? (
+          <video
+            class="gallery__full"
+            src={i === 0 ? item.src : undefined}
+            data-src={i === 0 ? undefined : item.src}
+            poster={item.poster}
+            controls
+            playsinline
+            preload={i === 0 ? 'metadata' : 'none'}
+            style={i === 0 && transitionName ? `view-transition-name:${transitionName}` : undefined}
+          />
+        ) : isVideo(item) ? (
           <video
             src={i === 0 ? item.src : undefined}
             data-src={i === 0 ? undefined : item.src}
